@@ -16,6 +16,8 @@
 		F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5C02986EC4300EAD006 /* SearchView.swift */; };
 		F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5C52986EF6700EAD006 /* SearchResultController.swift */; };
 		F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5C72986EF7300EAD006 /* SearchResultView.swift */; };
+		F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */; };
+		F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CE2986F57700EAD006 /* PlacesModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		F061A5C02986EC4300EAD006 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		F061A5C52986EF6700EAD006 /* SearchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultController.swift; sourceTree = "<group>"; };
 		F061A5C72986EF7300EAD006 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
+		F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
+		F061A5CE2986F57700EAD006 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 		F061A5BB2986EB4E00EAD006 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				F061A5C92986F49400EAD006 /* Network */,
 				F061A5BC2986EBA300EAD006 /* Search */,
 			);
 			path = Scenes;
@@ -161,6 +166,31 @@
 			path = SearchResult;
 			sourceTree = "<group>";
 		};
+		F061A5C92986F49400EAD006 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				F061A5CD2986F56200EAD006 /* Model */,
+				F061A5CA2986F49B00EAD006 /* GooglePlacesManager */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		F061A5CA2986F49B00EAD006 /* GooglePlacesManager */ = {
+			isa = PBXGroup;
+			children = (
+				F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */,
+			);
+			path = GooglePlacesManager;
+			sourceTree = "<group>";
+		};
+		F061A5CD2986F56200EAD006 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F061A5CE2986F57700EAD006 /* PlacesModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -172,6 +202,7 @@
 				F061A59D2986EA7500EAD006 /* Sources */,
 				F061A59E2986EA7500EAD006 /* Frameworks */,
 				F061A59F2986EA7500EAD006 /* Resources */,
+				45B8552CEE87D2C9720DBAE6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +281,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		45B8552CEE87D2C9720DBAE6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hity/Pods-Hity-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hity/Pods-Hity-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hity/Pods-Hity-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -260,7 +308,9 @@
 				F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */,
 				F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */,
 				F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */,
+				F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
+				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
 				F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */,
 				F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */,
 			);

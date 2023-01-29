@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchResultView: UIView {
+final class SearchResultView: UIView {
 
     //MARK: - Creating UI Elements
     

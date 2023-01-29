@@ -1,16 +1,20 @@
 PODS:
+  - GooglePlaces (7.3.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
+  - GooglePlaces (= 7.3.0)
   - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
   trunk:
+    - GooglePlaces
     - SnapKit
 
 SPEC CHECKSUMS:
+  GooglePlaces: 0609463845250bbadafa1739938181e54dece439
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 72136a33000123a140b3a3584cbe5071be1ef344
+PODFILE CHECKSUM: e0da081f26b401cfcdc39b9b080c438ccbf06842
 
 COCOAPODS: 1.11.3

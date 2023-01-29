@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchResultController: UIViewController {
+final class SearchResultController: UIViewController {
 
     //MARK: - Properties
     
