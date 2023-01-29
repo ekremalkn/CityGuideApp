@@ -18,6 +18,7 @@
 		F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5C72986EF7300EAD006 /* SearchResultView.swift */; };
 		F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */; };
 		F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CE2986F57700EAD006 /* PlacesModel.swift */; };
+		F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5D12986FD2300EAD006 /* SearchViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		F061A5C72986EF7300EAD006 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
 		F061A5CE2986F57700EAD006 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
+		F061A5D12986FD2300EAD006 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 		F061A5BC2986EBA300EAD006 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				F061A5D02986FD1600EAD006 /* ViewModel */,
 				F061A5BD2986EBA900EAD006 /* View */,
 			);
 			path = Search;
@@ -189,6 +192,14 @@
 				F061A5CE2986F57700EAD006 /* PlacesModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F061A5D02986FD1600EAD006 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F061A5D12986FD2300EAD006 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -311,6 +322,7 @@
 				F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
+				F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */,
 				F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */,
 				F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */,
 			);

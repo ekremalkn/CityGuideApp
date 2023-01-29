@@ -8,10 +8,10 @@
 import UIKit
 
 final class SearchResultView: UIView {
-
+    
     //MARK: - Creating UI Elements
     
-    private let tableView: UITableView = {
+    let tableView: UITableView = {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
@@ -34,10 +34,10 @@ final class SearchResultView: UIView {
         addSubview()
         setupConstraints()
     }
-
     
-
-
+    
+    
+    
 }
 
 //MARK: - UI Elements AddSubview / Constraints
@@ -61,7 +61,7 @@ extension SearchResultView {
             make.top.bottom.leading.trailing.equalTo(safeAreaLayoutGuide)
         }
     }
-
-
+    
+    
 }
 

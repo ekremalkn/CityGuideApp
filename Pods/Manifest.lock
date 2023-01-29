@@ -1,20 +1,34 @@
 PODS:
   - GooglePlaces (7.3.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - GooglePlaces (= 7.3.0)
+  - RxCocoa (= 6.5.0)
+  - RxSwift (= 6.5.0)
   - SnapKit (~> 5.0.0)
 
 SPEC REPOS:
   trunk:
     - GooglePlaces
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SnapKit
 
 SPEC CHECKSUMS:
   GooglePlaces: 0609463845250bbadafa1739938181e54dece439
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: e0da081f26b401cfcdc39b9b080c438ccbf06842
+PODFILE CHECKSUM: 8e3ec9111bdf1c7a1e53866f7fe1a0b1e9bb791b
 
 COCOAPODS: 1.11.3

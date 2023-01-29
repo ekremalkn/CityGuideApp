@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class SearchController: UIViewController {
     
     //MARK: - Properties
     
     private let searchView = SearchView()
+    
+    private let disposeBag = DisposeBag()
     
     //MARK: - UISearchController
     
@@ -37,10 +41,22 @@ final class SearchController: UIViewController {
     private func configureSearchController() {
         searchViewController.searchBar.backgroundColor = .secondarySystemBackground
         navigationItem.searchController = searchViewController
+        
+        guard let resultViewController = searchViewController.searchResultsController as? SearchResultController else { return }
+        
+        searchViewController.searchBar.rx.text.bind(onNext: { text in
+            if let text = text {
+                resultViewController.searchText.onNext(text)
+            }
+            
+        }).disposed(by: disposeBag)
+            
+        }
+        
     }
-
+        
 
     
 
 
-}
+
