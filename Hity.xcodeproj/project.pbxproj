@@ -90,10 +90,11 @@
 		F061A5A32986EA7500EAD006 /* Hity */ = {
 			isa = PBXGroup;
 			children = (
-				F061A5BB2986EB4E00EAD006 /* Scenes */,
-				F061A5BA2986EB0200EAD006 /* Support */,
-				F061A5B92986EAF700EAD006 /* Resources */,
 				F061A5B82986EAEE00EAD006 /* App */,
+				F061A5BB2986EB4E00EAD006 /* Scenes */,
+				F061A5C92986F49400EAD006 /* Network */,
+				F061A5B92986EAF700EAD006 /* Resources */,
+				F061A5BA2986EB0200EAD006 /* Support */,
 			);
 			path = Hity;
 			sourceTree = "<group>";
@@ -127,7 +128,6 @@
 		F061A5BB2986EB4E00EAD006 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				F061A5C92986F49400EAD006 /* Network */,
 				F061A5BC2986EBA300EAD006 /* Search */,
 			);
 			path = Scenes;

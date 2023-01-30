@@ -26,4 +26,16 @@ final class GooglePlacesManager {
             
         }
     }
+    
+    public func fetchCoordinates(placeUID: String, onSuccess: @escaping (CLLocationCoordinate2D?) -> (), onError: @escaping (Error) -> ()) {
+        
+        client.fetchPlace(fromPlaceID: placeUID, placeFields: .coordinate, sessionToken: nil) { response, error in
+            
+            guard let response = response, error == nil else { return }
+            
+            let coordinates = CLLocationCoordinate2D(latitude: response.coordinate.latitude, longitude: response.coordinate.longitude)
+            
+            onSuccess(coordinates)
+        }
+    }
 }

@@ -8,21 +8,25 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import CoreLocation
 
 final class SearchResultController: UIViewController {
-
+    
     //MARK: - Properties
     
     private let searchResultView = SearchResultView()
     private let searchViewModel = SearchViewModel()
     
     var searchText = PublishSubject<String>()
+    var coordinate = PublishSubject<CLLocationCoordinate2D>()
     
     private let disposeBag = DisposeBag()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
+        didFetchCoordinate()
+        
     }
     
     
@@ -34,12 +38,13 @@ final class SearchResultController: UIViewController {
     }
     
     
- 
+    
     private func configureTableView() {
         
         // bind places to tableview
         
-        searchViewModel.places.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { row, place, cell in
+        searchViewModel.places.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { [weak self] row, place, cell in
+            self?.searchResultView.tableView.isHidden = false
             cell.textLabel?.text = place.placeName
         }.disposed(by: disposeBag)
         
@@ -51,16 +56,22 @@ final class SearchResultController: UIViewController {
         
         // handle didselect
         
-        searchResultView.tableView.rx.modelSelected(PlacesModel.self).bind(onNext: { place in
-            print(place.placeName)
-
+        searchResultView.tableView.rx.modelSelected(PlacesModel.self).bind(onNext: { [weak self] place in
+            self?.searchResultView.tableView.isHidden = true
+            self?.searchViewModel.fetchCoordianates(place.placeUID)
+            
         }).disposed(by: disposeBag)
         
     }
-
     
-
-
-
-   
+    //MARK: - Pin location on map
+    
+    private func didFetchCoordinate() {
+        let searchController = SearchController()
+        searchViewModel.coordinate.subscribe(onNext: { coordinate in
+            searchController.pinLocationOnMap(coordinate)
+        }).disposed(by: disposeBag)
+    }
+    
+    
 }
