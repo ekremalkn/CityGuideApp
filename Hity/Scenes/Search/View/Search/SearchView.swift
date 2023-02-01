@@ -13,7 +13,7 @@ final class SearchView: UIView {
     
     //MARK: - Creating UI Elements
 
-    var mapView = MKMapView()
+    let mapView = MKMapView()
     
     //MARK: - Init Methods
 

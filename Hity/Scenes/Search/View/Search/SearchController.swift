@@ -7,31 +7,27 @@
 
 import UIKit
 import RxSwift
-import RxCocoa
-import CoreLocation
 import MapKit
+
 
 final class SearchController: UIViewController {
     
     //MARK: - Properties
     
     private let searchView = SearchView()
+    private let searchViewModel = SearchViewModel()
     
     private let disposeBag = DisposeBag()
-    
-    var coordinate = PublishSubject<CLLocationCoordinate2D>()
     
     //MARK: - UISearchController
     
     private let searchViewController = UISearchController(searchResultsController: SearchResultController())
-    
     
     //MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        
     }
     
     //MARK: - ConfigureViewController
@@ -48,6 +44,7 @@ final class SearchController: UIViewController {
         navigationItem.searchController = searchViewController
         
         guard let resultViewController = searchViewController.searchResultsController as? SearchResultController else { return }
+        resultViewController.delegate = self
         
         searchViewController.searchBar.rx.text.bind(onNext: { text in
             if let text = text {
@@ -56,19 +53,39 @@ final class SearchController: UIViewController {
             
         }).disposed(by: disposeBag)
         
-    }
-    
-    public func pinLocationOnMap(_ coordinate: CLLocationCoordinate2D) {
-        print("\(coordinate)search controllere coordiante geldi")
         
-        // add a map pin
-        let pin = MKPointAnnotation()
-        pin.coordinate = coordinate
-        searchView.mapView.addAnnotation(pin)
-        searchView.mapView.setRegion(MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)), animated: true)
     }
     
 }
+
+extension SearchController: SearchResultControllerDelegate {
+    func didTapLocation(_ coordinates: CLLocationCoordinate2D) {
+        dismiss(animated: true) { [weak self] in
+            self?.searchViewController.searchBar.resignFirstResponder()
+            
+            // remove all annotations
+            
+            if let annotations = self?.searchView.mapView.annotations {
+                self?.searchView.mapView.removeAnnotations(annotations)
+            }
+            
+            // add annotation
+            let pin = MKPointAnnotation()
+            pin.coordinate = coordinates
+            self?.searchView.mapView.addAnnotation(pin)
+            let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+            self?.searchView.mapView.setRegion(region, animated: true)
+        }
+        
+        
+        
+        
+    }
+    
+    
+}
+
+
 
 
 

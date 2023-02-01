@@ -10,22 +10,26 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
+protocol SearchResultControllerDelegate: AnyObject {
+    func didTapLocation(_ coordinates: CLLocationCoordinate2D)
+}
+
+
 final class SearchResultController: UIViewController {
     
     //MARK: - Properties
     
+    weak var delegate: SearchResultControllerDelegate?
     private let searchResultView = SearchResultView()
     private let searchViewModel = SearchViewModel()
     
     var searchText = PublishSubject<String>()
-    var coordinate = PublishSubject<CLLocationCoordinate2D>()
     
     private let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        didFetchCoordinate()
         
     }
     
@@ -35,6 +39,7 @@ final class SearchResultController: UIViewController {
     private func configureViewController() {
         view = searchResultView
         configureTableView()
+        didFetchCoordinate()
     }
     
     
@@ -43,8 +48,7 @@ final class SearchResultController: UIViewController {
         
         // bind places to tableview
         
-        searchViewModel.places.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { [weak self] row, place, cell in
-            self?.searchResultView.tableView.isHidden = false
+        searchViewModel.places.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { row, place, cell in
             cell.textLabel?.text = place.placeName
         }.disposed(by: disposeBag)
         
@@ -57,8 +61,8 @@ final class SearchResultController: UIViewController {
         // handle didselect
         
         searchResultView.tableView.rx.modelSelected(PlacesModel.self).bind(onNext: { [weak self] place in
-            self?.searchResultView.tableView.isHidden = true
-            self?.searchViewModel.fetchCoordianates(place.placeUID)
+            self?.searchViewModel.fetchCoordinates(place.placeUID)
+
             
         }).disposed(by: disposeBag)
         
@@ -67,10 +71,11 @@ final class SearchResultController: UIViewController {
     //MARK: - Pin location on map
     
     private func didFetchCoordinate() {
-        let searchController = SearchController()
-        searchViewModel.coordinate.subscribe(onNext: { coordinate in
-            searchController.pinLocationOnMap(coordinate)
-        }).disposed(by: disposeBag)
+        searchViewModel.coordinates.subscribe(onNext: { [weak self] coordinates in
+            self?.delegate?.didTapLocation(coordinates)
+        }).disposed(by: self.disposeBag)
+        
+        
     }
     
     

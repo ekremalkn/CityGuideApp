@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1350F679322A5873075E17B8 /* libPods-Hity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 784BF3C55039876571558652 /* libPods-Hity.a */; };
+		F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38A298910C3001D9CD6 /* OnboardingView.swift */; };
+		F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38C298916A7001D9CD6 /* OnboardingController.swift */; };
 		F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5A42986EA7500EAD006 /* AppDelegate.swift */; };
 		F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5A62986EA7500EAD006 /* SceneDelegate.swift */; };
 		F061A5AE2986EA7500EAD006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F061A5AD2986EA7500EAD006 /* Assets.xcassets */; };
@@ -25,6 +27,8 @@
 		784BF3C55039876571558652 /* libPods-Hity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		961A847DF6CDB85E3223EDFC /* Pods-Hity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.debug.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.debug.xcconfig"; sourceTree = "<group>"; };
 		BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.release.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.release.xcconfig"; sourceTree = "<group>"; };
+		F053F38A298910C3001D9CD6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		F053F38C298916A7001D9CD6 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
 		F061A5A12986EA7500EAD006 /* Hity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F061A5A42986EA7500EAD006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F061A5A62986EA7500EAD006 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +71,23 @@
 				784BF3C55039876571558652 /* libPods-Hity.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F053F388298910AB001D9CD6 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				F053F389298910B3001D9CD6 /* View */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		F053F389298910B3001D9CD6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F053F38A298910C3001D9CD6 /* OnboardingView.swift */,
+				F053F38C298916A7001D9CD6 /* OnboardingController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		F061A5982986EA7500EAD006 = {
@@ -128,6 +149,7 @@
 		F061A5BB2986EB4E00EAD006 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				F053F388298910AB001D9CD6 /* Onboarding */,
 				F061A5BC2986EBA300EAD006 /* Search */,
 			);
 			path = Scenes;
@@ -318,7 +340,9 @@
 			files = (
 				F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */,
 				F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */,
+				F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */,
 				F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */,
+				F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */,
 				F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
