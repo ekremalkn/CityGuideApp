@@ -60,12 +60,9 @@ final class NearbySearchController: UIViewController {
         
         //bind near places to tableview
         
-        nearBySearchViewModel.nearPlaces.bind(to: nearBySearchView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { row, nearPlaces, cell in
+        nearBySearchViewModel.nearPlaces.bind(to: nearBySearchView.tableView.rx.items(cellIdentifier: NearbyPlacesCell.identifier, cellType: NearbyPlacesCell.self)) { row, nearPlaces, cell in
             
-            if let name = nearPlaces.name {
-                cell.textLabel?.text = name
-                
-            }
+            cell.configure(nearPlaces)
             
         }.disposed(by: disposeBag)
         
@@ -83,7 +80,11 @@ final class NearbySearchController: UIViewController {
         nearBySearchView.tableView.rx.modelSelected(Result.self).bind(onNext: { [weak self] place in
             self?.delegate?.didTapLocation()
         }).disposed(by: disposeBag)
+        
+        nearBySearchView.tableView.rx.rowHeight.onNext(150)
     }
+    
+    
     
     
 }

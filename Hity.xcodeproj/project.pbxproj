@@ -28,6 +28,8 @@
 		F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */; };
 		F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CE2986F57700EAD006 /* PlacesModel.swift */; };
 		F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5D12986FD2300EAD006 /* SearchViewModel.swift */; };
+		F0735B04298E7540005306D8 /* NearbyPlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0735B03298E7540005306D8 /* NearbyPlacesCell.swift */; };
+		F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
 		F061A5CE2986F57700EAD006 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 		F061A5D12986FD2300EAD006 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		F0735B03298E7540005306D8 /* NearbyPlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCell.swift; sourceTree = "<group>"; };
+		F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +146,7 @@
 		F055FCB0298D5FEB00A928CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F0735B02298E74D1005306D8 /* Cell */,
 				F055FCB1298D600A00A928CB /* NearbySearchController.swift */,
 				F055FCB3298D601800A928CB /* NearbySearchView.swift */,
 			);
@@ -178,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				F061A5B82986EAEE00EAD006 /* App */,
+				F0735B05298E8173005306D8 /* Extensions */,
 				F061A5BB2986EB4E00EAD006 /* Scenes */,
 				F061A5C92986F49400EAD006 /* Network */,
 				F061A5B92986EAF700EAD006 /* Resources */,
@@ -291,6 +297,22 @@
 				F061A5D12986FD2300EAD006 /* SearchViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0735B02298E74D1005306D8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F0735B03298E7540005306D8 /* NearbyPlacesCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F0735B05298E8173005306D8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -411,8 +433,10 @@
 				F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */,
 				F055FCB2298D600A00A928CB /* NearbySearchController.swift in Sources */,
 				F055FCAC298D496700A928CB /* WebService.swift in Sources */,
+				F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */,
 				F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */,
 				F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */,
+				F0735B04298E7540005306D8 /* NearbyPlacesCell.swift in Sources */,
 				F055FCA4298D42EF00A928CB /* NetworkManager.swift in Sources */,
 				F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */,
 				F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */,

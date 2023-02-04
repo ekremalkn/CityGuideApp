@@ -32,7 +32,7 @@ final class NearbySearchView: UIView {
     
     let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(NearbyPlacesCell.self, forCellReuseIdentifier: NearbyPlacesCell.identifier)
         return tableView
     }()
     

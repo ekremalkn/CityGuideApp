@@ -14,7 +14,8 @@ struct NearPlacesModel: Codable {
 }
 
 // MARK: - Result
-struct Result: Codable {
+struct Result: Codable, NearbyPlacesCellProtocol {
+ 
     let businessStatus: String?
     let geometry: Geometry?
     let icon: String?
@@ -30,6 +31,55 @@ struct Result: Codable {
     let types: [String]?
     let userRatingsTotal: Int?
     let vicinity: String?
+    
+    var placeImage: String {
+        if let photo = photos?[0].photoReference  {
+            return photo
+        }
+        return ""
+    }
+    
+    var placeName: String {
+        if let name = name {
+            return name
+        }
+        return ""
+    }
+    
+    var placeAddress: String {
+        if let address = vicinity {
+            return address
+        }
+        return ""
+    }
+    
+    var placeOpenClosedInfo: String {
+        if let openClosedInfo = openingHours?.openNow {
+            if openClosedInfo {
+                return "Açık"
+            } else {
+                return "Kapalı"
+            }
+        }
+        return "Açık/Kapalı bilgisi yok."
+    }
+    
+    var placeRating: String {
+        if let rating = rating {
+            return "\(rating)"
+        }
+        return ""
+    }
+    
+    var placeTotalRatings: String {
+        if let userRatingsTotal = userRatingsTotal {
+            return "\(userRatingsTotal)"
+        }
+        return ""
+    }
+    
+    
+    
 
     enum CodingKeys: String, CodingKey {
         case businessStatus = "business_status"
