@@ -10,6 +10,13 @@
 		1350F679322A5873075E17B8 /* libPods-Hity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 784BF3C55039876571558652 /* libPods-Hity.a */; };
 		F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38A298910C3001D9CD6 /* OnboardingView.swift */; };
 		F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38C298916A7001D9CD6 /* OnboardingController.swift */; };
+		F055FCA4298D42EF00A928CB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055FCA3298D42EF00A928CB /* NetworkManager.swift */; };
+		F055FCA6298D46A000A928CB /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055FCA5298D46A000A928CB /* NetworkHelper.swift */; };
+		F055FCAC298D496700A928CB /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055FCAB298D496700A928CB /* WebService.swift */; };
+		F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055FCAD298D53A500A928CB /* NearPlacesModel.swift */; };
+		F055FCB2298D600A00A928CB /* NearbySearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055FCB1298D600A00A928CB /* NearbySearchController.swift */; };
+		F055FCB4298D601800A928CB /* NearbySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055FCB3298D601800A928CB /* NearbySearchView.swift */; };
+		F055FCB7298D6C4300A928CB /* NearbySearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055FCB6298D6C4300A928CB /* NearbySearchViewModel.swift */; };
 		F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5A42986EA7500EAD006 /* AppDelegate.swift */; };
 		F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5A62986EA7500EAD006 /* SceneDelegate.swift */; };
 		F061A5AE2986EA7500EAD006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F061A5AD2986EA7500EAD006 /* Assets.xcassets */; };
@@ -29,6 +36,13 @@
 		BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.release.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.release.xcconfig"; sourceTree = "<group>"; };
 		F053F38A298910C3001D9CD6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		F053F38C298916A7001D9CD6 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
+		F055FCA3298D42EF00A928CB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		F055FCA5298D46A000A928CB /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
+		F055FCAB298D496700A928CB /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		F055FCAD298D53A500A928CB /* NearPlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearPlacesModel.swift; sourceTree = "<group>"; };
+		F055FCB1298D600A00A928CB /* NearbySearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbySearchController.swift; sourceTree = "<group>"; };
+		F055FCB3298D601800A928CB /* NearbySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbySearchView.swift; sourceTree = "<group>"; };
+		F055FCB6298D6C4300A928CB /* NearbySearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbySearchViewModel.swift; sourceTree = "<group>"; };
 		F061A5A12986EA7500EAD006 /* Hity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F061A5A42986EA7500EAD006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F061A5A62986EA7500EAD006 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +102,58 @@
 				F053F38C298916A7001D9CD6 /* OnboardingController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F055FCA2298D42E300A928CB /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				F055FCA7298D490900A928CB /* NetworkManager */,
+				F061A5CA2986F49B00EAD006 /* GooglePlacesManager */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		F055FCA7298D490900A928CB /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				F055FCA5298D46A000A928CB /* NetworkHelper.swift */,
+				F055FCA3298D42EF00A928CB /* NetworkManager.swift */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		F055FCA8298D493B00A928CB /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F055FCAB298D496700A928CB /* WebService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		F055FCAF298D5FD800A928CB /* NearBySearch */ = {
+			isa = PBXGroup;
+			children = (
+				F055FCB5298D6C3600A928CB /* ViewModel */,
+				F055FCB0298D5FEB00A928CB /* View */,
+			);
+			path = NearBySearch;
+			sourceTree = "<group>";
+		};
+		F055FCB0298D5FEB00A928CB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F055FCB1298D600A00A928CB /* NearbySearchController.swift */,
+				F055FCB3298D601800A928CB /* NearbySearchView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F055FCB5298D6C3600A928CB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F055FCB6298D6C4300A928CB /* NearbySearchViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F061A5982986EA7500EAD006 = {
@@ -151,6 +217,7 @@
 			children = (
 				F053F388298910AB001D9CD6 /* Onboarding */,
 				F061A5BC2986EBA300EAD006 /* Search */,
+				F055FCAF298D5FD800A928CB /* NearBySearch */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -194,8 +261,9 @@
 		F061A5C92986F49400EAD006 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				F055FCA2298D42E300A928CB /* Core */,
+				F055FCA8298D493B00A928CB /* Service */,
 				F061A5CD2986F56200EAD006 /* Model */,
-				F061A5CA2986F49B00EAD006 /* GooglePlacesManager */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -212,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				F061A5CE2986F57700EAD006 /* PlacesModel.swift */,
+				F055FCAD298D53A500A928CB /* NearPlacesModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -338,17 +407,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F055FCA6298D46A000A928CB /* NetworkHelper.swift in Sources */,
 				F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */,
+				F055FCB2298D600A00A928CB /* NearbySearchController.swift in Sources */,
+				F055FCAC298D496700A928CB /* WebService.swift in Sources */,
 				F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */,
 				F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */,
+				F055FCA4298D42EF00A928CB /* NetworkManager.swift in Sources */,
 				F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */,
 				F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */,
 				F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
+				F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
 				F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */,
+				F055FCB4298D601800A928CB /* NearbySearchView.swift in Sources */,
 				F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */,
 				F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */,
+				F055FCB7298D6C4300A928CB /* NearbySearchViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

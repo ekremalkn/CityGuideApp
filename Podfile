@@ -1,4 +1,4 @@
-# platform :ios, '13.0'
+# platform :ios, '12.0'
 
 target 'Hity' do
 
@@ -6,5 +6,7 @@ target 'Hity' do
 	    pod 'GooglePlaces', '7.3.0'
    	    pod 'RxSwift', '6.5.0'
             pod 'RxCocoa', '6.5.0'
-		
+    	    pod 'Alamofire'
+	    pod 'FloatingPanel'
+
 end

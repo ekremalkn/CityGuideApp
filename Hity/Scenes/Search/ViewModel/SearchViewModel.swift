@@ -11,14 +11,14 @@ import CoreLocation
 
 final class SearchViewModel {
     
-    private let manager = GooglePlacesManager.shared
+    private let googlePlacesManager = GooglePlacesManager.shared
     
     var places = PublishSubject<[PlacesModel]>()
     var coordinates = PublishSubject<CLLocationCoordinate2D>()
     
     func fetchPlaces(_ query: String) {
         
-        manager.findPlaces(query: query) { [weak self] places in
+        googlePlacesManager.findPlaces(query: query) { [weak self] places in
             if let places = places {
                 self?.places.onNext(places)
             }
@@ -30,7 +30,7 @@ final class SearchViewModel {
     
     func fetchCoordinates(_ placeUID: String) {
         
-        manager.fetchCoordinates(placeUID: placeUID) { [weak self] coordinate in
+        googlePlacesManager.fetchCoordinates(placeUID: placeUID) { [weak self] coordinate in
             if let coordinate = coordinate {
                 self?.coordinates.onNext(coordinate)
             }
@@ -39,4 +39,7 @@ final class SearchViewModel {
         }
         
     }
+
+ 
+
 }

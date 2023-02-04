@@ -13,6 +13,7 @@ final class SearchResultView: UIView {
     
     let tableView: UITableView = {
         let tableView = UITableView()
+        tableView.backgroundColor = .clear
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
@@ -33,6 +34,11 @@ final class SearchResultView: UIView {
     private func configureView() {
         addSubview()
         setupConstraints()
+    }
+    
+    func configureCellProperties(_ cell: UITableViewCell) {
+        cell.backgroundColor = .secondarySystemBackground
+        cell.layer.cornerRadius = 10
     }
     
     
@@ -58,7 +64,9 @@ extension SearchResultView {
     
     private func tableViewConstraints() {
         tableView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalTo(safeAreaLayoutGuide)
+            make.top.bottom.equalTo(safeAreaLayoutGuide)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(10)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
         }
     }
     

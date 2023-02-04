@@ -14,12 +14,11 @@ protocol SearchResultControllerDelegate: AnyObject {
     func didTapLocation(_ coordinates: CLLocationCoordinate2D)
 }
 
-
 final class SearchResultController: UIViewController {
     
     //MARK: - Properties
     
-    weak var delegate: SearchResultControllerDelegate?
+    weak var searchResultControllerDelegate: SearchResultControllerDelegate?
     private let searchResultView = SearchResultView()
     private let searchViewModel = SearchViewModel()
     
@@ -30,7 +29,6 @@ final class SearchResultController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        
     }
     
     
@@ -48,7 +46,8 @@ final class SearchResultController: UIViewController {
         
         // bind places to tableview
         
-        searchViewModel.places.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { row, place, cell in
+        searchViewModel.places.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { [weak self] row, place, cell in
+            self?.searchResultView.configureCellProperties(cell)
             cell.textLabel?.text = place.placeName
         }.disposed(by: disposeBag)
         
@@ -62,8 +61,6 @@ final class SearchResultController: UIViewController {
         
         searchResultView.tableView.rx.modelSelected(PlacesModel.self).bind(onNext: { [weak self] place in
             self?.searchViewModel.fetchCoordinates(place.placeUID)
-
-            
         }).disposed(by: disposeBag)
         
     }
@@ -71,8 +68,9 @@ final class SearchResultController: UIViewController {
     //MARK: - Pin location on map
     
     private func didFetchCoordinate() {
+        
         searchViewModel.coordinates.subscribe(onNext: { [weak self] coordinates in
-            self?.delegate?.didTapLocation(coordinates)
+            self?.searchResultControllerDelegate?.didTapLocation(coordinates)
         }).disposed(by: self.disposeBag)
         
         
@@ -80,3 +78,5 @@ final class SearchResultController: UIViewController {
     
     
 }
+
+

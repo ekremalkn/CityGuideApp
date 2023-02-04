@@ -55,7 +55,9 @@ extension SearchView {
     
     private func mapViewConstraints() {
         mapView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalTo(safeAreaLayoutGuide)
+            make.top.equalTo(self)
+            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.leading.trailing.equalTo(safeAreaLayoutGuide)
         }
     }
 

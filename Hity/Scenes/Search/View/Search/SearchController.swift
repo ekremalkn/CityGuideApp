@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import MapKit
+import FloatingPanel
 
 
 final class SearchController: UIViewController {
@@ -16,6 +17,8 @@ final class SearchController: UIViewController {
     
     private let searchView = SearchView()
     private let searchViewModel = SearchViewModel()
+    private let panel = FloatingPanelController()
+    
     
     private let disposeBag = DisposeBag()
     
@@ -33,6 +36,8 @@ final class SearchController: UIViewController {
     //MARK: - ConfigureViewController
     
     private func configureViewController() {
+        //        title = "Say Hi to City"
+        //        navigationController?.navigationBar.prefersLargeTitles = true
         view = searchView
         configureSearchController()
     }
@@ -40,11 +45,22 @@ final class SearchController: UIViewController {
     //MARK: - ConfigureSearchController
     
     private func configureSearchController() {
-        searchViewController.searchBar.backgroundColor = .secondarySystemBackground
+        searchViewController.searchBar.backgroundColor = .clear
+        searchViewController.searchBar.placeholder = "Şu an bulunduğun konumu yaz ve seç"
         navigationItem.searchController = searchViewController
+        reactiveUISearchController()
+    }
+    
+}
+
+//MARK: - Reactive UISearchController
+
+extension SearchController {
+    
+    func reactiveUISearchController() {
         
         guard let resultViewController = searchViewController.searchResultsController as? SearchResultController else { return }
-        resultViewController.delegate = self
+        resultViewController.searchResultControllerDelegate = self
         
         searchViewController.searchBar.rx.text.bind(onNext: { text in
             if let text = text {
@@ -52,38 +68,80 @@ final class SearchController: UIViewController {
             }
             
         }).disposed(by: disposeBag)
+    }
+}
+
+
+//MARK: - SearchResultControllerDelegate
+
+extension SearchController: SearchResultControllerDelegate {
+    func didTapLocation(_ coordinates: CLLocationCoordinate2D) {
+        closeKeyboard()
+        removeAllAnnotations()
+        addAnnotations(coordinates)
+        createFloatingPanel(coordinates)
+    }
+ 
+}
+
+//MARK: - Annotations
+
+extension SearchController {
+    
+    func closeKeyboard() {
         
+        searchViewController.searchResultsController?.dismiss(animated: true) { [weak self] in
+            self?.searchViewController.searchBar.resignFirstResponder()
+        }
+    }
+    
+    func removeAllAnnotations() {
         
+        let annotations = searchView.mapView.annotations
+        searchView.mapView.removeAnnotations(annotations)
+    }
+    
+    func addAnnotations(_ coordinates: CLLocationCoordinate2D) {
+        
+        let pin = MKPointAnnotation()
+        pin.coordinate = coordinates
+        searchView.mapView.addAnnotation(pin)
+        
+        let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        searchView.mapView.setRegion(region, animated: true)
     }
     
 }
 
-extension SearchController: SearchResultControllerDelegate {
-    func didTapLocation(_ coordinates: CLLocationCoordinate2D) {
-        dismiss(animated: true) { [weak self] in
-            self?.searchViewController.searchBar.resignFirstResponder()
-            
-            // remove all annotations
-            
-            if let annotations = self?.searchView.mapView.annotations {
-                self?.searchView.mapView.removeAnnotations(annotations)
-            }
-            
-            // add annotation
-            let pin = MKPointAnnotation()
-            pin.coordinate = coordinates
-            self?.searchView.mapView.addAnnotation(pin)
-            let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            self?.searchView.mapView.setRegion(region, animated: true)
-        }
+
+//MARK: - FloatingPanel for Nearby SearchController
+
+extension SearchController {
+    func createFloatingPanel(_ coordinates: CLLocationCoordinate2D) {
         
+        let lat = "\(coordinates.latitude)"
+        let lng = "\(coordinates.longitude)"
         
+        let nearbySearchController = NearbySearchController(lat: lat, lng: lng)
+        nearbySearchController.delegate = self
         
+        panel.set(contentViewController: nearbySearchController)
+        panel.addPanel(toParent: self)
+    }
+    
+}
+
+//MARK: - NearbySearchControllerDelegate
+
+extension SearchController: NearbySearchControllerDelegate {
+    func didTapLocation() {
         
+        panel.move(to: .tip, animated: true)
     }
     
     
 }
+
 
 
 
