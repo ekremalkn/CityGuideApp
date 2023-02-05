@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 // MARK: - Places
 struct NearPlacesModel: Codable {
@@ -15,6 +16,7 @@ struct NearPlacesModel: Codable {
 
 // MARK: - Result
 struct Result: Codable, NearbyPlacesCellProtocol {
+
  
     let businessStatus: String?
     let geometry: Geometry?
@@ -31,6 +33,20 @@ struct Result: Codable, NearbyPlacesCellProtocol {
     let types: [String]?
     let userRatingsTotal: Int?
     let vicinity: String?
+    
+    var placeUID: String {
+        if let placeID = placeID {
+            return placeID
+        }
+        return ""
+    }
+    
+    var placeLocation: CLLocationCoordinate2D {
+        if let lat = geometry?.location?.lat, let lng = geometry?.location?.lng {
+            return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+        }
+        return CLLocationCoordinate2D()
+    }
     
     var placeImage: String {
         if let photo = photos?[0].photoReference  {
@@ -63,20 +79,7 @@ struct Result: Codable, NearbyPlacesCellProtocol {
         }
         return "Açık/Kapalı bilgisi yok."
     }
-    
-    var placeRating: String {
-        if let rating = rating {
-            return "\(rating)"
-        }
-        return ""
-    }
-    
-    var placeTotalRatings: String {
-        if let userRatingsTotal = userRatingsTotal {
-            return "\(userRatingsTotal)"
-        }
-        return ""
-    }
+   
     
     
     

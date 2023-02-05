@@ -11,7 +11,7 @@ import RxCocoa
 import CoreLocation
 
 protocol SearchResultControllerDelegate: AnyObject {
-    func didTapLocation(_ coordinates: CLLocationCoordinate2D)
+    func didTapSearchLocation(_ coordinates: CLLocationCoordinate2D)
 }
 
 final class SearchResultController: UIViewController {
@@ -58,7 +58,6 @@ final class SearchResultController: UIViewController {
         }).disposed(by: disposeBag)
         
         // handle didselect
-        
         searchResultView.tableView.rx.modelSelected(PlacesModel.self).bind(onNext: { [weak self] place in
             self?.searchViewModel.fetchCoordinates(place.placeUID)
         }).disposed(by: disposeBag)
@@ -70,7 +69,7 @@ final class SearchResultController: UIViewController {
     private func didFetchCoordinate() {
         
         searchViewModel.coordinates.subscribe(onNext: { [weak self] coordinates in
-            self?.searchResultControllerDelegate?.didTapLocation(coordinates)
+            self?.searchResultControllerDelegate?.didTapSearchLocation(coordinates)
         }).disposed(by: self.disposeBag)
         
         

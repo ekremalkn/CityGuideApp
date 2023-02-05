@@ -36,8 +36,6 @@ final class SearchController: UIViewController {
     //MARK: - ConfigureViewController
     
     private func configureViewController() {
-        //        title = "Say Hi to City"
-        //        navigationController?.navigationBar.prefersLargeTitles = true
         view = searchView
         configureSearchController()
     }
@@ -62,7 +60,7 @@ extension SearchController {
         guard let resultViewController = searchViewController.searchResultsController as? SearchResultController else { return }
         resultViewController.searchResultControllerDelegate = self
         
-        searchViewController.searchBar.rx.text.bind(onNext: { text in
+        searchViewController.searchBar.rx.text.throttle(.seconds(2), scheduler: MainScheduler.instance).bind(onNext: { text in
             if let text = text {
                 resultViewController.searchText.onNext(text)
             }
@@ -75,13 +73,14 @@ extension SearchController {
 //MARK: - SearchResultControllerDelegate
 
 extension SearchController: SearchResultControllerDelegate {
-    func didTapLocation(_ coordinates: CLLocationCoordinate2D) {
+    
+    func didTapSearchLocation(_ coordinates: CLLocationCoordinate2D) {
         closeKeyboard()
-        removeAllAnnotations()
-        addAnnotations(coordinates)
+        removeAnnotations()
+        addAnnotations(coordinates, "Şu an bu konuma göre arama yapıyorsun.")
         createFloatingPanel(coordinates)
     }
- 
+    
 }
 
 //MARK: - Annotations
@@ -95,18 +94,34 @@ extension SearchController {
         }
     }
     
-    func removeAllAnnotations() {
+    func removeAnnotations(isNearbyPlace: Bool? = nil) {
+        var annotations = searchView.mapView.annotations
         
-        let annotations = searchView.mapView.annotations
+        if let isNearbyPlace = isNearbyPlace {
+            if isNearbyPlace {
+                annotations.removeFirst()
+                searchView.mapView.removeAnnotations(annotations)
+            }
+        }
+        
         searchView.mapView.removeAnnotations(annotations)
+        
     }
     
-    func addAnnotations(_ coordinates: CLLocationCoordinate2D) {
-        
+    func addAnnotations(_ coordinates: CLLocationCoordinate2D, _ placeUID: String? = nil, _ title: String? = nil, _ subTitle: String? = nil) {
         let pin = MKPointAnnotation()
-        pin.coordinate = coordinates
-        searchView.mapView.addAnnotation(pin)
         
+        pin.coordinate = coordinates
+        if let title = title {
+            pin.title = title
+        }
+        if let placeUID = placeUID {
+            pin.subtitle = placeUID
+        }
+        searchView.mapView.addAnnotation(pin)
+
+        
+       
         let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         searchView.mapView.setRegion(region, animated: true)
     }
@@ -134,13 +149,16 @@ extension SearchController {
 //MARK: - NearbySearchControllerDelegate
 
 extension SearchController: NearbySearchControllerDelegate {
-    func didTapLocation() {
-        
+    func didTapNearLocation(_ coordinates: CLLocationCoordinate2D, _ pinTitle: String, _ pinSubTitle: String) {
+        closeKeyboard()
+        removeAnnotations(isNearbyPlace: true)
+        addAnnotations(coordinates, pinTitle, pinSubTitle)
         panel.move(to: .tip, animated: true)
     }
     
-    
 }
+
+
 
 
 

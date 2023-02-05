@@ -14,9 +14,11 @@ final class NearbySearchViewModel {
     private let webServiceManager = Service.shared
     
     var nearPlaces = PublishSubject<[Result]>()
+    var placeDetails = PublishSubject<DetailResults>()
+
     
     func fetchNearPlaces(_ input: String, _ lat: String, _ lng: String) {
-        
+
         webServiceManager.nearyBySearch(input: input, lat: lat, lng: lng) { [weak self] nearPlaces in
             if let nearPlaces = nearPlaces?.results {
                 self?.nearPlaces.onNext(nearPlaces)
@@ -26,4 +28,18 @@ final class NearbySearchViewModel {
         }
 
     }
+    
+        func fetchPlaceDetails(_ placeUID: String) {
+    
+            webServiceManager.placeDetail(placeUID: placeUID) { [weak self] place in
+                if let placeDetails = place?.result {
+                    self?.placeDetails.onNext(placeDetails)
+                }
+            } onError: { [weak self] error in
+                self?.placeDetails.onError(error)
+            }
+    
+    
+    
+        }
 }

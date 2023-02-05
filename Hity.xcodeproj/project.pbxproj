@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1350F679322A5873075E17B8 /* libPods-Hity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 784BF3C55039876571558652 /* libPods-Hity.a */; };
+		F04A8F39298FEA2000E245AF /* NearbyPlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04A8F38298FEA2000E245AF /* NearbyPlacesCell.swift */; };
 		F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38A298910C3001D9CD6 /* OnboardingView.swift */; };
 		F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38C298916A7001D9CD6 /* OnboardingController.swift */; };
 		F055FCA4298D42EF00A928CB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F055FCA3298D42EF00A928CB /* NetworkManager.swift */; };
@@ -28,14 +29,17 @@
 		F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */; };
 		F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CE2986F57700EAD006 /* PlacesModel.swift */; };
 		F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5D12986FD2300EAD006 /* SearchViewModel.swift */; };
-		F0735B04298E7540005306D8 /* NearbyPlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0735B03298E7540005306D8 /* NearbyPlacesCell.swift */; };
 		F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */; };
+		F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE3636298F75F80054D14E /* PlaceDetailController.swift */; };
+		F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE3638298F760D0054D14E /* PlaceDetailView.swift */; };
+		F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		784BF3C55039876571558652 /* libPods-Hity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		961A847DF6CDB85E3223EDFC /* Pods-Hity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.debug.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.debug.xcconfig"; sourceTree = "<group>"; };
 		BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.release.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.release.xcconfig"; sourceTree = "<group>"; };
+		F04A8F38298FEA2000E245AF /* NearbyPlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCell.swift; sourceTree = "<group>"; };
 		F053F38A298910C3001D9CD6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		F053F38C298916A7001D9CD6 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
 		F055FCA3298D42EF00A928CB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -58,8 +62,10 @@
 		F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
 		F061A5CE2986F57700EAD006 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 		F061A5D12986FD2300EAD006 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
-		F0735B03298E7540005306D8 /* NearbyPlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCell.swift; sourceTree = "<group>"; };
 		F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
+		F0AE3636298F75F80054D14E /* PlaceDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailController.swift; sourceTree = "<group>"; };
+		F0AE3638298F760D0054D14E /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
+		F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +230,7 @@
 				F053F388298910AB001D9CD6 /* Onboarding */,
 				F061A5BC2986EBA300EAD006 /* Search */,
 				F055FCAF298D5FD800A928CB /* NearBySearch */,
+				F0AE3634298F75CB0054D14E /* PlaceDetail */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -287,6 +294,7 @@
 			children = (
 				F061A5CE2986F57700EAD006 /* PlacesModel.swift */,
 				F055FCAD298D53A500A928CB /* NearPlacesModel.swift */,
+				F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -302,7 +310,7 @@
 		F0735B02298E74D1005306D8 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				F0735B03298E7540005306D8 /* NearbyPlacesCell.swift */,
+				F04A8F38298FEA2000E245AF /* NearbyPlacesCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -313,6 +321,23 @@
 				F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F0AE3634298F75CB0054D14E /* PlaceDetail */ = {
+			isa = PBXGroup;
+			children = (
+				F0AE3635298F75D80054D14E /* View */,
+			);
+			path = PlaceDetail;
+			sourceTree = "<group>";
+		};
+		F0AE3635298F75D80054D14E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0AE3636298F75F80054D14E /* PlaceDetailController.swift */,
+				F0AE3638298F760D0054D14E /* PlaceDetailView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,14 +461,17 @@
 				F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */,
 				F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */,
 				F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */,
-				F0735B04298E7540005306D8 /* NearbyPlacesCell.swift in Sources */,
+				F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */,
 				F055FCA4298D42EF00A928CB /* NetworkManager.swift in Sources */,
+				F04A8F39298FEA2000E245AF /* NearbyPlacesCell.swift in Sources */,
 				F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */,
 				F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */,
 				F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
 				F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
+				F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */,
+				F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */,
 				F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */,
 				F055FCB4298D601800A928CB /* NearbySearchView.swift in Sources */,
 				F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */,

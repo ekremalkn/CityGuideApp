@@ -7,9 +7,10 @@
 
 import UIKit
 import RxSwift
+import CoreLocation
 
 protocol NearbySearchControllerDelegate: AnyObject {
-    func didTapLocation()
+    func didTapNearLocation(_ coordinates: CLLocationCoordinate2D, _ pinTitle: String, _ pinSubTitle: String)
 }
 
 final class NearbySearchController: UIViewController {
@@ -49,44 +50,80 @@ final class NearbySearchController: UIViewController {
     //MARK: - Configure ViewController
     
     private func configureViewController() {
+        nearBySearchView.collectionView.delegate = self
         view.backgroundColor = .systemBackground
         view = nearBySearchView
         reactiveTextField()
-        configureTableView()
+        configureCollectionView()
+        didFetchPlaceDetails()
     }
     
+    //MARK: - Reactive Collection View
+
     
-    private func configureTableView() {
+    private func configureCollectionView() {
         
         //bind near places to tableview
         
-        nearBySearchViewModel.nearPlaces.bind(to: nearBySearchView.tableView.rx.items(cellIdentifier: NearbyPlacesCell.identifier, cellType: NearbyPlacesCell.self)) { row, nearPlaces, cell in
+        nearBySearchViewModel.nearPlaces.bind(to: nearBySearchView.collectionView.rx.items(cellIdentifier: "NearbyPlacesCell", cellType: NearbyPlacesCell.self)) {row, nearPlaces, cell in
             
             cell.configure(nearPlaces)
+            cell.showDetailsButton.rx.tap.subscribe(onNext: { _ in
+                if let placeUID = cell.placeUID {
+                    print("alkan")
+                    self.nearBySearchViewModel.fetchPlaceDetails(placeUID)
+
+                }
+
+            }).disposed(by: self.disposeBag)
             
         }.disposed(by: disposeBag)
         
+
         // fetch nearPlaces
         
         searchText.subscribe(onNext: { [weak self] text in
             if let lat = self?.lat, let lng = self?.lng {
                 self?.nearBySearchViewModel.fetchNearPlaces(text, lat, lng)
             }
+            
         }).disposed(by: disposeBag)
-        
         
         // handle didselect
-        
-        nearBySearchView.tableView.rx.modelSelected(Result.self).bind(onNext: { [weak self] place in
-            self?.delegate?.didTapLocation()
+
+        nearBySearchView.collectionView.rx.modelSelected(Result.self).bind(onNext: { [weak self] place in
+            if let lat = place.geometry?.location?.lat, let lng = place.geometry?.location?.lng, let name = place.name, let address = place.vicinity {
+                let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+                self?.delegate?.didTapNearLocation(coordinates, name, address)
+            }
+            
         }).disposed(by: disposeBag)
         
-        nearBySearchView.tableView.rx.rowHeight.onNext(150)
+        
     }
     
+}
+
+//MARK: - DidFetch placeDetails
+
+extension NearbySearchController {
     
-    
-    
+    func didFetchPlaceDetails() {
+        nearBySearchViewModel.placeDetails.subscribe(onNext: { [weak self] placeDetails in
+            print("ekrem")
+            let controller = PlaceDetailController(place: placeDetails)
+            self?.show(controller, sender: nil)
+        }).disposed(by: disposeBag)
+    }
+}
+
+
+//MARK: - UICollectionViewDelegateFlowLayout
+
+extension NearbySearchController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (nearBySearchView.collectionView.frame.width / 2) - 10, height: nearBySearchView.collectionView.frame.width)
+    }
 }
 
 
@@ -95,9 +132,11 @@ final class NearbySearchController: UIViewController {
 extension NearbySearchController {
     
     func reactiveTextField() {
-        
-        nearBySearchView.textField.rx.text.bind(onNext: { [weak self] text in
+        //Throttle ile birlikte kullanıcı arama yaparken textfield'in texi her değiştiğinde bu fonksiyon çalışacağı için google places'a birçok istek atmayı önlüyorum.
+        nearBySearchView.textField.rx.text.throttle(.seconds(2), scheduler: MainScheduler.instance).bind(onNext: { [weak self] text in
             if let text = text, !text.isEmpty {
+             
+                
                 self?.searchText.onNext(text)
             }
         }).disposed(by: disposeBag)

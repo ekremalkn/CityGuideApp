@@ -2,22 +2,27 @@
 //  NearbyPlacesCell.swift
 //  Hity
 //
-//  Created by Ekrem Alkan on 4.02.2023.
+//  Created by Ekrem Alkan on 5.02.2023.
 //
 
 import UIKit
+import CoreLocation
 
 protocol NearbyPlacesCellProtocol {
-    var placeImage: String { get }
+    var placeUID: String { get }
+    var placeLocation: CLLocationCoordinate2D { get }
+    var placeImage: String { get}
     var placeName: String { get }
     var placeAddress: String { get }
     var placeOpenClosedInfo: String { get }
-    var placeRating: String { get }
-    var placeTotalRatings: String { get }
-
 }
 
-final class NearbyPlacesCell: UITableViewCell {
+protocol NearbyPlacesCellInterface: AnyObject {
+    func detailButtonTapped(_ view: NearbyPlacesCell, _ placeUID: String)
+}
+
+final class NearbyPlacesCell: UICollectionViewCell {
+    
     
     //MARK: - Cell's Identifier
     
@@ -25,49 +30,75 @@ final class NearbyPlacesCell: UITableViewCell {
     
     //MARK: - Creating UI Elements
     
-    lazy var placeImage: UIImageView = {
+    private let placeImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleToFill
         imageView.isUserInteractionEnabled = false
         return imageView
     }()
     
-    lazy var placeName: UILabel = {
+    private let placeName: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var placeAddress: UILabel = {
+    private let placeOpenClosedInfo: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
         return label
     }()
     
-    lazy var placeOpenClosedInfo: UILabel = {
+    private let placeAddressView: UIView = {
+        let view = UIView()
+        return view
+    }()
+    
+    private let placeAdressImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "location")
+        return imageView
+    }()
+    
+    private let placeAddress: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         return label
     }()
     
-    lazy var placeRating: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        return label
+    private let buttonStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.backgroundColor = .black
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        return stackView
     }()
     
-    lazy var userRatingsTotal: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        return label
+    private let showLocationButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Konum", for: .normal)
+        return button
     }()
     
+    let showDetailsButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Detay", for: .normal)
+        return button
+    }()
     
+    //MARK: - Properties
     
-    //MARK: - Init Methods
+    weak var interface: NearbyPlacesCellInterface?
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    //MARK: - Variables
+    
+    var placeUID: String?
+    var location: CLLocationCoordinate2D?
+    
+    //MARK: - Init methods
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         configureCell()
     }
     
@@ -75,40 +106,51 @@ final class NearbyPlacesCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Confgure Cell
+    //MARK: - Configure Cell
     
     private func configureCell() {
-        backgroundColor = .clear
+        backgroundColor = .systemGray6
         addSubview()
         setupConstraints()
     }
-    
+
     func configure(_ data: NearbyPlacesCellProtocol) {
+        self.placeUID = data.placeUID
+        self.location = data.placeLocation
         self.placeImage.downloadSetImage(url: data.placeImage)
         self.placeName.text = data.placeName
-        self.placeAddress.text = data.placeAddress
         self.placeOpenClosedInfo.text = data.placeOpenClosedInfo
-        self.placeRating.text = data.placeRating
-        userRatingsTotal.text = data.placeTotalRatings
+        self.placeAddress.text = data.placeAddress
     }
     
-    
+
 }
 
 //MARK: - UI Elements Addsubview / Constraints
 
 extension NearbyPlacesCell {
     
-    //MARK: - Addsubview
+    //MARK: - AddSubview
     
     private func addSubview() {
         addSubview(placeImage)
         addSubview(placeName)
-        addSubview(placeAddress)
         addSubview(placeOpenClosedInfo)
-        addSubview(placeRating)
-        addSubview(userRatingsTotal)
+        addSubview(placeAddressView)
+        addressAndImageToView()
+        addSubview(buttonStackView)
+        buttonsToStackView()
         
+    }
+    
+    private func addressAndImageToView() {
+        placeAddressView.addSubview(placeAdressImage)
+        placeAddressView.addSubview(placeAddress)
+    }
+    
+    private func buttonsToStackView() {
+        buttonStackView.addArrangedSubview(showDetailsButton)
+        buttonStackView.addArrangedSubview(showLocationButton)
     }
     
     //MARK: - Setup Constraints
@@ -116,57 +158,73 @@ extension NearbyPlacesCell {
     private func setupConstraints() {
         placeImageConstraints()
         placeNameConstraints()
-        placeAddressConstraints()
         placeOpenClosedInfoConstraints()
-        placeRatingConstraints()
-        userRatingsTotalConstraints()
+        placeAddressViewConstraints()
+        placeAddressImageConstraints()
+        placeAddressConstraints()
+        buttonStackViewConstraints()
     }
     
     private func placeImageConstraints() {
         placeImage.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide)
-            make.bottom.equalTo(safeAreaLayoutGuide)
-            make.leading.equalTo(safeAreaLayoutGuide)
-            make.width.equalTo(placeImage.snp.height)
+            make.top.equalTo(safeAreaLayoutGuide).offset(10)
+            make.leading.equalTo(safeAreaLayoutGuide).offset(10)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.centerY)
         }
     }
     
     private func placeNameConstraints() {
         placeName.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(10)
-            make.leading.equalTo(placeImage.snp.trailing).offset(10)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
-        }
-    }
-    
-    private func placeAddressConstraints() {
-        placeAddress.snp.makeConstraints { make in
-            make.top.equalTo(placeName.snp.bottom).offset(5)
-            make.leading.trailing.equalTo(placeName)
+            make.top.equalTo(placeImage.snp.bottom).offset(10)
+            make.leading.equalTo(placeImage.snp.leading)
+            make.trailing.equalTo(placeOpenClosedInfo.snp.leading).offset(-5)
+            make.height.equalTo(placeName.snp.height)
         }
     }
     
     private func placeOpenClosedInfoConstraints() {
         placeOpenClosedInfo.snp.makeConstraints { make in
-            make.top.equalTo(placeAddress.snp.bottom).offset(5)
-            make.leading.trailing.equalTo(placeName)
+            make.centerY.equalTo(placeName.snp.centerY)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
+            make.width.equalTo(placeOpenClosedInfo.snp.width)
+        }
+    }
+
+    private func placeAddressViewConstraints() {
+        placeAddressView.snp.makeConstraints { make in
+            make.top.equalTo(placeName.snp.bottom).offset(10)
+            make.leading.equalTo(placeName.snp.leading)
+            make.trailing.equalTo(placeName.snp.trailing)
+            make.height.equalTo(placeAddress.snp.height)
         }
     }
     
-    private func placeRatingConstraints() {
-        placeRating.snp.makeConstraints { make in
-            make.top.equalTo(placeOpenClosedInfo.snp.bottom).offset(5)
-            make.leading.equalTo(placeName)
-            make.width.equalTo(placeRating.snp.width)
+    private func placeAddressImageConstraints() {
+        placeAdressImage.snp.makeConstraints { make in
+            make.centerY.equalTo(placeAddressView.snp.centerY)
+            make.leading.equalTo(placeName.snp.leading).offset(5)
+            make.width.height.equalTo(placeAddressView.snp.height)
         }
     }
     
-    private func userRatingsTotalConstraints() {
-        userRatingsTotal.snp.makeConstraints { make in
-            make.centerY.equalTo(placeRating)
-            make.leading.equalTo(placeRating.snp.trailing).offset(10)
-            make.trailing.equalTo(safeAreaLayoutGuide)
+    private func placeAddressConstraints() {
+        placeAddress.snp.makeConstraints { make in
+            make.centerY.equalTo(placeAddressView.snp.centerY)
+            make.leading.equalTo(placeAdressImage.snp.trailing).offset(10)
+            make.trailing.equalTo(placeAddressView.snp.trailing).offset(-5)
         }
     }
+    
+    private func buttonStackViewConstraints() {
+        buttonStackView.snp.makeConstraints { make in
+            make.top.equalTo(placeAddressView.snp.bottom).offset(20)
+            make.leading.trailing.equalTo(placeImage)
+            make.height.equalTo(58)
+        }
+    }
+    
+
+
     
 }

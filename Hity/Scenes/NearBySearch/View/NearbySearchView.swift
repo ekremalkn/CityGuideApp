@@ -29,11 +29,12 @@ final class NearbySearchView: UIView {
         return textField
     }()
     
-    
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(NearbyPlacesCell.self, forCellReuseIdentifier: NearbyPlacesCell.identifier)
-        return tableView
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.register(NearbyPlacesCell.self, forCellWithReuseIdentifier: "NearbyPlacesCell")
+        return collection
     }()
     
     
@@ -54,8 +55,8 @@ final class NearbySearchView: UIView {
         addSubview()
         setupConstraints()
     }
-    
-    
+  
+
     
 }
 
@@ -69,7 +70,7 @@ extension NearbySearchView {
     private func addSubview() {
         addSubview(label)
         addSubview(textField)
-        addSubview(tableView)
+        addSubview(collectionView)
     }
     
     //MARK: - Setup Constraints
@@ -100,7 +101,7 @@ extension NearbySearchView {
     }
     
     private func tableViewConstraints() {
-        tableView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(textField.snp.bottom)
             make.leading.equalTo(safeAreaLayoutGuide).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
