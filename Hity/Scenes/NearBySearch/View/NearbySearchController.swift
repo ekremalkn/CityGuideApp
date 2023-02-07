@@ -51,6 +51,7 @@ final class NearbySearchController: UIViewController {
     
     private func configureViewController() {
         nearBySearchView.collectionView.delegate = self
+        
         view.backgroundColor = .systemBackground
         view = nearBySearchView
         reactiveTextField()
@@ -65,17 +66,11 @@ final class NearbySearchController: UIViewController {
         
         //bind near places to tableview
         
-        nearBySearchViewModel.nearPlaces.bind(to: nearBySearchView.collectionView.rx.items(cellIdentifier: "NearbyPlacesCell", cellType: NearbyPlacesCell.self)) {row, nearPlaces, cell in
-            
+        nearBySearchViewModel.nearPlaces.bind(to: nearBySearchView.collectionView.rx.items(cellIdentifier: NearbyPlacesCell.identifier, cellType: NearbyPlacesCell.self)) {row, nearPlaces, cell in
+            cell.interace = self
             cell.configure(nearPlaces)
-            cell.showDetailsButton.rx.tap.subscribe(onNext: { _ in
-                if let placeUID = cell.placeUID {
-                    print("alkan")
-                    self.nearBySearchViewModel.fetchPlaceDetails(placeUID)
+            
 
-                }
-
-            }).disposed(by: self.disposeBag)
             
         }.disposed(by: disposeBag)
         
@@ -101,20 +96,30 @@ final class NearbySearchController: UIViewController {
         
         
     }
+
     
 }
 
-//MARK: - DidFetch placeDetails
+//MARK: - NearbyPlacesCellInterface, didFetchPlaceDetails, didFetchCoordinates
 
-extension NearbySearchController {
+extension NearbySearchController: NearbyPlacesCellInterface {
+  
+    func didTapDetailsButton(_ view: NearbyPlacesCell, _ placeUID: String) {
+        nearBySearchViewModel.fetchPlaceDetails(placeUID)
+    }
     
     func didFetchPlaceDetails() {
         nearBySearchViewModel.placeDetails.subscribe(onNext: { [weak self] placeDetails in
-            print("ekrem")
             let controller = PlaceDetailController(place: placeDetails)
             self?.show(controller, sender: nil)
         }).disposed(by: disposeBag)
     }
+
+    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D) {
+        self.delegate?.didTapNearLocation(coordinates, "", "")
+    }
+    
+    
 }
 
 

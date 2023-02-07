@@ -33,6 +33,8 @@
 		F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE3636298F75F80054D14E /* PlaceDetailController.swift */; };
 		F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE3638298F760D0054D14E /* PlaceDetailView.swift */; };
 		F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */; };
+		F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634A29923D9B00303553 /* MainTabBarController.swift */; };
+		F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634E29923F5400303553 /* FavoriteController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		F0AE3636298F75F80054D14E /* PlaceDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailController.swift; sourceTree = "<group>"; };
 		F0AE3638298F760D0054D14E /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
 		F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailModel.swift; sourceTree = "<group>"; };
+		F0D5634A29923D9B00303553 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		F0D5634E29923F5400303553 /* FavoriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,8 +232,10 @@
 			isa = PBXGroup;
 			children = (
 				F053F388298910AB001D9CD6 /* Onboarding */,
+				F0D5634729923D5600303553 /* TabBar */,
 				F061A5BC2986EBA300EAD006 /* Search */,
 				F055FCAF298D5FD800A928CB /* NearBySearch */,
+				F0D5634C29923F3800303553 /* Favorite */,
 				F0AE3634298F75CB0054D14E /* PlaceDetail */,
 			);
 			path = Scenes;
@@ -336,6 +342,38 @@
 			children = (
 				F0AE3636298F75F80054D14E /* PlaceDetailController.swift */,
 				F0AE3638298F760D0054D14E /* PlaceDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0D5634729923D5600303553 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				F0D5634829923D6200303553 /* View */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		F0D5634829923D6200303553 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0D5634A29923D9B00303553 /* MainTabBarController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0D5634C29923F3800303553 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				F0D5634D29923F4000303553 /* View */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		F0D5634D29923F4000303553 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0D5634E29923F5400303553 /* FavoriteController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -456,6 +494,7 @@
 			files = (
 				F055FCA6298D46A000A928CB /* NetworkHelper.swift in Sources */,
 				F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */,
+				F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */,
 				F055FCB2298D600A00A928CB /* NearbySearchController.swift in Sources */,
 				F055FCAC298D496700A928CB /* WebService.swift in Sources */,
 				F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */,
@@ -468,6 +507,7 @@
 				F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */,
 				F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
+				F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */,
 				F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
 				F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */,

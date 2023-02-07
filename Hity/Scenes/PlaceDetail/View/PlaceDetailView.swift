@@ -109,7 +109,10 @@ final class PlaceDetailView: UIView {
     }
     
     func configure(data: DetailResults) {
-        self.placeImage.downloadSetImage(url: (data.photos?[0].photoReference)!)
+        if let photo =   data.photos?[0].photoReference {
+            self.placeImage.downloadSetImage(url: photo)
+
+        }
         self.placeName.text = data.name
         self.ratingButton.setTitle("\(data.rating)", for: .normal)
         self.placeAdress.text = data.formattedAddress

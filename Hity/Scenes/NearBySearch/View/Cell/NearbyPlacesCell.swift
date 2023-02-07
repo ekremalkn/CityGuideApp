@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreLocation
+import RxSwift
 
 protocol NearbyPlacesCellProtocol {
     var placeUID: String { get }
@@ -18,7 +19,8 @@ protocol NearbyPlacesCellProtocol {
 }
 
 protocol NearbyPlacesCellInterface: AnyObject {
-    func detailButtonTapped(_ view: NearbyPlacesCell, _ placeUID: String)
+    func didTapDetailsButton(_ view: NearbyPlacesCell, _ placeUID: String)
+    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D)
 }
 
 final class NearbyPlacesCell: UICollectionViewCell {
@@ -87,13 +89,16 @@ final class NearbyPlacesCell: UICollectionViewCell {
     }()
     
     //MARK: - Properties
-    
-    weak var interface: NearbyPlacesCellInterface?
+    weak var interace: NearbyPlacesCellInterface?
+    private let nearBySearchViewModel = NearbySearchViewModel()
+    private let disposeBag = DisposeBag()
     
     //MARK: - Variables
     
     var placeUID: String?
-    var location: CLLocationCoordinate2D?
+    var locations: CLLocationCoordinate2D?
+    var name: String?
+    var address: String?
     
     //MARK: - Init methods
     
@@ -112,17 +117,37 @@ final class NearbyPlacesCell: UICollectionViewCell {
         backgroundColor = .systemGray6
         addSubview()
         setupConstraints()
+        addTarget()
     }
 
     func configure(_ data: NearbyPlacesCellProtocol) {
         self.placeUID = data.placeUID
-        self.location = data.placeLocation
+        self.locations = data.placeLocation
         self.placeImage.downloadSetImage(url: data.placeImage)
         self.placeName.text = data.placeName
         self.placeOpenClosedInfo.text = data.placeOpenClosedInfo
         self.placeAddress.text = data.placeAddress
     }
     
+    //MARK: - AddAction to Button
+    
+    private func addTarget() {
+        showDetailsButton.addTarget(self, action: #selector(tapDetailsButton), for: .touchUpInside)
+        showLocationButton.addTarget(self, action: #selector(tapLocationButton), for: .touchUpInside)
+    }
+    
+    @objc private func tapDetailsButton(_ button: UIButton) {
+        if let placeUID = placeUID {
+            self.interace?.didTapDetailsButton(self, placeUID)
+        }
+    }
+    
+    @objc private func tapLocationButton(_ button: UIButton) {
+        if let locations = locations {
+            self.interace?.didTapLocationButton(self, locations)
+        }
+    }
+
 
 }
 
