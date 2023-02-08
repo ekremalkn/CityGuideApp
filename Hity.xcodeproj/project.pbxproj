@@ -32,6 +32,8 @@
 		F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */; };
 		F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE3636298F75F80054D14E /* PlaceDetailController.swift */; };
 		F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE3638298F760D0054D14E /* PlaceDetailView.swift */; };
+		F0B0F94429936AFE00C54A33 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0F94329936AFE00C54A33 /* FavoriteView.swift */; };
+		F0B0F94729936C8B00C54A33 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0F94629936C8B00C54A33 /* FavoriteCell.swift */; };
 		F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */; };
 		F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634A29923D9B00303553 /* MainTabBarController.swift */; };
 		F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634E29923F5400303553 /* FavoriteController.swift */; };
@@ -67,6 +69,8 @@
 		F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		F0AE3636298F75F80054D14E /* PlaceDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailController.swift; sourceTree = "<group>"; };
 		F0AE3638298F760D0054D14E /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
+		F0B0F94329936AFE00C54A33 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
+		F0B0F94629936C8B00C54A33 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailModel.swift; sourceTree = "<group>"; };
 		F0D5634A29923D9B00303553 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F0D5634E29923F5400303553 /* FavoriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteController.swift; sourceTree = "<group>"; };
@@ -346,6 +350,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F0B0F94529936C6200C54A33 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F0B0F94629936C8B00C54A33 /* FavoriteCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F0D5634729923D5600303553 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,7 +385,9 @@
 		F0D5634D29923F4000303553 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F0B0F94529936C6200C54A33 /* Cell */,
 				F0D5634E29923F5400303553 /* FavoriteController.swift */,
+				F0B0F94329936AFE00C54A33 /* FavoriteView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -500,12 +514,14 @@
 				F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */,
 				F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */,
 				F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */,
+				F0B0F94429936AFE00C54A33 /* FavoriteView.swift in Sources */,
 				F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */,
 				F055FCA4298D42EF00A928CB /* NetworkManager.swift in Sources */,
 				F04A8F39298FEA2000E245AF /* NearbyPlacesCell.swift in Sources */,
 				F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */,
 				F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */,
 				F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */,
+				F0B0F94729936C8B00C54A33 /* FavoriteCell.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
 				F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */,
 				F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */,

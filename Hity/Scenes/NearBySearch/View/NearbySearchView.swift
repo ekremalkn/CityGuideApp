@@ -33,7 +33,7 @@ final class NearbySearchView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.register(NearbyPlacesCell.self, forCellWithReuseIdentifier: "NearbyPlacesCell")
+        collection.register(NearbyPlacesCell.self, forCellWithReuseIdentifier: NearbyPlacesCell.identifier)
         return collection
     }()
     

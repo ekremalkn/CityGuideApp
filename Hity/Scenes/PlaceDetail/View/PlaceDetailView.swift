@@ -52,7 +52,7 @@ final class PlaceDetailView: UIView {
         return label
     }()
     
-    private let saveButton: UIButton = {
+    private let favButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         return button
@@ -114,7 +114,7 @@ final class PlaceDetailView: UIView {
 
         }
         self.placeName.text = data.name
-        self.ratingButton.setTitle("\(data.rating)", for: .normal)
+        self.ratingButton.setTitle(String(describing: data.rating), for: .normal)
         self.placeAdress.text = data.formattedAddress
     }
     
@@ -139,7 +139,7 @@ extension PlaceDetailView {
     }
     
     private func saveButtonToImageView() {
-        placeImage.addSubview(saveButton)
+        placeImage.addSubview(favButton)
     }
     
     private func addressAndImageToView() {
@@ -177,7 +177,7 @@ extension PlaceDetailView {
     }
     
     private func saveButtonConstraints() {
-        saveButton.snp.makeConstraints { make in
+        favButton.snp.makeConstraints { make in
             make.bottom.equalTo(placeImage.snp.bottom).offset(20)
             make.trailing.equalTo(placeImage.snp.trailing).offset(-20)
         }
