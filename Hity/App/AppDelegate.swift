@@ -7,6 +7,10 @@
 
 import UIKit
 import GooglePlaces
+import FirebaseCore
+import GoogleSignIn
+import FBSDKCoreKit
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,9 +19,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Firebase Configure
+        FirebaseApp.configure()
+        
+        //  GoogleSignIn
+        if let clientID = FirebaseApp.app()?.options.clientID {
+            let config = GIDConfiguration(clientID: clientID)
+        }
+        
+        // Facebook SignIn
+        FBSDKCoreKit.ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        // Google Places
         GMSPlacesClient.provideAPIKey("AIzaSyAkPTDhADLekUMuAMbmMWmSYD_v_bAboQg")
+ 
+        
         return true
     }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return GIDSignIn.sharedInstance.handle(url)
+    }
+    
+    
+
 
     // MARK: UISceneSession Lifecycle
 

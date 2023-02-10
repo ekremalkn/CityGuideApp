@@ -16,7 +16,6 @@ final class SearchController: UIViewController {
     //MARK: - Properties
     
     private let searchView = SearchView()
-    private let searchViewModel = SearchViewModel()
     private let panel = FloatingPanelController()
     
     

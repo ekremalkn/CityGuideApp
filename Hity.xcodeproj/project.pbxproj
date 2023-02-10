@@ -26,7 +26,6 @@
 		F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5C02986EC4300EAD006 /* SearchView.swift */; };
 		F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5C52986EF6700EAD006 /* SearchResultController.swift */; };
 		F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5C72986EF7300EAD006 /* SearchResultView.swift */; };
-		F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */; };
 		F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CE2986F57700EAD006 /* PlacesModel.swift */; };
 		F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5D12986FD2300EAD006 /* SearchViewModel.swift */; };
 		F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */; };
@@ -37,12 +36,23 @@
 		F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */; };
 		F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634A29923D9B00303553 /* MainTabBarController.swift */; };
 		F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634E29923F5400303553 /* FavoriteController.swift */; };
+		F0FEA0012996378800EE7D45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */; };
+		F0FEA0052996381F00EE7D45 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0FEA0042996381F00EE7D45 /* FirebaseAuth */; };
+		F0FEA0072996381F00EE7D45 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F0FEA0062996381F00EE7D45 /* FirebaseFirestore */; };
+		F0FEA00A29963E1600EE7D45 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F0FEA00929963E1600EE7D45 /* GoogleSignIn */; };
+		F0FEA00E29963E9700EE7D45 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FEA00D29963E9700EE7D45 /* SignInController.swift */; };
+		F0FEA01029963EA500EE7D45 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FEA00F29963EA500EE7D45 /* SignInView.swift */; };
+		F0FEA0142996415800EE7D45 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FEA0132996415800EE7D45 /* SignInViewModel.swift */; };
+		F0FEA01B299675DF00EE7D45 /* GooglePlacesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FEA01A299675DF00EE7D45 /* GooglePlacesManager.swift */; };
+		F0FEA02029967B1200EE7D45 /* RandomNonceString.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FEA01F29967B1200EE7D45 /* RandomNonceString.swift */; };
+		F0FEA02229967B4F00EE7D45 /* Sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FEA02129967B4F00EE7D45 /* Sha256.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		784BF3C55039876571558652 /* libPods-Hity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		961A847DF6CDB85E3223EDFC /* Pods-Hity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.debug.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.debug.xcconfig"; sourceTree = "<group>"; };
 		BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.release.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.release.xcconfig"; sourceTree = "<group>"; };
+		F01AA3192996930B0097173D /* Hity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hity.entitlements; sourceTree = "<group>"; };
 		F04A8F38298FEA2000E245AF /* NearbyPlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCell.swift; sourceTree = "<group>"; };
 		F053F38A298910C3001D9CD6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		F053F38C298916A7001D9CD6 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
@@ -63,7 +73,6 @@
 		F061A5C02986EC4300EAD006 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		F061A5C52986EF6700EAD006 /* SearchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultController.swift; sourceTree = "<group>"; };
 		F061A5C72986EF7300EAD006 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
-		F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
 		F061A5CE2986F57700EAD006 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 		F061A5D12986FD2300EAD006 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
@@ -74,6 +83,13 @@
 		F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailModel.swift; sourceTree = "<group>"; };
 		F0D5634A29923D9B00303553 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F0D5634E29923F5400303553 /* FavoriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteController.swift; sourceTree = "<group>"; };
+		F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F0FEA00D29963E9700EE7D45 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
+		F0FEA00F29963EA500EE7D45 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		F0FEA0132996415800EE7D45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		F0FEA01A299675DF00EE7D45 /* GooglePlacesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesManager.swift; sourceTree = "<group>"; };
+		F0FEA01F29967B1200EE7D45 /* RandomNonceString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonceString.swift; sourceTree = "<group>"; };
+		F0FEA02129967B4F00EE7D45 /* Sha256.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sha256.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +98,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1350F679322A5873075E17B8 /* libPods-Hity.a in Frameworks */,
+				F0FEA00A29963E1600EE7D45 /* GoogleSignIn in Frameworks */,
+				F0FEA0052996381F00EE7D45 /* FirebaseAuth in Frameworks */,
+				F0FEA0072996381F00EE7D45 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				F055FCA7298D490900A928CB /* NetworkManager */,
-				F061A5CA2986F49B00EAD006 /* GooglePlacesManager */,
+				F0FEA01C299675F500EE7D45 /* GooglePlacesManager */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -196,7 +215,9 @@
 		F061A5A32986EA7500EAD006 /* Hity */ = {
 			isa = PBXGroup;
 			children = (
+				F01AA3192996930B0097173D /* Hity.entitlements */,
 				F061A5B82986EAEE00EAD006 /* App */,
+				F0FEA01D29967AF300EE7D45 /* Helper */,
 				F0735B05298E8173005306D8 /* Extensions */,
 				F061A5BB2986EB4E00EAD006 /* Scenes */,
 				F061A5C92986F49400EAD006 /* Network */,
@@ -228,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				F061A5B22986EA7500EAD006 /* Info.plist */,
+				F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -236,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				F053F388298910AB001D9CD6 /* Onboarding */,
+				F0FEA00B29963E7A00EE7D45 /* Auth */,
 				F0D5634729923D5600303553 /* TabBar */,
 				F061A5BC2986EBA300EAD006 /* Search */,
 				F055FCAF298D5FD800A928CB /* NearBySearch */,
@@ -289,14 +312,6 @@
 				F061A5CD2986F56200EAD006 /* Model */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		F061A5CA2986F49B00EAD006 /* GooglePlacesManager */ = {
-			isa = PBXGroup;
-			children = (
-				F061A5CB2986F4B400EAD006 /* GooglePlacesManager.swift */,
-			);
-			path = GooglePlacesManager;
 			sourceTree = "<group>";
 		};
 		F061A5CD2986F56200EAD006 /* Model */ = {
@@ -392,6 +407,57 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F0FEA00B29963E7A00EE7D45 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F0FEA00C29963E8200EE7D45 /* SignIn */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		F0FEA00C29963E8200EE7D45 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				F0FEA0122996413100EE7D45 /* ViewModel */,
+				F0FEA0112996412700EE7D45 /* View */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		F0FEA0112996412700EE7D45 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0FEA00D29963E9700EE7D45 /* SignInController.swift */,
+				F0FEA00F29963EA500EE7D45 /* SignInView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0FEA0122996413100EE7D45 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0FEA0132996415800EE7D45 /* SignInViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0FEA01C299675F500EE7D45 /* GooglePlacesManager */ = {
+			isa = PBXGroup;
+			children = (
+				F0FEA01A299675DF00EE7D45 /* GooglePlacesManager.swift */,
+			);
+			path = GooglePlacesManager;
+			sourceTree = "<group>";
+		};
+		F0FEA01D29967AF300EE7D45 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F0FEA01F29967B1200EE7D45 /* RandomNonceString.swift */,
+				F0FEA02129967B4F00EE7D45 /* Sha256.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -404,12 +470,18 @@
 				F061A59E2986EA7500EAD006 /* Frameworks */,
 				F061A59F2986EA7500EAD006 /* Resources */,
 				45B8552CEE87D2C9720DBAE6 /* [CP] Copy Pods Resources */,
+				117D05ED8FF09616FF6DA2EE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Hity;
+			packageProductDependencies = (
+				F0FEA0042996381F00EE7D45 /* FirebaseAuth */,
+				F0FEA0062996381F00EE7D45 /* FirebaseFirestore */,
+				F0FEA00929963E1600EE7D45 /* GoogleSignIn */,
+			);
 			productName = Hity;
 			productReference = F061A5A12986EA7500EAD006 /* Hity.app */;
 			productType = "com.apple.product-type.application";
@@ -438,6 +510,10 @@
 				Base,
 			);
 			mainGroup = F061A5982986EA7500EAD006;
+			packageReferences = (
+				F0FEA0032996381F00EE7D45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F0FEA00829963E1600EE7D45 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			productRefGroup = F061A5A22986EA7500EAD006 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -454,12 +530,30 @@
 			files = (
 				F061A5B12986EA7500EAD006 /* LaunchScreen.storyboard in Resources */,
 				F061A5AE2986EA7500EAD006 /* Assets.xcassets in Resources */,
+				F0FEA0012996378800EE7D45 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		117D05ED8FF09616FF6DA2EE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hity/Pods-Hity-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Hity/Pods-Hity-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Hity/Pods-Hity-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		184BA876738038B56E74C6C1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -506,6 +600,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0FEA02229967B4F00EE7D45 /* Sha256.swift in Sources */,
 				F055FCA6298D46A000A928CB /* NetworkHelper.swift in Sources */,
 				F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */,
 				F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */,
@@ -514,13 +609,15 @@
 				F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */,
 				F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */,
 				F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */,
+				F0FEA01029963EA500EE7D45 /* SignInView.swift in Sources */,
 				F0B0F94429936AFE00C54A33 /* FavoriteView.swift in Sources */,
+				F0FEA00E29963E9700EE7D45 /* SignInController.swift in Sources */,
 				F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */,
 				F055FCA4298D42EF00A928CB /* NetworkManager.swift in Sources */,
 				F04A8F39298FEA2000E245AF /* NearbyPlacesCell.swift in Sources */,
+				F0FEA0142996415800EE7D45 /* SignInViewModel.swift in Sources */,
 				F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */,
 				F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */,
-				F061A5CC2986F4B400EAD006 /* GooglePlacesManager.swift in Sources */,
 				F0B0F94729936C8B00C54A33 /* FavoriteCell.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
 				F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */,
@@ -528,11 +625,13 @@
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
 				F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */,
 				F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */,
+				F0FEA01B299675DF00EE7D45 /* GooglePlacesManager.swift in Sources */,
 				F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */,
 				F055FCB4298D601800A928CB /* NearbySearchView.swift in Sources */,
 				F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */,
 				F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */,
 				F055FCB7298D6C4300A928CB /* NearbySearchViewModel.swift in Sources */,
+				F0FEA02029967B1200EE7D45 /* RandomNonceString.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,6 +769,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Hity/Hity.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78Y3UD747G;
@@ -699,6 +799,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Hity/Hity.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78Y3UD747G;
@@ -744,6 +845,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F0FEA0032996381F00EE7D45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		F0FEA00829963E1600EE7D45 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F0FEA0042996381F00EE7D45 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0FEA0032996381F00EE7D45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		F0FEA0062996381F00EE7D45 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0FEA0032996381F00EE7D45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		F0FEA00929963E1600EE7D45 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0FEA00829963E1600EE7D45 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F061A5992986EA7500EAD006 /* Project object */;
 }

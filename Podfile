@@ -8,5 +8,8 @@ target 'Hity' do
             pod 'RxCocoa', '6.5.0'
     	    pod 'Alamofire'
 	    pod 'FloatingPanel'
+            pod 'FBSDKLoginKit'
+    
+
 
 end
