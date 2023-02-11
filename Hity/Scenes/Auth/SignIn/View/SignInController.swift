@@ -11,41 +11,58 @@ import AuthenticationServices
 import FBSDKLoginKit
 
 final class SignInController: UIViewController {
-
+    
     
     //MARK: - Properties
     
     private let signInView = SignInView()
     private let signInViewModel = SignInViewModel()
     private let disposeBag = DisposeBag()
-
-
+    
+    //MARK: - Gettable Properties
+    
+    var email: String {
+        guard let email = signInView.emailTextField.text else { return ""}
+        return email
+    }
+    
+    var password: String {
+        guard let password = signInView.passwordTextField.text else { return ""}
+        return password
+    }
+    
+    
     //MARK: - Lifecycle Methods
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         
-
+        
     }
     
     //MARK: - Configure ViewController
-
+    
     private func configureViewController() {
         view = signInView
         signInView.interface = self
+        configureSignInMethods()
+    }
+    
+    //MARK: - Section Heading
+    
+    private func configureSignInMethods() {
         didGetCredential()
         didGetRequest()
         setupFacebookSignInButton()
     }
-
+    
 }
 
 //MARK: - SignInViewInterface
 
 extension SignInController: SignInViewInterface {
-
-
+    
     func googleSignInButtonTapped(_ view: SignInView) {
         signInViewModel.getGoogleCredential(self)
     }
@@ -53,9 +70,14 @@ extension SignInController: SignInViewInterface {
     func appleSignInButtonTapped(_ view: SignInView) {
         appleIDProviderRequest()
     }
-   
-    func facebookSignInButttonTapped(_ view: SignInView) {
     
+    func signUpButtonTapped(_ view: SignInView) {
+        let controller = SignUpController()
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func signInButtonTapped(_ view: SignInView) {
+        signInViewModel.signInWithEmail(email, password)
     }
     
     
@@ -66,7 +88,7 @@ extension SignInController: SignInViewInterface {
 extension SignInController {
     func didGetCredential() {
         signInViewModel.credential.subscribe { [weak self] credential in
-            self?.signInViewModel.signIn(credential)
+            self?.signInViewModel.signInWithProvider(credential)
         }.disposed(by: disposeBag)
     }
 }
@@ -83,18 +105,20 @@ extension SignInController: LoginButtonDelegate  {
         if let error = error {
             print(error.localizedDescription)
             return
-          }
+        }
         
         guard let result = result else { return }
         if let tokenString = result.token?.tokenString {
+            
             signInViewModel.getFacebookCredential(tokenString)
+            
         }
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
         signInViewModel.signOut()
     }
-   
+    
 }
 
 
@@ -121,13 +145,13 @@ extension SignInController {
 extension SignInController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         signInViewModel.didCompleteWithAuthorization(authorization)
-       
+        
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print(error.localizedDescription)
     }
-
+    
     
 }
 

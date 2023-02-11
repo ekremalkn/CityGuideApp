@@ -34,6 +34,13 @@
 		F0B0F94429936AFE00C54A33 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0F94329936AFE00C54A33 /* FavoriteView.swift */; };
 		F0B0F94729936C8B00C54A33 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0F94629936C8B00C54A33 /* FavoriteCell.swift */; };
 		F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */; };
+		F0C4FB1029978BB600823275 /* Encodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB0F29978BB600823275 /* Encodable+Dictionary.swift */; };
+		F0C4FB1329978CB700823275 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1229978CB700823275 /* User.swift */; };
+		F0C4FB1829980A4200823275 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1729980A4200823275 /* SignUpController.swift */; };
+		F0C4FB1A29980A5000823275 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1929980A5000823275 /* SignUpView.swift */; };
+		F0C4FB1C2998190500823275 /* UITextField+PaddingPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1B2998190500823275 /* UITextField+PaddingPoints.swift */; };
+		F0C4FB1F2998216700823275 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1E2998216700823275 /* SignUpViewModel.swift */; };
+		F0C4FB2129983EC200823275 /* UITextField+RightViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */; };
 		F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634A29923D9B00303553 /* MainTabBarController.swift */; };
 		F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634E29923F5400303553 /* FavoriteController.swift */; };
 		F0FEA0012996378800EE7D45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */; };
@@ -81,6 +88,13 @@
 		F0B0F94329936AFE00C54A33 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		F0B0F94629936C8B00C54A33 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailModel.swift; sourceTree = "<group>"; };
+		F0C4FB0F29978BB600823275 /* Encodable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Dictionary.swift"; sourceTree = "<group>"; };
+		F0C4FB1229978CB700823275 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F0C4FB1729980A4200823275 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		F0C4FB1929980A5000823275 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		F0C4FB1B2998190500823275 /* UITextField+PaddingPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+PaddingPoints.swift"; sourceTree = "<group>"; };
+		F0C4FB1E2998216700823275 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+RightViewButton.swift"; sourceTree = "<group>"; };
 		F0D5634A29923D9B00303553 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F0D5634E29923F5400303553 /* FavoriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteController.swift; sourceTree = "<group>"; };
 		F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -344,6 +358,9 @@
 			isa = PBXGroup;
 			children = (
 				F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */,
+				F0C4FB0F29978BB600823275 /* Encodable+Dictionary.swift */,
+				F0C4FB1B2998190500823275 /* UITextField+PaddingPoints.swift */,
+				F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -371,6 +388,41 @@
 				F0B0F94629936C8B00C54A33 /* FavoriteCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F0C4FB1129978CAD00823275 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F0C4FB1229978CB700823275 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F0C4FB1429980A0E00823275 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				F0C4FB1129978CAD00823275 /* Model */,
+				F0C4FB1D2998215400823275 /* ViewModel */,
+				F0C4FB1529980A2100823275 /* View */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		F0C4FB1529980A2100823275 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0C4FB1729980A4200823275 /* SignUpController.swift */,
+				F0C4FB1929980A5000823275 /* SignUpView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0C4FB1D2998215400823275 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0C4FB1E2998216700823275 /* SignUpViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F0D5634729923D5600303553 /* TabBar */ = {
@@ -410,6 +462,7 @@
 		F0FEA00B29963E7A00EE7D45 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				F0C4FB1429980A0E00823275 /* SignUp */,
 				F0FEA00C29963E8200EE7D45 /* SignIn */,
 			);
 			path = Auth;
@@ -601,6 +654,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0FEA02229967B4F00EE7D45 /* Sha256.swift in Sources */,
+				F0C4FB1029978BB600823275 /* Encodable+Dictionary.swift in Sources */,
 				F055FCA6298D46A000A928CB /* NetworkHelper.swift in Sources */,
 				F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */,
 				F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */,
@@ -613,8 +667,10 @@
 				F0B0F94429936AFE00C54A33 /* FavoriteView.swift in Sources */,
 				F0FEA00E29963E9700EE7D45 /* SignInController.swift in Sources */,
 				F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */,
+				F0C4FB2129983EC200823275 /* UITextField+RightViewButton.swift in Sources */,
 				F055FCA4298D42EF00A928CB /* NetworkManager.swift in Sources */,
 				F04A8F39298FEA2000E245AF /* NearbyPlacesCell.swift in Sources */,
+				F0C4FB1A29980A5000823275 /* SignUpView.swift in Sources */,
 				F0FEA0142996415800EE7D45 /* SignInViewModel.swift in Sources */,
 				F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */,
 				F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */,
@@ -622,12 +678,16 @@
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
 				F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */,
 				F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */,
+				F0C4FB1F2998216700823275 /* SignUpViewModel.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
+				F0C4FB1329978CB700823275 /* User.swift in Sources */,
 				F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */,
 				F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */,
 				F0FEA01B299675DF00EE7D45 /* GooglePlacesManager.swift in Sources */,
 				F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */,
 				F055FCB4298D601800A928CB /* NearbySearchView.swift in Sources */,
+				F0C4FB1C2998190500823275 /* UITextField+PaddingPoints.swift in Sources */,
+				F0C4FB1829980A4200823275 /* SignUpController.swift in Sources */,
 				F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */,
 				F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */,
 				F055FCB7298D6C4300A928CB /* NearbySearchViewModel.swift in Sources */,

@@ -9,6 +9,7 @@
 import GoogleSignIn
 import FirebaseCore
 import FirebaseAuth
+import FirebaseFirestore
 import AuthenticationServices
 import FBSDKLoginKit
 import RxSwift
@@ -16,26 +17,48 @@ import RxSwift
 
 final class SignInViewModel {
     
+    //MARK: - SignIn Variables
     private let googleSignInManager = GIDSignIn.sharedInstance
     
     let credential = PublishSubject<AuthCredential>()
     let request = PublishSubject<ASAuthorizationAppleIDRequest>()
     fileprivate var currentNonce: String?
     
+    //MARK: - FirestoreDatabase Constants
+    private let database = Firestore.firestore()
     
-    func signIn(_ credential: AuthCredential) {
-        Auth.auth().signIn(with: credential) { authResult, error in
+    
+    func signInWithProvider(_ credential: AuthCredential) {
+        
+        Auth.auth().signIn(with: credential) { [weak self] authResult, authError in
             
-            if let error = error {
-                print(error.localizedDescription)
+            if let authError = authError {
+                
+                print(authError.localizedDescription)
                 return
             }
+            guard let authResult = authResult else { return }
             
-            guard let _ = authResult else { return }
             
-            print("giriş başarılı")
+            
+        }
+        
+    }
+    
+    func signInWithEmail(_ email: String, _ password: String) {
+        let firebaseAuth = Auth.auth()
+        
+        firebaseAuth.signIn(withEmail: email, password: password) { authResult, authError in
+            if let authError = authError {
+                print(authError.localizedDescription)
+                return
+            } else {
+                print("giriş başarılı")
+            }
+            
         }
     }
+    
     
     func signOut() {
         let firebaseAuth = Auth.auth()
@@ -66,7 +89,6 @@ extension SignInViewModel {
             guard let userResult = userResult else { return }
             if let idToken = userResult.user.idToken?.tokenString {
                 let accessToken = userResult.user.accessToken.tokenString
-                
                 let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
                 self?.credential.onNext(credential)
             }
@@ -109,7 +131,7 @@ extension SignInViewModel {
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
             self.credential.onNext(credential)
         }
-     
+        
     }
     
 }
