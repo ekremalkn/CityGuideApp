@@ -75,6 +75,16 @@ extension SignInViewModel {
     }
 }
 
+//MARK: - SignInWithFacebook Methods
+
+extension SignInViewModel {
+    func getFacebookCredential(_ tokenString: String) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
+        self.credential.onNext(credential)
+    }
+}
+
+
 //MARK: - SignInWithApple Methods
 
 extension SignInViewModel {

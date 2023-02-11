@@ -36,6 +36,7 @@ final class SignInController: UIViewController {
         signInView.interface = self
         didGetCredential()
         didGetRequest()
+        setupFacebookSignInButton()
     }
 
 }
@@ -70,9 +71,31 @@ extension SignInController {
     }
 }
 
+//MARK: - SignInWithFacebook Methods
 
+extension SignInController: LoginButtonDelegate  {
     
-
+    func setupFacebookSignInButton() {
+        signInView.facebookSignInButton.delegate = self
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+          }
+        
+        guard let result = result else { return }
+        if let tokenString = result.token?.tokenString {
+            signInViewModel.getFacebookCredential(tokenString)
+        }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
+        signInViewModel.signOut()
+    }
+   
+}
 
 
 //MARK: - SignInWithApple Methods
