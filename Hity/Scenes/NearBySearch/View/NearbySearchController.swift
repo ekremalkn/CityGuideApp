@@ -115,8 +115,8 @@ extension NearbySearchController: NearbyPlacesCellInterface {
         }).disposed(by: disposeBag)
     }
 
-    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D) {
-        self.delegate?.didTapNearLocation(coordinates, "", "")
+    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D, _ placeName: String) {
+        self.delegate?.didTapNearLocation(coordinates, placeName, "")
     }
     
     

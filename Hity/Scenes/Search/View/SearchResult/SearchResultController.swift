@@ -23,6 +23,7 @@ final class SearchResultController: UIViewController {
     private let searchViewModel = SearchViewModel()
     
     var searchText = PublishSubject<String>()
+    var placeName = PublishSubject<String>()
     
     private let disposeBag = DisposeBag()
     
@@ -60,6 +61,7 @@ final class SearchResultController: UIViewController {
         // handle didselect
         searchResultView.tableView.rx.modelSelected(PlacesModel.self).bind(onNext: { [weak self] place in
             self?.searchViewModel.fetchCoordinates(place.placeUID)
+            self?.placeName.onNext(place.placeName)
         }).disposed(by: disposeBag)
         
     }

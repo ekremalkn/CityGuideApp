@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import MapKit
 import FloatingPanel
+import CoreLocation
 
 
 final class SearchController: UIViewController {
@@ -17,7 +18,7 @@ final class SearchController: UIViewController {
     
     private let searchView = SearchView()
     private let panel = FloatingPanelController()
-    
+    private let locationManager = CLLocationManager()
     
     private let disposeBag = DisposeBag()
     
@@ -37,6 +38,8 @@ final class SearchController: UIViewController {
     private func configureViewController() {
         view = searchView
         configureSearchController()
+        customizeNavBar()
+        setupUserLocation()
     }
     
     //MARK: - ConfigureSearchController
@@ -48,6 +51,15 @@ final class SearchController: UIViewController {
         reactiveUISearchController()
     }
     
+    //MARK: - Customize NavBar
+    
+    private func customizeNavBar() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: searchView.leftButton)
+        self.navigationItem.titleView = searchView.locationButton
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchView.profileButton)
+    }
+
+    
 }
 
 //MARK: - Reactive UISearchController
@@ -58,13 +70,19 @@ extension SearchController {
         
         guard let resultViewController = searchViewController.searchResultsController as? SearchResultController else { return }
         resultViewController.searchResultControllerDelegate = self
-        
+        self.placeNameCallbacks(resultViewController)
         searchViewController.searchBar.rx.text.throttle(.seconds(2), scheduler: MainScheduler.instance).bind(onNext: { text in
             if let text = text {
                 resultViewController.searchText.onNext(text)
             }
             
         }).disposed(by: disposeBag)
+    }
+    
+    private func placeNameCallbacks(_ controller: SearchResultController) {
+        controller.placeName.bind { [weak self] placeName in
+            self?.searchView.locationButton.setTitle(placeName, for: .normal)
+        }.disposed(by: disposeBag)
     }
 }
 
@@ -74,9 +92,10 @@ extension SearchController {
 extension SearchController: SearchResultControllerDelegate {
     
     func didTapSearchLocation(_ coordinates: CLLocationCoordinate2D) {
+        
         closeKeyboard()
         removeAnnotations()
-        addAnnotations(coordinates, "Şu an bu konuma göre arama yapıyorsun.")
+        addAnnotations(coordinates, "Bu konumun etrafında arama yapıyorsun", "")
         createFloatingPanel(coordinates)
     }
     
@@ -107,15 +126,17 @@ extension SearchController {
         
     }
     
-    func addAnnotations(_ coordinates: CLLocationCoordinate2D, _ placeUID: String? = nil, _ title: String? = nil, _ subTitle: String? = nil) {
+    func addAnnotations(_ coordinates: CLLocationCoordinate2D, _ title: String? = nil, _ subTitle: String? = nil) {
         let pin = MKPointAnnotation()
         
         pin.coordinate = coordinates
+        
         if let title = title {
             pin.title = title
         }
-        if let placeUID = placeUID {
-            pin.subtitle = placeUID
+        
+        if let subTitle = subTitle {
+            pin.subtitle = subTitle
         }
         searchView.mapView.addAnnotation(pin)
 
@@ -154,6 +175,68 @@ extension SearchController: NearbySearchControllerDelegate {
         addAnnotations(coordinates, pinTitle, pinSubTitle)
         panel.move(to: .tip, animated: true)
     }
+    
+}
+
+
+//MARK: - User Current Location
+
+extension SearchController: CLLocationManagerDelegate {
+    
+    
+    private func setupUserLocation() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationButtonCallback()
+    }
+    
+    private func locationButtonCallback() {
+        searchView.locationButton.rx.tap.bind { [weak self] value in
+            // location updates when the user tap button
+                self?.locationManager.startUpdatingLocation()
+                        
+        }.disposed(by: disposeBag)
+        
+    }
+
+        
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        // Handle changes if location permissions
+
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // Handle location update
+        if let location = locations.last {
+                let latitude = location.coordinate.latitude
+                let longitude = location.coordinate.longitude
+            let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(location) { [weak self] placeMarks, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                if let placeMark = placeMarks?.last {
+                    if let placeName = placeMark.locality {
+                        self?.searchView.locationButton.setTitle(placeName, for: .normal)
+                    } else {
+                        self?.searchView.locationButton.setTitle("Current location", for: .normal)
+                    }
+                }
+            }
+            removeAnnotations()
+            addAnnotations(coordinates)
+            createFloatingPanel(coordinates)
+            }
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        // Handle failure to get a user’s location
+        print("Kullanıcı konumuna erişemedik \(error.localizedDescription)")
+    }
+    
     
 }
 

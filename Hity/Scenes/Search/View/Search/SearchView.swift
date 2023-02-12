@@ -15,6 +15,31 @@ final class SearchView: UIView {
 
     let mapView = MKMapView()
     
+    //MARK: - Creating Nav Bar Items
+    
+    let leftButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "list.dash"), for: .normal)
+        button.tintColor = .black
+        return button
+    }()
+    
+    let locationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
+        button.setTitle("", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
+    var profileButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "person"), for: .normal)
+        button.tintColor = .black
+        return button
+    }()
+
+    
     //MARK: - Init Methods
 
     override init(frame: CGRect) {
@@ -46,6 +71,8 @@ extension SearchView {
     private func addSubview() {
         addSubview(mapView)
     }
+    
+   
     
     //MARK: - Setup Constraints
     

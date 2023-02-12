@@ -20,7 +20,7 @@ protocol NearbyPlacesCellProtocol {
 
 protocol NearbyPlacesCellInterface: AnyObject {
     func didTapDetailsButton(_ view: NearbyPlacesCell, _ placeUID: String)
-    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D)
+    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D, _ placeName: String)
 }
 
 final class NearbyPlacesCell: UICollectionViewCell {
@@ -97,7 +97,6 @@ final class NearbyPlacesCell: UICollectionViewCell {
     
     var placeUID: String?
     var locations: CLLocationCoordinate2D?
-    var name: String?
     var address: String?
     
     //MARK: - Init methods
@@ -144,7 +143,11 @@ final class NearbyPlacesCell: UICollectionViewCell {
     
     @objc private func tapLocationButton(_ button: UIButton) {
         if let locations = locations {
-            self.interace?.didTapLocationButton(self, locations)
+            if let placeName = placeName.text {
+                self.interace?.didTapLocationButton(self, locations, placeName)
+            } else {
+                self.interace?.didTapLocationButton(self, locations, "")
+            }
         }
     }
 
