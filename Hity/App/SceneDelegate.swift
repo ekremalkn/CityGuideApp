@@ -7,6 +7,7 @@
 
 import UIKit
 import FBSDKLoginKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -19,9 +20,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let signInControler = SignInController()
-        let navigationController = UINavigationController(rootViewController: signInControler)
-        window.rootViewController = navigationController
+        let currentUser = Auth.auth().currentUser
+        
+        // Check if user already sign in
+        if currentUser != nil {
+          // User is signed in.
+            let tabBar = MainTabBarController()
+            window.rootViewController = tabBar
+        } else {
+          // No user is signed in.
+            let signInControler = SignInController()
+            let navigationController = UINavigationController(rootViewController: signInControler)
+            window.rootViewController = navigationController
+        }
+
+        
         window.makeKeyAndVisible()
         self.window = window
     }

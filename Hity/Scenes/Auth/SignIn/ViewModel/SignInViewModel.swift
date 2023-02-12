@@ -13,6 +13,7 @@ import FirebaseFirestore
 import AuthenticationServices
 import FBSDKLoginKit
 import RxSwift
+import RxCocoa
 
 
 final class SignInViewModel {
@@ -24,36 +25,48 @@ final class SignInViewModel {
     let request = PublishSubject<ASAuthorizationAppleIDRequest>()
     fileprivate var currentNonce: String?
     
+    // Fields that bind to our view's
+    
+    let isSuccess = PublishSubject<Bool>()
+    let isLoading = PublishSubject<Bool>()
+    let errorMsg = PublishSubject<String>()
+    
     //MARK: - FirestoreDatabase Constants
     private let database = Firestore.firestore()
     
     
     func signInWithProvider(_ credential: AuthCredential) {
         
+        self.isLoading.onNext(true)
+        
         Auth.auth().signIn(with: credential) { [weak self] authResult, authError in
             
             if let authError = authError {
-                
-                print(authError.localizedDescription)
+                self?.isLoading.onNext(false)
+                self?.errorMsg.onNext(authError.localizedDescription)
                 return
             }
-            guard let authResult = authResult else { return }
+            guard let _ = authResult else { return }
             
-            
+            self?.isLoading.onNext(false)
+            self?.isSuccess.onNext(true)
             
         }
         
     }
     
     func signInWithEmail(_ email: String, _ password: String) {
-        let firebaseAuth = Auth.auth()
         
-        firebaseAuth.signIn(withEmail: email, password: password) { authResult, authError in
+        self.isLoading.onNext(true)
+        let firebaseAuth = Auth.auth()
+        firebaseAuth.signIn(withEmail: email, password: password) { [weak self] authResult, authError in
             if let authError = authError {
-                print(authError.localizedDescription)
+                self?.isLoading.onNext(false)
+                self?.errorMsg.onNext(authError.localizedDescription)
                 return
             } else {
-                print("giriş başarılı")
+                self?.isLoading.onNext(false)
+                self?.isSuccess.onNext(true)
             }
             
         }

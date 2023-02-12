@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class SignUpController: UIViewController {
     
@@ -13,6 +14,7 @@ final class SignUpController: UIViewController {
     
     private let signUpView = SignUpView()
     private let signUpViewModel = SignUpViewModel()
+    private let disposeBag = DisposeBag()
     
     //MARK: - Gettable Properties
     
@@ -42,6 +44,7 @@ final class SignUpController: UIViewController {
     private func configureViewController() {
         view = signUpView
         signUpView.interface = self
+        createCallbacks()
     }
     
     
@@ -52,6 +55,31 @@ final class SignUpController: UIViewController {
 extension SignUpController: SignUpViewInterface {
     func signUpButtonTapped(_ view: SignUpView) {
         signUpViewModel.signUp(username, email, password)
+    }
+    
+    
+}
+
+
+//MARK: - Creating Sign In Callbacks
+
+extension SignUpController {
+    
+    private func createCallbacks() {
+        
+        signUpViewModel.isAccCreatingSuccess.subscribe { [weak self] value in
+            let controller = SignInController()
+            self?.navigationController?.pushViewController(controller, animated: true)
+        }.disposed(by: disposeBag)
+        
+        
+        signUpViewModel.isDatabaseCreatingSuccess.subscribe(onNext: { value in
+            print("data base oluşturuldu")
+        }).disposed(by: disposeBag)
+        
+        signUpViewModel.errorMsg.subscribe(onNext: { error in
+            print(error)
+        }).disposed(by: disposeBag)
     }
     
     

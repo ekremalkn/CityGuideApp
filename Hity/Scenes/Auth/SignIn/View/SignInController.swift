@@ -55,6 +55,7 @@ final class SignInController: UIViewController {
         didGetCredential()
         didGetRequest()
         setupFacebookSignInButton()
+        createCallbacks()
     }
     
 }
@@ -164,5 +165,26 @@ extension SignInController: ASAuthorizationControllerPresentationContextProvidin
     
     
 }
+
+//MARK: - Creating Sign In Callbacks
+
+extension SignInController {
+    private func createCallbacks (){
+            
+            // success
+        signInViewModel.isSuccess.subscribe { [weak self] value in
+            let controller = SearchController()
+            self?.show(controller, sender: nil)
+        }.disposed(by: disposeBag)
+            
+            // errors
+        signInViewModel.errorMsg.subscribe { error in
+            print("errror agaaa \(error)")
+        }.disposed(by: disposeBag)
+
+        }
+    }
+
+
 
 
