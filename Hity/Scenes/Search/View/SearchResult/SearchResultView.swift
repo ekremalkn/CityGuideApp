@@ -41,9 +41,6 @@ final class SearchResultView: UIView {
         cell.layer.cornerRadius = 10
     }
     
-    
-    
-    
 }
 
 //MARK: - UI Elements AddSubview / Constraints

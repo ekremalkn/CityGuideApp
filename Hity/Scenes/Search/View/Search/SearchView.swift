@@ -9,6 +9,8 @@ import UIKit
 import MapKit
 import SnapKit
 
+
+
 final class SearchView: UIView {
     
     //MARK: - Creating UI Elements
@@ -38,7 +40,18 @@ final class SearchView: UIView {
         button.tintColor = .black
         return button
     }()
-
+    
+    var distanceSlider: UISlider = {
+        let slider = UISlider()
+        slider.transform = CGAffineTransform(rotationAngle: -(CGFloat.pi / 2))
+        slider.minimumValue = 0.05
+        slider.maximumValue = 100
+        slider.value = 50
+        slider.minimumValueImage = UIImage(systemName: "minus")
+        slider.maximumValueImage = UIImage(systemName: "plus")
+        return slider
+    }()
+    
     
     //MARK: - Init Methods
 
@@ -59,8 +72,6 @@ final class SearchView: UIView {
         setupConstraints()
     }
 
-    
-    
 }
 
 //MARK: - UI Elements Addsubview / Constraints
@@ -70,14 +81,19 @@ extension SearchView {
     
     private func addSubview() {
         addSubview(mapView)
+        addSliderToMapView()
     }
     
+    private func addSliderToMapView() {
+        mapView.addSubview(distanceSlider)
+    }
    
     
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
         mapViewConstraints()
+        distanceSliderConstraints()
     }
     
     private func mapViewConstraints() {
@@ -85,6 +101,14 @@ extension SearchView {
             make.top.equalTo(self)
             make.bottom.equalTo(safeAreaLayoutGuide)
             make.leading.trailing.equalTo(safeAreaLayoutGuide)
+        }
+    }
+    
+    private func distanceSliderConstraints() {
+        distanceSlider.snp.makeConstraints { make in
+            make.width.equalTo(safeAreaLayoutGuide).multipliedBy(0.5)
+            make.bottom.equalTo(mapView.snp.centerY).offset(-50)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(50)
         }
     }
 

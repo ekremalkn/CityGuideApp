@@ -22,14 +22,15 @@ final class NearbySearchController: UIViewController {
     private let nearBySearchViewModel = NearbySearchViewModel()
     
     var searchText = PublishSubject<String>()
-    var lat: String
-    var lng: String
+    var lat: Double
+    var lng: Double
+    var mainLocation: CLLocation?
     
     private let disposeBag = DisposeBag()
     
     //MARK: - Init Methods
 
-    init(lat: String, lng: String) {
+    init(lat: Double, lng: Double) {
         self.lat = lat
         self.lng = lng
         super.init(nibName: nil, bundle: nil)
@@ -57,6 +58,13 @@ final class NearbySearchController: UIViewController {
         reactiveTextField()
         configureCollectionView()
         didFetchPlaceDetails()
+        createMainLocation()
+    }
+    
+    //MARK: - Make base location to CLLocation
+
+    private func createMainLocation() {
+        self.mainLocation = CLLocation(latitude: lat, longitude: lng)
     }
     
     //MARK: - Reactive Collection View
@@ -66,12 +74,14 @@ final class NearbySearchController: UIViewController {
         
         //bind near places to tableview
         
-        nearBySearchViewModel.nearPlaces.bind(to: nearBySearchView.collectionView.rx.items(cellIdentifier: NearbyPlacesCell.identifier, cellType: NearbyPlacesCell.self)) {row, nearPlaces, cell in
+        nearBySearchViewModel.nearPlaces.bind(to: nearBySearchView.collectionView.rx.items(cellIdentifier: NearbyPlacesCell.identifier, cellType: NearbyPlacesCell.self)) { [weak self] row, nearPlaces, cell in
             cell.interace = self
-            cell.configure(nearPlaces)
-            
+            if let mainLocation = self?.mainLocation {
+                cell.configure(nearPlaces, mainLocation)
+            } else {
+                cell.configure(nearPlaces)
+            }
 
-            
         }.disposed(by: disposeBag)
         
 
@@ -87,10 +97,10 @@ final class NearbySearchController: UIViewController {
         // handle didselect
 
         nearBySearchView.collectionView.rx.modelSelected(Result.self).bind(onNext: { [weak self] place in
-            if let lat = place.geometry?.location?.lat, let lng = place.geometry?.location?.lng, let name = place.name, let address = place.vicinity {
-                let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-                self?.delegate?.didTapNearLocation(coordinates, name, address)
-            }
+//            if let lat = place.geometry?.location?.lat, let lng = place.geometry?.location?.lng, let name = place.name, let address = place.vicinity {
+//                let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+//                self?.delegate?.didTapNearLocation(coordinates, name, address)
+//            }
             
         }).disposed(by: disposeBag)
         
@@ -127,7 +137,7 @@ extension NearbySearchController: NearbyPlacesCellInterface {
 
 extension NearbySearchController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (nearBySearchView.collectionView.frame.width / 2) - 10, height: nearBySearchView.collectionView.frame.width)
+        return CGSize(width: (nearBySearchView.collectionView.frame.width / 2) - 10 , height: (nearBySearchView.collectionView.frame.width / 1.25))
     }
 }
 
@@ -148,6 +158,11 @@ extension NearbySearchController {
         
     }
 }
+
+    
+    
+   
+
 
 
 

@@ -62,6 +62,13 @@ struct Result: Codable, NearbyPlacesCellProtocol {
         return ""
     }
     
+    var placeRating: String {
+        if let rating = rating {
+            return "\(rating)"
+        }
+        return ""
+    }
+    
     var placeAddress: String {
         if let address = vicinity {
             return address
@@ -69,15 +76,11 @@ struct Result: Codable, NearbyPlacesCellProtocol {
         return ""
     }
     
-    var placeOpenClosedInfo: String {
-        if let openClosedInfo = openingHours?.openNow {
-            if openClosedInfo {
-                return "Açık"
-            } else {
-                return "Kapalı"
-            }
+    var placeOpenClosedInfo: Bool {
+        if let openNow = openingHours?.openNow {
+            return openNow
         }
-        return "Açık/Kapalı bilgisi yok."
+        return Bool()
     }
    
     

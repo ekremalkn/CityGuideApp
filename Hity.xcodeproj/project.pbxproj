@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1350F679322A5873075E17B8 /* libPods-Hity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 784BF3C55039876571558652 /* libPods-Hity.a */; };
+		F0380984299AA86C0080AB1C /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0380983299AA86C0080AB1C /* UIView+Shadow.swift */; };
 		F04A8F39298FEA2000E245AF /* NearbyPlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04A8F38298FEA2000E245AF /* NearbyPlacesCell.swift */; };
 		F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38A298910C3001D9CD6 /* OnboardingView.swift */; };
 		F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38C298916A7001D9CD6 /* OnboardingController.swift */; };
@@ -33,6 +34,8 @@
 		F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE3638298F760D0054D14E /* PlaceDetailView.swift */; };
 		F0B0F94429936AFE00C54A33 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0F94329936AFE00C54A33 /* FavoriteView.swift */; };
 		F0B0F94729936C8B00C54A33 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B0F94629936C8B00C54A33 /* FavoriteCell.swift */; };
+		F0B6F033299D0C6700F9B0A9 /* UIColor+HEXColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B6F032299D0C6700F9B0A9 /* UIColor+HEXColor.swift */; };
+		F0B6F037299D237300F9B0A9 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B6F036299D237300F9B0A9 /* CircleButton.swift */; };
 		F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */; };
 		F0C4FB1029978BB600823275 /* Encodable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB0F29978BB600823275 /* Encodable+Dictionary.swift */; };
 		F0C4FB1329978CB700823275 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1229978CB700823275 /* User.swift */; };
@@ -60,6 +63,7 @@
 		961A847DF6CDB85E3223EDFC /* Pods-Hity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.debug.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.debug.xcconfig"; sourceTree = "<group>"; };
 		BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.release.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.release.xcconfig"; sourceTree = "<group>"; };
 		F01AA3192996930B0097173D /* Hity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hity.entitlements; sourceTree = "<group>"; };
+		F0380983299AA86C0080AB1C /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		F04A8F38298FEA2000E245AF /* NearbyPlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCell.swift; sourceTree = "<group>"; };
 		F053F38A298910C3001D9CD6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		F053F38C298916A7001D9CD6 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
@@ -87,6 +91,8 @@
 		F0AE3638298F760D0054D14E /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
 		F0B0F94329936AFE00C54A33 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		F0B0F94629936C8B00C54A33 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
+		F0B6F032299D0C6700F9B0A9 /* UIColor+HEXColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HEXColor.swift"; sourceTree = "<group>"; };
+		F0B6F036299D237300F9B0A9 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailModel.swift; sourceTree = "<group>"; };
 		F0C4FB0F29978BB600823275 /* Encodable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Dictionary.swift"; sourceTree = "<group>"; };
 		F0C4FB1229978CB700823275 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -184,6 +190,7 @@
 		F055FCAF298D5FD800A928CB /* NearBySearch */ = {
 			isa = PBXGroup;
 			children = (
+				F0B6F02F299D084B00F9B0A9 /* Model */,
 				F055FCB5298D6C3600A928CB /* ViewModel */,
 				F055FCB0298D5FEB00A928CB /* View */,
 			);
@@ -232,6 +239,7 @@
 				F01AA3192996930B0097173D /* Hity.entitlements */,
 				F061A5B82986EAEE00EAD006 /* App */,
 				F0FEA01D29967AF300EE7D45 /* Helper */,
+				F0B6F034299D230F00F9B0A9 /* Components */,
 				F0735B05298E8173005306D8 /* Extensions */,
 				F061A5BB2986EB4E00EAD006 /* Scenes */,
 				F061A5C92986F49400EAD006 /* Network */,
@@ -285,6 +293,7 @@
 		F061A5BC2986EBA300EAD006 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				F0B6F030299D085E00F9B0A9 /* Model */,
 				F061A5D02986FD1600EAD006 /* ViewModel */,
 				F061A5BD2986EBA900EAD006 /* View */,
 			);
@@ -323,19 +332,8 @@
 			children = (
 				F055FCA2298D42E300A928CB /* Core */,
 				F055FCA8298D493B00A928CB /* Service */,
-				F061A5CD2986F56200EAD006 /* Model */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		F061A5CD2986F56200EAD006 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				F061A5CE2986F57700EAD006 /* PlacesModel.swift */,
-				F055FCAD298D53A500A928CB /* NearPlacesModel.swift */,
-				F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		F061A5D02986FD1600EAD006 /* ViewModel */ = {
@@ -361,6 +359,8 @@
 				F0C4FB0F29978BB600823275 /* Encodable+Dictionary.swift */,
 				F0C4FB1B2998190500823275 /* UITextField+PaddingPoints.swift */,
 				F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */,
+				F0380983299AA86C0080AB1C /* UIView+Shadow.swift */,
+				F0B6F032299D0C6700F9B0A9 /* UIColor+HEXColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -368,6 +368,7 @@
 		F0AE3634298F75CB0054D14E /* PlaceDetail */ = {
 			isa = PBXGroup;
 			children = (
+				F0B6F031299D086D00F9B0A9 /* Model */,
 				F0AE3635298F75D80054D14E /* View */,
 			);
 			path = PlaceDetail;
@@ -388,6 +389,47 @@
 				F0B0F94629936C8B00C54A33 /* FavoriteCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		F0B6F02F299D084B00F9B0A9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F055FCAD298D53A500A928CB /* NearPlacesModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F0B6F030299D085E00F9B0A9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F061A5CE2986F57700EAD006 /* PlacesModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F0B6F031299D086D00F9B0A9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F0B9886A298FC6350005F09F /* PlaceDetailModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F0B6F034299D230F00F9B0A9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F0B6F035299D231900F9B0A9 /* Buttons */,
+			);
+			name = Components;
+			path = ../Components;
+			sourceTree = "<group>";
+		};
+		F0B6F035299D231900F9B0A9 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				F0B6F036299D237300F9B0A9 /* CircleButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 		F0C4FB1129978CAD00823275 /* Model */ = {
@@ -674,9 +716,12 @@
 				F0FEA0142996415800EE7D45 /* SignInViewModel.swift in Sources */,
 				F061A5A52986EA7500EAD006 /* AppDelegate.swift in Sources */,
 				F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */,
+				F0B6F037299D237300F9B0A9 /* CircleButton.swift in Sources */,
 				F0B0F94729936C8B00C54A33 /* FavoriteCell.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
 				F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */,
+				F0380984299AA86C0080AB1C /* UIView+Shadow.swift in Sources */,
+				F0B6F033299D0C6700F9B0A9 /* UIColor+HEXColor.swift in Sources */,
 				F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */,
 				F0C4FB1F2998216700823275 /* SignUpViewModel.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,

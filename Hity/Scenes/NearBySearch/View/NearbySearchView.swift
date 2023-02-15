@@ -13,18 +13,25 @@ final class NearbySearchView: UIView {
     
     private let label: UILabel = {
         let label = UILabel()
-        label.text = "Seçtiğin konumun yakınında bir yer ara. Orneğin: 'Eczane, Spor Salonu vb.'"
+        label.text = "Nearby Search"
         label.font = .systemFont(ofSize: 24, weight: .semibold)
         return label
     }()
     
+    private let searchDistanceButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("in: 1000m", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        return button
+    }()
+    
     let textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Yakınında ne aramak istersin?"
+        textField.placeholder = "Search"
         textField.layer.cornerRadius = 10
-        textField.backgroundColor = UIColor.systemGray6
+        textField.backgroundColor = UIColor.white
         textField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
-        textField.leftView?.tintColor = .systemGray6
+        textField.leftView?.tintColor = .systemGray
         textField.leftViewMode = .always
         return textField
     }()
@@ -32,7 +39,10 @@ final class NearbySearchView: UIView {
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 10
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.backgroundColor = .systemGray6
         collection.register(NearbyPlacesCell.self, forCellWithReuseIdentifier: NearbyPlacesCell.identifier)
         return collection
     }()
@@ -52,6 +62,7 @@ final class NearbySearchView: UIView {
     //MARK: - Configure View
     
     private func configureView() {
+        backgroundColor = .systemGray6
         addSubview()
         setupConstraints()
     }
@@ -69,6 +80,7 @@ extension NearbySearchView {
     
     private func addSubview() {
         addSubview(label)
+        addSubview(searchDistanceButton)
         addSubview(textField)
         addSubview(collectionView)
     }
@@ -77,8 +89,9 @@ extension NearbySearchView {
     
     private func setupConstraints() {
         labelConstraints()
+        distanceButtonConstraints()
         textFieldConstraints()
-        tableViewConstraints()
+        collectionViewConstraints()
     }
     
     private func labelConstraints() {
@@ -87,6 +100,13 @@ extension NearbySearchView {
             make.leading.equalTo(safeAreaLayoutGuide).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
             make.top.equalTo(safeAreaLayoutGuide).offset(10)
+        }
+    }
+    
+    private func distanceButtonConstraints() {
+        searchDistanceButton.snp.makeConstraints { make in
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
+            make.centerY.equalTo(label.snp.centerY)
         }
     }
     
@@ -100,9 +120,9 @@ extension NearbySearchView {
         }
     }
     
-    private func tableViewConstraints() {
+    private func collectionViewConstraints() {
         collectionView.snp.makeConstraints { make in
-            make.top.equalTo(textField.snp.bottom)
+            make.top.equalTo(textField.snp.bottom).offset(10)
             make.leading.equalTo(safeAreaLayoutGuide).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
             make.bottom.equalTo(safeAreaLayoutGuide)

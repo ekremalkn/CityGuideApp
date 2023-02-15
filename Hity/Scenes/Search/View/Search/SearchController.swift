@@ -16,7 +16,7 @@ final class SearchController: UIViewController {
     
     //MARK: - Properties
     
-    private let searchView = SearchView()
+    let searchView = SearchView()
     private let panel = FloatingPanelController()
     private let locationManager = CLLocationManager()
     
@@ -154,8 +154,8 @@ extension SearchController {
 extension SearchController {
     func createFloatingPanel(_ coordinates: CLLocationCoordinate2D) {
         
-        let lat = "\(coordinates.latitude)"
-        let lng = "\(coordinates.longitude)"
+        let lat = coordinates.latitude
+        let lng = coordinates.longitude
         
         let nearbySearchController = NearbySearchController(lat: lat, lng: lng)
         nearbySearchController.delegate = self
@@ -226,7 +226,7 @@ extension SearchController: CLLocationManagerDelegate {
                 }
             }
             removeAnnotations()
-            addAnnotations(coordinates)
+            addAnnotations(coordinates, "Bu nokta etrafında arama yapıyorsun.")
             createFloatingPanel(coordinates)
             }
         locationManager.stopUpdatingLocation()
