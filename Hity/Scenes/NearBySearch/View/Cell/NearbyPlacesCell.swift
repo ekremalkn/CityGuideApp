@@ -57,7 +57,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     }()
     
     private let ratingBlurView: UIVisualEffectView = {
-        let visualView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        let visualView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         return visualView
     }()
     
@@ -125,7 +125,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     }()
     
     private let showLocationButton: CircleButton = {
-        let button = CircleButton()
+        let button = CircleButton(type: .system)
         button.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
         button.tintColor = .darkGray
         button.setTitleColor(.darkGray, for: .normal)
@@ -135,7 +135,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     }()
     
     let showDetailsButton: CircleButton = {
-        let button = CircleButton()
+        let button = CircleButton(type: .system)
         button.setImage(UIImage(systemName: "info"), for: .normal)
         button.tintColor = .blue
         button.setTitleColor(.darkGray, for: .normal)
@@ -145,7 +145,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     }()
     
     private let favButton: CircleButton = {
-        let button = CircleButton()
+        let button = CircleButton(type: .system)
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .darkGray
         button.backgroundColor = .systemGray6
@@ -224,7 +224,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     func configure(_ data: NearbyPlacesCellProtocol, _ mainLocation: CLLocation? = nil) {
         self.placeUID = data.placeUID
         self.locations = data.placeLocation
-        self.placeImage.downloadSetImage(url: data.placeImage)
+        self.placeImage.downloadSetImage(type: .photoReference, url: data.placeImage)
         self.placeName.text = data.placeName
         self.ratingLabel.text = data.placeRating
         self.distanceLabel.text = "\(self.calculateDistance(mainLocation, data.placeLocation))m"
@@ -312,7 +312,6 @@ extension NearbyPlacesCell {
         placeImageBackgroundConstraints()
         placeImageConstraints()
         ratingStackViewConstraints()
-        ratingImageConstraints()
         ratingBlurViewConstraints()
         placeNameConstraints()
         distanceStackViewConstraints()
@@ -338,16 +337,8 @@ extension NearbyPlacesCell {
     
     private func ratingStackViewConstraints() {
         ratingStackView.snp.makeConstraints { make in
-            make.height.equalTo(placeImage.snp.height).multipliedBy(0.2)
-            make.width.equalTo(placeImage.snp.width).multipliedBy(0.35)
             make.bottom.equalTo(placeImage.snp.bottom).offset(-10)
             make.trailing.equalTo(placeImage.snp.trailing).offset(-10)
-        }
-    }
-    
-    private func ratingImageConstraints() {
-        ratingImage.snp.makeConstraints { make in
-            
         }
     }
     

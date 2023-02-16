@@ -72,7 +72,7 @@ final class NearbySearchController: UIViewController {
     
     private func configureCollectionView() {
         
-        //bind near places to tableview
+        //bind near places to collectionView
         
         nearBySearchViewModel.nearPlaces.bind(to: nearBySearchView.collectionView.rx.items(cellIdentifier: NearbyPlacesCell.identifier, cellType: NearbyPlacesCell.self)) { [weak self] row, nearPlaces, cell in
             cell.interace = self
@@ -96,13 +96,13 @@ final class NearbySearchController: UIViewController {
         
         // handle didselect
 
-        nearBySearchView.collectionView.rx.modelSelected(Result.self).bind(onNext: { [weak self] place in
-//            if let lat = place.geometry?.location?.lat, let lng = place.geometry?.location?.lng, let name = place.name, let address = place.vicinity {
-//                let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-//                self?.delegate?.didTapNearLocation(coordinates, name, address)
-//            }
-            
-        }).disposed(by: disposeBag)
+//        nearBySearchView.collectionView.rx.modelSelected(Result.self).bind(onNext: { [weak self] place in
+////            if let lat = place.geometry?.location?.lat, let lng = place.geometry?.location?.lng, let name = place.name, let address = place.vicinity {
+////                let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lng)
+////                self?.delegate?.didTapNearLocation(coordinates, name, address)
+////            }
+//
+//        }).disposed(by: disposeBag)
         
         
     }

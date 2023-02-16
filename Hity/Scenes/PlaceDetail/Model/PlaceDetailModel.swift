@@ -106,7 +106,8 @@ struct DetailPlusCode: Codable {
 }
 
 // MARK: - Review
-struct DetailReview: Codable {
+struct DetailReview: Codable, ReviewsCellProtocol {
+    
     let authorName: String?
     let authorURL: String?
     let language, originalLanguage: String?
@@ -115,6 +116,41 @@ struct DetailReview: Codable {
     let relativeTimeDescription, text: String?
     let time: Int?
     let translated: Bool?
+    
+    var image: String {
+        if let profilePhotoURL = profilePhotoURL {
+            return profilePhotoURL
+        }
+        return ""
+    }
+    
+    var author: String {
+        if let authorName = authorName {
+            return authorName
+        }
+        return ""
+    }
+    
+    var authorRating: String {
+        if let rating = rating {
+            return "\(rating)"
+        }
+        return ""
+    }
+    
+    var relativeTime: String {
+        if let relativeTimeDescription = relativeTimeDescription {
+            return relativeTimeDescription
+        }
+        return ""
+    }
+    
+    var authorText: String {
+        if let text = text {
+            return text
+        }
+        return ""
+    }
 
     enum CodingKeys: String, CodingKey {
         case authorName = "author_name"

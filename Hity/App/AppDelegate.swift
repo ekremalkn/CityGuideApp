@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //  GoogleSignIn
         if let clientID = FirebaseApp.app()?.options.clientID {
-            let config = GIDConfiguration(clientID: clientID)
+            let _ = GIDConfiguration(clientID: clientID)
         }
         
         // Facebook SignIn
