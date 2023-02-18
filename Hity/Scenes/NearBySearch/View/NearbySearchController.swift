@@ -35,6 +35,21 @@ final class NearbySearchController: UIViewController {
         self.lng = lng
         super.init(nibName: nil, bundle: nil)
     }
+ 
+    var searchDistance: String? = "1000"
+    
+    var observableDistance: Observable<[String]> = Observable.of([
+        "100",
+        "200",
+        "300",
+        "400",
+        "500",
+        "1000",
+        "1500",
+        "2000"
+    ])
+    
+    var selectedRow = 0
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -59,6 +74,8 @@ final class NearbySearchController: UIViewController {
         configureCollectionView()
         didFetchPlaceDetails()
         createMainLocation()
+        createSearchDistanceButtonCallbacks()
+        createPickerViewCallbacks()
     }
     
     //MARK: - Make base location to CLLocation
@@ -101,7 +118,11 @@ final class NearbySearchController: UIViewController {
         
         searchText.subscribe(onNext: { [weak self] text in
             if let lat = self?.lat, let lng = self?.lng {
-                self?.nearBySearchViewModel.fetchNearPlaces(text, lat, lng)
+                if let searchDistance = self?.searchDistance {
+                    print(searchDistance)
+                    self?.nearBySearchViewModel.fetchNearPlaces(text, lat, lng, searchDistance: searchDistance)
+
+                }
             }
             
         }).disposed(by: disposeBag)
@@ -170,6 +191,50 @@ extension NearbySearchController {
         
     }
 }
+
+
+//MARK: - SearchDistanceButton callbacks
+
+extension NearbySearchController {
+    
+    private func createSearchDistanceButtonCallbacks() {
+        
+        nearBySearchView.searchDistanceButton.rx.tap.bind(onNext: { [unowned self] in
+            let controller = UIViewController()
+            self.present(controller.createPopUpPickerView(self.nearBySearchView.searchDistancePickerView, self.nearBySearchView.searchDistanceButton, self.observableDistance), animated: true)
+            
+        }).disposed(by: disposeBag)
+    }
+}
+
+//MARK: - Creating PickerView Callbakcs
+
+extension NearbySearchController {
+    
+    private func createPickerViewCallbacks() {
+        
+        // bind distance meters to pickerview
+        observableDistance.bind(to: nearBySearchView.searchDistancePickerView.rx.itemTitles) { row, element in
+            return element
+        }.disposed(by: disposeBag)
+        
+        // handle selected
+        
+        nearBySearchView.searchDistancePickerView.rx.itemSelected.subscribe { [unowned self] event in
+            switch event {
+                
+            case .next((let row, _)):
+                self.observableDistance.subscribe { distances in
+                    self.searchDistance = distances[row]
+                }.disposed(by: self.disposeBag)
+            default:
+                break
+                
+            }
+        }.disposed(by: disposeBag)
+    }
+}
+
 
     
     

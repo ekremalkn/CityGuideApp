@@ -22,8 +22,8 @@ enum ApiKey: String {
 final class NetworkHelper {
     static let shared = NetworkHelper()
     
-        public func nearPlaceRequest(input: String, lat: Double, lng: Double) -> String {
-            return "\(NetworkEndPoint.NEAR_PLACE_BASE_URL.rawValue)\(input)&location=\(lat),\(lng)&radius=1000&key=\(ApiKey.API_KEY.rawValue)"
+    public func nearPlaceRequest(input: String, lat: Double, lng: Double, searchDistance: String) -> String {
+            return "\(NetworkEndPoint.NEAR_PLACE_BASE_URL.rawValue)\(input)&location=\(lat),\(lng)&radius=\(searchDistance)&key=\(ApiKey.API_KEY.rawValue)"
         }
     
        public func placeDetailRequest(placeUID: String) -> String {

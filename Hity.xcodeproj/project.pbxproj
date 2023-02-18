@@ -55,6 +55,7 @@
 		F0C4FB1C2998190500823275 /* UITextField+PaddingPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1B2998190500823275 /* UITextField+PaddingPoints.swift */; };
 		F0C4FB1F2998216700823275 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1E2998216700823275 /* SignUpViewModel.swift */; };
 		F0C4FB2129983EC200823275 /* UITextField+RightViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */; };
+		F0D3430629A165F400266DA2 /* UIViewController+PopUpPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D3430529A165F400266DA2 /* UIViewController+PopUpPickerView.swift */; };
 		F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634A29923D9B00303553 /* MainTabBarController.swift */; };
 		F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634E29923F5400303553 /* FavoriteController.swift */; };
 		F0EA1F80299F8C29005409A6 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EA1F7F299F8C29005409A6 /* FavoriteViewModel.swift */; };
@@ -124,6 +125,7 @@
 		F0C4FB1B2998190500823275 /* UITextField+PaddingPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+PaddingPoints.swift"; sourceTree = "<group>"; };
 		F0C4FB1E2998216700823275 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+RightViewButton.swift"; sourceTree = "<group>"; };
+		F0D3430529A165F400266DA2 /* UIViewController+PopUpPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PopUpPickerView.swift"; sourceTree = "<group>"; };
 		F0D5634A29923D9B00303553 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F0D5634E29923F5400303553 /* FavoriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteController.swift; sourceTree = "<group>"; };
 		F0EA1F7F299F8C29005409A6 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				F0B6F032299D0C6700F9B0A9 /* UIColor+HEXColor.swift */,
 				F0C3303D299E234700F02DBF /* MKMapKit+OpenMapWithCoordinates.swift */,
 				F0C3303F299E2E2B00F02DBF /* UIApplication+OpenURL.swift */,
+				F0D3430529A165F400266DA2 /* UIViewController+PopUpPickerView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 		F0B6F034299D230F00F9B0A9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F0D3430229A155F900266DA2 /* Views */,
 				F0B6F035299D231900F9B0A9 /* Buttons */,
 			);
 			name = Components;
@@ -556,6 +560,13 @@
 				F0C4FB1E2998216700823275 /* SignUpViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0D3430229A155F900266DA2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		F0D5634729923D5600303553 /* TabBar */ = {
@@ -835,6 +846,7 @@
 				F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */,
 				F0C4FB1F2998216700823275 /* SignUpViewModel.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
+				F0D3430629A165F400266DA2 /* UIViewController+PopUpPickerView.swift in Sources */,
 				F0C33038299E04F200F02DBF /* PlaceInfoView.swift in Sources */,
 				F0C4FB1329978CB700823275 /* User.swift in Sources */,
 				F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */,

@@ -36,7 +36,7 @@ final class FavoriteController: UIViewController {
     private func configureViewController() {
         view = favoriteView
         setupDelegates()
-        creatingFavoriteCollectionViewCalllbacks()
+        createFavoriteCollectionViewCalllbacks()
     }
     
     private func setupDelegates() {
@@ -46,7 +46,7 @@ final class FavoriteController: UIViewController {
     
     //MARK: - Creating FavoriteCollectionView callbacks
     
-    private func creatingFavoriteCollectionViewCalllbacks() {
+    private func createFavoriteCollectionViewCalllbacks() {
         
         //bind favorite places to collectionView
 

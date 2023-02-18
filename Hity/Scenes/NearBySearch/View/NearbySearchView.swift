@@ -18,11 +18,16 @@ final class NearbySearchView: UIView {
         return label
     }()
     
-    private let searchDistanceButton: UIButton = {
+    let searchDistanceButton: UIButton = {
         let button = UIButton()
-        button.setTitle("in: 1000m", for: .normal)
+        button.setTitle("about in: 1000m", for: .normal)
         button.setTitleColor(.blue, for: .normal)
         return button
+    }()
+    
+    let searchDistancePickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        return pickerView
     }()
     
     let textField: UITextField = {
@@ -128,5 +133,7 @@ extension NearbySearchView {
             make.bottom.equalTo(safeAreaLayoutGuide)
         }
     }
+    
+    
     
 }

@@ -21,9 +21,10 @@ final class NearbySearchViewModel {
     var placeDetails = PublishSubject<DetailResults>()
 
     
-    func fetchNearPlaces(_ input: String, _ lat: Double, _ lng: Double) {
+    
+    func fetchNearPlaces(_ input: String, _ lat: Double, _ lng: Double, searchDistance: String) {
 
-        webServiceManager.nearyBySearch(input: input, lat: lat, lng: lng) { [weak self] nearPlaces in
+        webServiceManager.nearyBySearch(input: input, lat: lat, lng: lng, searchDistance: searchDistance) { [weak self] nearPlaces in
             if let nearPlaces = nearPlaces?.results {
                 self?.nearPlaces.onNext(nearPlaces)
             }
