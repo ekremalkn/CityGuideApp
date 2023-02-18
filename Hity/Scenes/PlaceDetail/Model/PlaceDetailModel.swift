@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 // MARK: - Place
 struct Place: Codable {
@@ -14,7 +15,9 @@ struct Place: Codable {
 }
 
 // MARK: - Result
-struct DetailResults: Codable {
+struct DetailResults: Codable, FavoriteCellProtocol {
+    
+    
     let businessStatus: String?
     let currentOpeningHours: DetailCurrentOpeningHours?
     let delivery: Bool?
@@ -38,6 +41,42 @@ struct DetailResults: Codable {
     let vicinity: String?
     let website: String?
     let wheelchairAccessibleEntrance: Bool?
+    
+    var favoriteCellPlaceImage: String {
+        if let photo = photos?[0].photoReference {
+            return photo
+        }
+        return ""
+    }
+    
+    var favoriteCellRating: String {
+        if let rating = rating {
+            return "\(rating)"
+        }
+        return ""
+    }
+    
+    var favoriteCellPlaceName: String {
+        if let name = name {
+            return name
+        }
+        return ""
+    }
+    
+    var favoriteCellAddress: String {
+        if let address = formattedAddress {
+            return address
+        }
+        return ""
+    }
+    
+    var favoriteCellLocation: CLLocationCoordinate2D {
+        if let lat = geometry?.location?.lat, let lng = geometry?.location?.lng {
+            return CLLocationCoordinate2D(latitude: lat,longitude: lng)
+        }
+        return CLLocationCoordinate2D()
+    }
+
 
     enum CodingKeys: String, CodingKey {
         case businessStatus = "business_status"

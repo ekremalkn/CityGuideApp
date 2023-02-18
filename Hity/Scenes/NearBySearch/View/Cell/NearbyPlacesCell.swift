@@ -125,7 +125,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     }()
     
     private let showLocationButton: CircleButton = {
-        let button = CircleButton(type: .system)
+        let button = CircleButton(type: .custom)
         button.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
         button.tintColor = .darkGray
         button.setTitleColor(.darkGray, for: .normal)
@@ -144,10 +144,11 @@ final class NearbyPlacesCell: UICollectionViewCell {
         return button
     }()
     
-    private let favButton: CircleButton = {
+    let favButton: CircleButton = {
         let button = CircleButton(type: .system)
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .darkGray
+        
         button.backgroundColor = .systemGray6
         button.addShadow()
         return button
@@ -156,7 +157,14 @@ final class NearbyPlacesCell: UICollectionViewCell {
     //MARK: - Properties
     weak var interace: NearbyPlacesCellInterface?
     private let nearBySearchViewModel = NearbySearchViewModel()
-    private let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
+    
+     // observable variables
+    
+    var favButtonTap: Observable<Void> {
+        return self.favButton.rx.tap.asObservable()
+    }
+   
     
     //MARK: - Variables
     
@@ -185,7 +193,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
         addSubview()
         setupConstraints()
         addTarget()
-        
+        toggleFavButton()
     }
     
     //MARK: - Calculate distance between Main Location and NearPlace Location
@@ -229,6 +237,15 @@ final class NearbyPlacesCell: UICollectionViewCell {
         self.ratingLabel.text = data.placeRating
         self.distanceLabel.text = "\(self.calculateDistance(mainLocation, data.placeLocation))m"
         self.placeOpenClosedInfo = self.openClosedCheck(data.placeOpenClosedInfo, placeOpenClosedInfo)
+    }
+    
+    //MARK: - Toogle fav button
+
+    func toggleFavButton() {
+        let image = UIImage(systemName: "heart")
+        let imageFilled = UIImage(systemName: "heart.fill")
+        favButton.setImage(image, for: .normal)
+        favButton.setImage(imageFilled, for: .selected)
     }
     
     //MARK: - AddAction to Button

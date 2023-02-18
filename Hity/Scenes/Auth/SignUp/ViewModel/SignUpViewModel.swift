@@ -55,7 +55,7 @@ final class SignUpViewModel {
         
         let email = authResult.user.email
         let uid = authResult.user.uid
-        let favorite: [Int: String] = [:]
+        let favorite: [String: Int] = [:]
         let user = User(id: uid, username: username, email: email, favorite: favorite)
         
         // Creating FirstoreDatabase each different User

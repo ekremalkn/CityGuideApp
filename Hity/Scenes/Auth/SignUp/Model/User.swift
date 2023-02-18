@@ -11,5 +11,5 @@ struct User: Codable {
     var id: String?
     var username: String?
     var email: String?
-    var favorite: [Int : String]?
+    var favorite: [String : Int]?
 }

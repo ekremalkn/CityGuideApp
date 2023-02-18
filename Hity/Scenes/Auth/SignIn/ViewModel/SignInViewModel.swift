@@ -18,7 +18,7 @@ import RxCocoa
 
 final class SignInViewModel {
     
-    //MARK: - SignIn Variables
+    //MARK: - Google SignIn Manager
     private let googleSignInManager = GIDSignIn.sharedInstance
     
     let credential = PublishSubject<AuthCredential>()
@@ -31,9 +31,12 @@ final class SignInViewModel {
     let isLoading = PublishSubject<Bool>()
     let errorMsg = PublishSubject<String>()
     
+    let isDatabaseCreatingSuccess = PublishSubject<Bool>()
+    let isDatabaseCreating = PublishSubject<Bool>()
+    
     //MARK: - FirestoreDatabase Constants
     private let database = Firestore.firestore()
-    
+    private let firebaseAuth = Auth.auth()
     
     func signInWithProvider(_ credential: AuthCredential) {
         
@@ -46,11 +49,14 @@ final class SignInViewModel {
                 self?.errorMsg.onNext(authError.localizedDescription)
                 return
             }
-            guard let _ = authResult else { return }
+            guard let authResult = authResult else { return }
             
             self?.isLoading.onNext(false)
             self?.isSuccess.onNext(true)
             
+            if let username = authResult.user.displayName {
+                self?.createDatabaseForUser(authResult, username)
+            }
         }
         
     }
@@ -72,7 +78,6 @@ final class SignInViewModel {
         }
     }
     
-    
     func signOut() {
         let firebaseAuth = Auth.auth()
         
@@ -85,6 +90,47 @@ final class SignInViewModel {
     }
     
     
+}
+
+//MARK: - Creating FirestoreDatabase
+
+extension SignInViewModel {
+    
+    private func createDatabaseForUser(_ authResult: AuthDataResult, _ username: String) {
+        self.isDatabaseCreating.onNext(true)
+        
+        self.changeUserDisplayName(username)
+        
+        let email = authResult.user.email
+        let uid = authResult.user.uid
+        let favorite: [String: Int] = [:]
+        let user = User(id: uid, username: username, email: email, favorite: favorite)
+        
+        // Creating FirstoreDatabase each different User
+        self.database.collection("Users").document(uid).setData(user.dictionary) { [weak self] error in
+            if let error = error {
+                self?.isDatabaseCreating.onNext(false)
+                self?.errorMsg.onNext(error.localizedDescription)
+                return
+            }
+            // created database
+            self?.isDatabaseCreating.onNext(false)
+            self?.isDatabaseCreatingSuccess.onNext(true)
+        }
+        
+    }
+    
+   private func changeUserDisplayName(_ username: String) {
+        let changeRequest = self.firebaseAuth.currentUser?.createProfileChangeRequest()
+        changeRequest?.displayName = username
+        changeRequest?.commitChanges(completion: { [weak self] error in
+            if let error = error {
+                self?.errorMsg.onNext(error.localizedDescription)
+                return
+            }
+        })
+    }
+
 }
 
 //MARK: - SignInWithGoogle Methods

@@ -57,6 +57,7 @@
 		F0C4FB2129983EC200823275 /* UITextField+RightViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */; };
 		F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634A29923D9B00303553 /* MainTabBarController.swift */; };
 		F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634E29923F5400303553 /* FavoriteController.swift */; };
+		F0EA1F80299F8C29005409A6 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EA1F7F299F8C29005409A6 /* FavoriteViewModel.swift */; };
 		F0FEA0012996378800EE7D45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */; };
 		F0FEA0052996381F00EE7D45 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0FEA0042996381F00EE7D45 /* FirebaseAuth */; };
 		F0FEA0072996381F00EE7D45 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F0FEA0062996381F00EE7D45 /* FirebaseFirestore */; };
@@ -125,6 +126,7 @@
 		F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+RightViewButton.swift"; sourceTree = "<group>"; };
 		F0D5634A29923D9B00303553 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F0D5634E29923F5400303553 /* FavoriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteController.swift; sourceTree = "<group>"; };
+		F0EA1F7F299F8C29005409A6 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F0FEA00D29963E9700EE7D45 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		F0FEA00F29963EA500EE7D45 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -411,13 +413,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		F0B09FED299E5810000B4552 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		F0B09FF2299E8549000B4552 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -506,7 +501,6 @@
 		F0B6F034299D230F00F9B0A9 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				F0B09FED299E5810000B4552 /* Views */,
 				F0B6F035299D231900F9B0A9 /* Buttons */,
 			);
 			name = Components;
@@ -583,6 +577,7 @@
 		F0D5634C29923F3800303553 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
+				F0EA1F7E299F8C17005409A6 /* ViewModel */,
 				F0D5634D29923F4000303553 /* View */,
 			);
 			path = Favorite;
@@ -596,6 +591,14 @@
 				F0B0F94329936AFE00C54A33 /* FavoriteView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		F0EA1F7E299F8C17005409A6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0EA1F7F299F8C29005409A6 /* FavoriteViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		F0FEA00B29963E7A00EE7D45 /* Auth */ = {
@@ -792,6 +795,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0EA1F80299F8C29005409A6 /* FavoriteViewModel.swift in Sources */,
 				F0FEA02229967B4F00EE7D45 /* Sha256.swift in Sources */,
 				F0C4FB1029978BB600823275 /* Encodable+Dictionary.swift in Sources */,
 				F055FCA6298D46A000A928CB /* NetworkHelper.swift in Sources */,

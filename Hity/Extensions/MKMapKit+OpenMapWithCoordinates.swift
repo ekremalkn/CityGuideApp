@@ -9,7 +9,7 @@ import MapKit
 
 extension MKMapItem {
     
-    func openMapForPlace(_ lat: Double, _ lng: Double, _ placeName: String) {
+    func openMapForPlace(_ lat: CLLocationDegrees, _ lng: CLLocationDegrees, _ placeName: String) {
         let latitude: CLLocationDegrees = lat
         let longitude: CLLocationDegrees = lng
         let regionDistance:CLLocationDistance = 10000

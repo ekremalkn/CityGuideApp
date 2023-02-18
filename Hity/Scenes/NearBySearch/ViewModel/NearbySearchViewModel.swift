@@ -6,11 +6,16 @@
 //
 
 import RxSwift
+import FirebaseAuth
+import FirebaseFirestore
 
 
 final class NearbySearchViewModel {
     
     private let webServiceManager = Service.shared
+    
+    private let database = Firestore.firestore()
+    private let firebaseAuth = Auth.auth()
     
     var nearPlaces = PublishSubject<[Result]>()
     var placeDetails = PublishSubject<DetailResults>()
@@ -41,4 +46,28 @@ final class NearbySearchViewModel {
     
     
         }
+    
+    // write placeUID to firebase FirestoreDatabase
+    
+    func updateFirestoreFavoriteList(_ placeUID: String, _ isAdded: Bool) {
+        guard let currentUser = firebaseAuth.currentUser else { return }
+        
+        let userRef = database.collection("Users").document(currentUser.uid)
+        
+        if isAdded {
+            userRef.updateData(["favorite.\(placeUID)" : 1]) { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                
+            }
+        } else {
+            userRef.updateData(["favorite.\(placeUID)" : FieldValue.delete()]) { error in
+                if let error = error {
+                    print(error)
+                }
+                
+            }
+        }
+    }
 }

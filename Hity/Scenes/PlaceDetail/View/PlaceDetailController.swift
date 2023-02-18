@@ -32,6 +32,9 @@ final class PlaceDetailController: UIViewController {
     
     //MARK: - Lifecycle Methods
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -45,12 +48,17 @@ final class PlaceDetailController: UIViewController {
         placeDetailView.configure(data: place)
         registerCollectionCell()
         setupDelegates()
+        createPlaceDetailViewModelCallbacks()
+        if let placeUID = place.placeID {
+            placeDetailViewModel.fetchFavoriteListFromFirestore(placeUID)
+        }
+        createFavButtonCallbakcs()
         createDetailViewButtonCallbacks()
         createInfoViewButtonCallbacks()
         placeDetailView.addressInfoButton.sendActions(for: .touchUpInside)
         createReviewsViewTableViewCallbacks()
         createReviewsViewButtonCallbacks()
-
+        
     }
     
     private func registerCollectionCell() {
@@ -65,6 +73,20 @@ final class PlaceDetailController: UIViewController {
         
     }
 
+}
+
+//MARK: - PlaceDetailViewModel Callbacks
+
+extension PlaceDetailController {
+    
+    private func createPlaceDetailViewModelCallbacks() {
+        placeDetailViewModel.isPlaceInFavoriteList.subscribe(onNext: { [weak self] value in
+            if value {
+                self?.placeDetailView.favButton.isSelected = true
+            }
+        }).disposed(by: disposeBag)
+    }
+    
 }
 
 //MARK: - PlaceDetailView Buttons Callbacks
@@ -93,6 +115,25 @@ extension PlaceDetailController {
                 self.placeDetailViewModel.fetchPlaceReviews(placeUID)
             }
             self.placeDetailView.toggleViews(self.placeDetailView.buttonBottomLine3)
+        }).disposed(by: disposeBag)
+    }
+    
+    private func createFavButtonCallbakcs() {
+        
+        placeDetailView.favButton.rx.tap.bind(onNext: { [unowned self] in
+
+            if self.placeDetailView.favButton.isSelected {
+                if let placeUID = place.placeID {
+                    placeDetailViewModel.updateFirestoreFavoriteList(placeUID, false)
+                }
+            } else {
+                if let placeUID = place.placeID {
+                    placeDetailViewModel.updateFirestoreFavoriteList(placeUID, true)
+                }
+                
+            }
+            
+            self.placeDetailView.favButton.isSelected.toggle()
         }).disposed(by: disposeBag)
     }
 }

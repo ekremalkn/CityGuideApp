@@ -30,15 +30,19 @@ final class PlaceDetailView: UIView {
     
     private let placeName: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 2
+        label.numberOfLines = 1
         label.textAlignment = .left
         label.font = UIFont.boldSystemFont(ofSize: 25)
         return label
     }()
     
-    private let favButton: UIButton = {
-        let button = UIButton()
+    let favButton: UIButton = {
+        let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.tintColor = .black
+        button.imageView?.contentMode = .scaleAspectFill
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
         return button
     }()
     
@@ -100,7 +104,7 @@ final class PlaceDetailView: UIView {
     let placeInfoView = PlaceInfoView()
     let placeWeekdaysView = PlaceWeekdaysView()
     let placeReviewsView = PlaceReviewsView()
-
+    
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -127,6 +131,7 @@ final class PlaceDetailView: UIView {
         backgroundColor = .white
         addSubview()
         setupConstraints()
+        toggleFavButton()
     }
     
     func configure(data: DetailResults) {
@@ -137,6 +142,16 @@ final class PlaceDetailView: UIView {
             self.pageControl.numberOfPages = 1
         }
     }
+    
+    //MARK: - Toogle fav button
+    
+    func toggleFavButton() {
+        let image = UIImage(systemName: "heart")
+        let imageFilled = UIImage(systemName: "heart.fill")
+        favButton.setImage(image, for: .normal)
+        favButton.setImage(imageFilled, for: .selected)
+    }
+    
     
     //MARK: - buttons bottom line toogle and view toogle
     func toggleViews(_ bottomLine: UIView) {
@@ -181,6 +196,7 @@ extension PlaceDetailView {
         addSubview(imageCollectionView)
         addSubview(pageControl)
         addSubview(placeName)
+        addSubview(favButton)
         addSubview(buttonStackView)
         buttonsToStackView()
         buttonBottomLineToButtons()
@@ -199,7 +215,6 @@ extension PlaceDetailView {
         addressInfoButton.addSubview(buttonBottomLine1)
         openClosedInfoButton.addSubview(buttonBottomLine2)
         reviewsButton.addSubview(buttonBottomLine3)
-
     }
     
     //MARK: - Setup Constraints
@@ -207,8 +222,8 @@ extension PlaceDetailView {
     private func setupConstraints() {
         imageCollectionViewConstraints()
         pageControlConstraints()
-        saveButtonConstraints()
         placeNameConstraints()
+        saveButtonConstraints()
         buttonStackViewConstraints()
         buttonBottomLineConstraints(addressInfoButton, buttonBottomLine1)
         buttonBottomLineConstraints(openClosedInfoButton, buttonBottomLine2)
@@ -235,19 +250,21 @@ extension PlaceDetailView {
         }
     }
     
-    
-    private func saveButtonConstraints() {
-        favButton.snp.makeConstraints { make in
-            //            make.bottom.equalTo(imageCollectionView.snp.bottom).offset(-20)
-            //            make.trailing.equalTo(imageCollectionView.snp.trailing).offset(-20)
-        }
-    }
-    
     private func placeNameConstraints() {
         placeName.snp.makeConstraints { make in
             make.top.equalTo(pageControl.snp.bottom).offset(20)
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.04666667)
-            make.leading.trailing.equalTo(imageCollectionView)
+            make.leading.equalTo(imageCollectionView)
+            make.trailing.equalTo(favButton.snp.leading).offset(-10)
+        }
+    }
+    
+    
+    private func saveButtonConstraints() {
+        favButton.snp.makeConstraints { make in
+            make.trailing.equalTo(imageCollectionView)
+            make.centerY.equalTo(placeName.snp.centerY)
+            make.height.width.equalTo(placeName.snp.height)
         }
     }
     

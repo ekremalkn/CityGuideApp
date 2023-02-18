@@ -16,7 +16,7 @@ final class FavoriteView: UIView {
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(FavoriteCell.self, forCellWithReuseIdentifier: FavoriteCell.identifier)
-        collection.backgroundColor = .blue
+        collection.backgroundColor = .white
         return collection
     }()
 
@@ -35,6 +35,7 @@ final class FavoriteView: UIView {
     //MARK: - ConfigureView
     
     private func configureView() {
+        backgroundColor = .white
         addSubview()
         setupConstraints()
     }

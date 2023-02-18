@@ -81,6 +81,18 @@ final class NearbySearchController: UIViewController {
             } else {
                 cell.configure(nearPlaces)
             }
+            
+            cell.favButtonTap.subscribe(onNext: {
+                if let placeUID = cell.placeUID {
+                    if cell.favButton.isSelected {
+                        self?.nearBySearchViewModel.updateFirestoreFavoriteList(placeUID, false)
+                    } else {
+                        self?.nearBySearchViewModel.updateFirestoreFavoriteList(placeUID, true)
+                    }
+                    cell.favButton.isSelected.toggle()
+                }
+                
+            }).disposed(by: cell.disposeBag)
 
         }.disposed(by: disposeBag)
         
