@@ -170,20 +170,21 @@ extension SignInController: ASAuthorizationControllerPresentationContextProvidin
 
 extension SignInController {
     private func createCallbacks (){
-            
-            // success
-        signInViewModel.isSuccess.subscribe { [weak self] value in
-            let controller = SearchController()
-            self?.show(controller, sender: nil)
+        
+        // success
+        signInViewModel.isSuccess.subscribe { [weak self] _ in
+            let tabBar = MainTabBarController()
+            tabBar.modalPresentationStyle = .fullScreen
+            self?.present(tabBar, animated: true)
         }.disposed(by: disposeBag)
-            
-            // errors
+        
+        // errors
         signInViewModel.errorMsg.subscribe { error in
             print("errror agaaa \(error)")
         }.disposed(by: disposeBag)
-
-        }
+        
     }
+}
 
 
 

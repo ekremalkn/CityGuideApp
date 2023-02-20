@@ -21,7 +21,7 @@ protocol NearbyPlacesCellProtocol {
 
 protocol NearbyPlacesCellInterface: AnyObject {
     func didTapDetailsButton(_ view: NearbyPlacesCell, _ placeUID: String)
-    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D, _ placeName: String)
+    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D, _ placeName: String, _ placeImage: String)
 }
 
 final class NearbyPlacesCell: UICollectionViewCell {
@@ -135,7 +135,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     }()
     
     let showDetailsButton: CircleButton = {
-        let button = CircleButton(type: .system)
+        let button = CircleButton(type: .custom)
         button.setImage(UIImage(systemName: "info"), for: .normal)
         button.tintColor = .blue
         button.setTitleColor(.darkGray, for: .normal)
@@ -145,7 +145,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     }()
     
     let favButton: CircleButton = {
-        let button = CircleButton(type: .system)
+        let button = CircleButton(type: .custom)
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .darkGray
         
@@ -171,7 +171,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     var placeUID: String?
     var locations: CLLocationCoordinate2D?
     var address: String?
-    
+    var placeImageURL: String!
     
     //MARK: - Init methods
     
@@ -232,6 +232,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     func configure(_ data: NearbyPlacesCellProtocol, _ mainLocation: CLLocation? = nil) {
         self.placeUID = data.placeUID
         self.locations = data.placeLocation
+        self.placeImageURL = data.placeImage
         self.placeImage.downloadSetImage(type: .photoReference, url: data.placeImage)
         self.placeName.text = data.placeName
         self.ratingLabel.text = data.placeRating
@@ -264,9 +265,9 @@ final class NearbyPlacesCell: UICollectionViewCell {
     @objc private func tapLocationButton(_ button: UIButton) {
         if let locations = locations {
             if let placeName = placeName.text {
-                self.interace?.didTapLocationButton(self, locations, placeName)
+                self.interace?.didTapLocationButton(self, locations, placeName, placeImageURL)
             } else {
-                self.interace?.didTapLocationButton(self, locations, "")
+                self.interace?.didTapLocationButton(self, locations, "", placeImageURL)
             }
         }
     }

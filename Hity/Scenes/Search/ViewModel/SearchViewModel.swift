@@ -5,13 +5,14 @@
 //  Created by Ekrem Alkan on 29.01.2023.
 //
 
-import Foundation
 import RxSwift
 import CoreLocation
+
 
 final class SearchViewModel {
     
     private let googlePlacesManager = GooglePlacesManager.shared
+    
     
     var places = PublishSubject<[PlacesModel]>()
     var coordinates = PublishSubject<CLLocationCoordinate2D>()

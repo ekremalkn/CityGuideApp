@@ -47,6 +47,7 @@ final class PlaceDetailImageCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "star.fill")
         imageView.tintColor = UIColor().hexStringToUIColor(hex: "#FAAC4B")
+
         return imageView
     }()
     
@@ -54,7 +55,7 @@ final class PlaceDetailImageCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textAlignment = .center
         return label
     }()
@@ -147,6 +148,8 @@ extension PlaceDetailImageCell {
         ratingStackView.snp.makeConstraints { make in
             make.bottom.equalTo(placeImage.snp.bottom).offset(-10)
             make.trailing.equalTo(placeImage.snp.trailing).offset(-10)
+            make.height.equalTo(placeImage.snp.height).multipliedBy(0.1)
+            make.width.equalTo(placeImage.snp.width).multipliedBy(0.15)
         }
     }
     

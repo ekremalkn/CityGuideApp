@@ -34,14 +34,22 @@ final class SearchView: UIView {
         return button
     }()
     
-    var profileButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "person"), for: .normal)
-        button.tintColor = .black
-        return button
+    var rightImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "person.fill")
+        imageView.tintColor = .black
+        imageView.contentMode = .scaleToFill
+        return imageView
     }()
  
+    //MARK: - Layout Subview
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        rightImageView.layer.cornerRadius = rightImageView.frame.height / 2
+        rightImageView.layer.masksToBounds = true
+    }
+
     
     //MARK: - Init Methods
 

@@ -10,7 +10,7 @@ import RxSwift
 import CoreLocation
 
 protocol NearbySearchControllerDelegate: AnyObject {
-    func didTapNearLocation(_ coordinates: CLLocationCoordinate2D, _ pinTitle: String, _ pinSubTitle: String)
+    func didTapNearLocation(_ coordinates: CLLocationCoordinate2D, _ pinTitle: String, _ pinSubTitle: String, _ placeImage: String)
 }
 
 final class NearbySearchController: UIViewController {
@@ -126,16 +126,7 @@ final class NearbySearchController: UIViewController {
             }
             
         }).disposed(by: disposeBag)
-        
-        // handle didselect
 
-//        nearBySearchView.collectionView.rx.modelSelected(Result.self).bind(onNext: { [weak self] place in
-////            if let lat = place.geometry?.location?.lat, let lng = place.geometry?.location?.lng, let name = place.name, let address = place.vicinity {
-////                let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-////                self?.delegate?.didTapNearLocation(coordinates, name, address)
-////            }
-//
-//        }).disposed(by: disposeBag)
         
         
     }
@@ -158,8 +149,8 @@ extension NearbySearchController: NearbyPlacesCellInterface {
         }).disposed(by: disposeBag)
     }
 
-    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D, _ placeName: String) {
-        self.delegate?.didTapNearLocation(coordinates, placeName, "")
+    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D, _ placeName: String, _ placeImage: String) {
+        self.delegate?.didTapNearLocation(coordinates, placeName, "", placeImage)
     }
     
     

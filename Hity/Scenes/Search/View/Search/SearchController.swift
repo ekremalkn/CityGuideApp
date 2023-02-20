@@ -17,11 +17,14 @@ final class SearchController: UIViewController {
     //MARK: - Properties
     
     let searchView = SearchView()
+    private let userDataViewModel = UserDataViewModel()
     private let panel = FloatingPanelController()
     private let locationManager = CLLocationManager()
     
     private let disposeBag = DisposeBag()
     
+    
+    var placeImage: String?
     //MARK: - UISearchController
     
     private let searchViewController = UISearchController(searchResultsController: SearchResultController())
@@ -37,9 +40,13 @@ final class SearchController: UIViewController {
     
     private func configureViewController() {
         view = searchView
+        userDataViewModel.fetchProfilePhoto()
+        searchView.mapView.delegate = self
         configureSearchController()
         customizeNavBar()
         setupUserLocation()
+        createNavbarButtonCallbacks()
+        createUserProfilePhotoURLCallback()
     }
     
     //MARK: - ConfigureSearchController
@@ -56,11 +63,24 @@ final class SearchController: UIViewController {
     private func customizeNavBar() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: searchView.leftButton)
         self.navigationItem.titleView = searchView.locationButton
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchView.profileButton)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchView.rightImageView)
     }
 
     
 }
+
+//MARK: - Create Navigation bar button Callback
+
+extension SearchController {
+    
+    func createNavbarButtonCallbacks() {
+        searchView.leftButton.rx.tap.subscribe(onNext: {
+            let controller = ProfileController()
+            self.navigationController?.pushViewController(controller, animated: true)
+        }).disposed(by: disposeBag)
+    }
+}
+
 
 //MARK: - Reactive UISearchController
 
@@ -126,7 +146,8 @@ extension SearchController {
         
     }
     
-    func addAnnotations(_ coordinates: CLLocationCoordinate2D, _ title: String? = nil, _ subTitle: String? = nil) {
+    func addAnnotations(_ coordinates: CLLocationCoordinate2D, _ title: String? = nil, _ subTitle: String? = nil, _ placeImage: String? = nil) {
+        self.placeImage = placeImage
         let pin = MKPointAnnotation()
         
         pin.coordinate = coordinates
@@ -169,10 +190,10 @@ extension SearchController {
 //MARK: - NearbySearchControllerDelegate
 
 extension SearchController: NearbySearchControllerDelegate {
-    func didTapNearLocation(_ coordinates: CLLocationCoordinate2D, _ pinTitle: String, _ pinSubTitle: String) {
+    func didTapNearLocation(_ coordinates: CLLocationCoordinate2D, _ pinTitle: String, _ pinSubTitle: String, _ placeImage: String) {
         closeKeyboard()
         removeAnnotations(isNearbyPlace: true)
-        addAnnotations(coordinates, pinTitle, pinSubTitle)
+        addAnnotations(coordinates, pinTitle, pinSubTitle, placeImage)
         panel.move(to: .tip, animated: true)
     }
     
@@ -238,6 +259,46 @@ extension SearchController: CLLocationManagerDelegate {
     }
     
     
+}
+
+
+extension SearchController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        var customAnnotationView = searchView.mapView.dequeueReusableAnnotationView(withIdentifier: "customAnnotationView") as? CustomAnnotationView
+        
+        
+        if customAnnotationView == nil {
+            // create one annotationView
+            
+            customAnnotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: "customAnnotationView")
+            customAnnotationView?.canShowCallout = true
+        } else {
+            customAnnotationView?.annotation = annotation
+        }
+        
+        if let placeImage = placeImage {
+            customAnnotationView?.imageView.downloadSetImage(type: .photoReference, url: placeImage)
+        } else {
+            customAnnotationView?.image = UIImage(named: "appleLogo")
+        }
+        
+        
+        return customAnnotationView
+    }
+}
+
+//MARK: - Setting User Profile photo
+
+extension SearchController {
+    
+    private func createUserProfilePhotoURLCallback() {
+        userDataViewModel.isDownloadingURLSuccess.subscribe(onNext: { [weak self] profileImageURL in
+            self?.searchView.rightImageView.downloadSetImage(type: .onlyURL, url: profileImageURL)
+            
+        }).disposed(by: disposeBag)
+    }
 }
 
 

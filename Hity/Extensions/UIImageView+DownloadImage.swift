@@ -12,7 +12,7 @@ extension UIImageView {
         case photoReference
         case onlyURL
     }
-    func downloadSetImage(type: DownloadImageType, url: String) {
+    func downloadSetImage(type: DownloadImageType, url: String, completion: (() -> Void)? = nil) {
         
         switch type {
         case .photoReference:
@@ -21,6 +21,10 @@ extension UIImageView {
         case .onlyURL:
             guard let url = URL(string: url) else { return }
             self.setImage(url: url)
+        }
+        
+        if let completion = completion {
+            completion()
         }
         
      
@@ -38,4 +42,8 @@ extension UIImageView {
         }
         task.resume()
     }
+
+    
+    
+    
 }
