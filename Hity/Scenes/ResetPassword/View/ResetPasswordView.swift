@@ -26,7 +26,7 @@ final class ResetPasswordView: UIView {
         return label
     }()
     
-    private let subTitleLabel: UILabel = {
+    let subTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Enter your email."
         label.textColor = .black
@@ -48,8 +48,17 @@ final class ResetPasswordView: UIView {
         textField.placeholder = "Email Address"
         textField.layer.cornerRadius = 10
         textField.autocapitalizationType = .none
+        textField.isUserInteractionEnabled = false
         textField.setLeftPaddingPoints(15)
         return textField
+    }()
+    
+    let submitCallbackLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.numberOfLines = 0
+        label.textAlignment = .left
+        return label
     }()
     
     let submitButton: CircleButton = {
@@ -105,6 +114,7 @@ extension ResetPasswordView {
         addSubview(subTitleLabel)
         addSubview(seperatorView)
         addSubview(emailTextField)
+        addSubview(submitCallbackLabel)
         addSubview(submitButton)
     }
     
@@ -116,6 +126,7 @@ extension ResetPasswordView {
         subTitleLabelConstraints()
         seperatorViewConstraints()
         emailTextFieldConstraints()
+        submitCallbackLabelConstraints()
         submitButtonConstraints()
     }
     
@@ -157,9 +168,17 @@ extension ResetPasswordView {
         }
     }
     
+    private func submitCallbackLabelConstraints() {
+        submitCallbackLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(15)
+            make.leading.trailing.equalTo(emailTextField)
+            make.height.equalTo(45)
+        }
+    }
+    
     private func submitButtonConstraints() {
         submitButton.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(20)
+            make.top.equalTo(submitCallbackLabel.snp.bottom).offset(20)
             make.height.equalTo(emailTextField.snp.height).multipliedBy(0.75)
             make.width.equalTo(emailTextField.snp.height).multipliedBy(2)
             make.leading.equalTo(titleLabel)

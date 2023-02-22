@@ -33,8 +33,15 @@ final class PlaceDetailController: UIViewController {
     //MARK: - Lifecycle Methods
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
+        if let placeUID = place.placeID {
+            placeDetailViewModel.fetchFavoriteListFromFirestore(placeUID)
+        }
+        
+        
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -45,13 +52,11 @@ final class PlaceDetailController: UIViewController {
     
     private func configureViewController() {
         view = placeDetailView
+        customizeNavBar()
         placeDetailView.configure(data: place)
         registerCollectionCell()
         setupDelegates()
         createPlaceDetailViewModelCallbacks()
-        if let placeUID = place.placeID {
-            placeDetailViewModel.fetchFavoriteListFromFirestore(placeUID)
-        }
         createFavButtonCallbakcs()
         createDetailViewButtonCallbacks()
         createInfoViewButtonCallbacks()
@@ -59,6 +64,13 @@ final class PlaceDetailController: UIViewController {
         createReviewsViewTableViewCallbacks()
         createReviewsViewButtonCallbacks()
         
+    }
+    
+    private func customizeNavBar() {
+        title = "Place Details"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back to Detail", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
     }
     
     private func registerCollectionCell() {
@@ -83,6 +95,8 @@ extension PlaceDetailController {
         placeDetailViewModel.isPlaceInFavoriteList.subscribe(onNext: { [weak self] value in
             if value {
                 self?.placeDetailView.favButton.isSelected = true
+            } else {
+                self?.placeDetailView.favButton.isSelected = false
             }
         }).disposed(by: disposeBag)
     }
@@ -145,7 +159,7 @@ extension PlaceDetailController: UITableViewDelegate {
     private func createReviewsViewTableViewCallbacks() {
         
         //bind placereviews to tableview
-        placeDetailViewModel.placeReviews.bind(to: placeDetailView.placeReviewsView.reviewsTableView.rx.items(cellIdentifier: ReviewsCell.identifier, cellType: ReviewsCell.self)) { row, placeReviews, cell in
+        placeDetailViewModel.aPlaceReview.bind(to: placeDetailView.placeReviewsView.reviewsTableView.rx.items(cellIdentifier: ReviewsCell.identifier, cellType: ReviewsCell.self)) { row, placeReviews, cell in
             cell.configure(placeReviews)
         }.disposed(by: disposeBag)
         

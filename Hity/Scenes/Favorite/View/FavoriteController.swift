@@ -35,12 +35,20 @@ final class FavoriteController: UIViewController {
     
     private func configureViewController() {
         view = favoriteView
+        customizeNavBar()
         setupDelegates()
         createFavoriteCollectionViewCalllbacks()
     }
     
     private func setupDelegates() {
         favoriteView.favoriteCollectionView.delegate = self
+    }
+    
+    private func customizeNavBar() {
+        title = "Favorite Places"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back to Favorites", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
     }
 
     
@@ -83,6 +91,13 @@ final class FavoriteController: UIViewController {
         
         favoriteViewModel.isListUpdated.subscribe(onNext: { [weak self] _ in
             self?.favoriteViewModel.fetchFavoriteList()
+        }).disposed(by: disposeBag)
+        
+        
+        favoriteView.favoriteCollectionView.rx.modelSelected(DetailResults.self).bind(onNext: { [weak self] placeDetails in
+            let controller = PlaceDetailController(place: placeDetails)
+            self?.navigationController?.pushViewController(controller, animated: true)
+            
         }).disposed(by: disposeBag)
         
     }

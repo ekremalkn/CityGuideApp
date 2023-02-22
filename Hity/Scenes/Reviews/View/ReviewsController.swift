@@ -41,7 +41,13 @@ final class ReviewsController: UIViewController {
     
     private func configureViewController() {
         view = reviewsView
+        customizeNavBar()
         createTableViewCallbacks()
+    }
+    
+    private func customizeNavBar() {
+        title = "Reviews"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     //MARK: - TableView Callbacks

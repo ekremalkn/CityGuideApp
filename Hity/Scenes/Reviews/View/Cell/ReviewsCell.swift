@@ -101,7 +101,7 @@ final class ReviewsCell: UITableViewCell {
         setupConstraints()
     }
     
-    func configure(_ data: ReviewsCellProtocol) {
+    func configure(_ data: DetailReview) {
         authorImageView.downloadSetImage(type: .onlyURL, url: data.image)
         authorName.text = data.author
         ratingLabel.text = data.authorRating

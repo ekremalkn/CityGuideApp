@@ -17,7 +17,7 @@ final class SearchController: UIViewController {
     //MARK: - Properties
     
     let searchView = SearchView()
-    private let userDataViewModel = UserDataViewModel()
+    let userDataViewModel = UserDataViewModel()
     private let panel = FloatingPanelController()
     private let locationManager = CLLocationManager()
     
@@ -39,13 +39,14 @@ final class SearchController: UIViewController {
     //MARK: - ConfigureViewController
     
     private func configureViewController() {
-        view = searchView
+        view.backgroundColor = .clear
+        addSubview()
+        setupConstraints()
         userDataViewModel.fetchProfilePhoto()
         searchView.mapView.delegate = self
         configureSearchController()
         customizeNavBar()
         setupUserLocation()
-        createNavbarButtonCallbacks()
         createUserProfilePhotoURLCallback()
     }
     
@@ -61,24 +62,16 @@ final class SearchController: UIViewController {
     //MARK: - Customize NavBar
     
     private func customizeNavBar() {
+        title = "Hity"
+        navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: searchView.leftButton)
         self.navigationItem.titleView = searchView.locationButton
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: searchView.rightImageView)
-    }
-
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
+            }
     
-}
-
-//MARK: - Create Navigation bar button Callback
-
-extension SearchController {
     
-    func createNavbarButtonCallbacks() {
-        searchView.leftButton.rx.tap.subscribe(onNext: {
-            let controller = ProfileController()
-            self.navigationController?.pushViewController(controller, animated: true)
-        }).disposed(by: disposeBag)
-    }
 }
 
 
@@ -160,9 +153,9 @@ extension SearchController {
             pin.subtitle = subTitle
         }
         searchView.mapView.addAnnotation(pin)
-
         
-       
+        
+        
         let region = MKCoordinateRegion(center: coordinates, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         searchView.mapView.setRegion(region, animated: true)
     }
@@ -178,7 +171,7 @@ extension SearchController {
         let lat = coordinates.latitude
         let lng = coordinates.longitude
         
-        let nearbySearchController = NearbySearchController(lat: lat, lng: lng)
+        let nearbySearchController = NearbySearchController(lat: lat, lng: lng, sortType: .of([.maxToMinRating, .userTotalRatingMaxToMin, .smart]))
         nearbySearchController.delegate = self
         
         panel.set(contentViewController: nearbySearchController)
@@ -215,23 +208,23 @@ extension SearchController: CLLocationManagerDelegate {
     private func locationButtonCallback() {
         searchView.locationButton.rx.tap.bind { [weak self] value in
             // location updates when the user tap button
-                self?.locationManager.startUpdatingLocation()
-                        
+            self?.locationManager.startUpdatingLocation()
+            
         }.disposed(by: disposeBag)
         
     }
-
-        
+    
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         // Handle changes if location permissions
-
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         // Handle location update
         if let location = locations.last {
-                let latitude = location.coordinate.latitude
-                let longitude = location.coordinate.longitude
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
             let coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { [weak self] placeMarks, error in
@@ -249,7 +242,7 @@ extension SearchController: CLLocationManagerDelegate {
             removeAnnotations()
             addAnnotations(coordinates, "Bu nokta etrafında arama yapıyorsun.")
             createFloatingPanel(coordinates)
-            }
+        }
         locationManager.stopUpdatingLocation()
     }
     
@@ -301,6 +294,24 @@ extension SearchController {
     }
 }
 
+//MARK: - SearchView AddSubview / Constraints
+
+extension SearchController {
+    
+    //MARK: - AddSubview
+    
+    private func addSubview() {
+        view.addSubview(searchView)
+    }
+    
+    //MARK: - Setup Constraints
+    
+    private func setupConstraints() {
+        searchView.snp.makeConstraints { make in
+            make.top.leading.bottom.trailing.equalTo(view)
+        }
+    }
+}
 
 
 

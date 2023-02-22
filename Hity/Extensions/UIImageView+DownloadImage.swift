@@ -23,15 +23,12 @@ extension UIImageView {
             self.setImage(url: url)
         }
         
-        if let completion = completion {
-            completion()
-        }
+        completion?()
         
-     
         
     }
     
-   private func setImage(url: URL) {
+    private func setImage(url: URL) {
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else { return }
             
@@ -42,7 +39,7 @@ extension UIImageView {
         }
         task.resume()
     }
-
+    
     
     
     

@@ -45,8 +45,14 @@ final class SignInController: UIViewController {
     
     private func configureViewController() {
         view = signInView
+        customizeNavBar()
         signInView.interface = self
         configureSignInMethods()
+    }
+    
+    private func customizeNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back to Sign In", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = .black
     }
     
     //MARK: - Section Heading
@@ -81,6 +87,11 @@ extension SignInController: SignInViewInterface {
         signInViewModel.signInWithEmail(email, password)
     }
     
+    func forgotPasswordButtonTapped(_ view: SignInView) {
+        let controller = ResetPasswordController()
+        present(controller, animated: true)
+    }
+    
     
 }
 
@@ -101,7 +112,7 @@ extension SignInController: LoginButtonDelegate  {
     func setupFacebookSignInButton() {
         signInView.facebookSignInButton.delegate = self
     }
-    
+
     func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
@@ -166,21 +177,43 @@ extension SignInController: ASAuthorizationControllerPresentationContextProvidin
     
 }
 
-//MARK: - Creating Sign In Callbacks
+//MARK: - Creating Sign In ViewModel
 
 extension SignInController {
     private func createCallbacks (){
         
+        signInViewModel.isEmailVerification.subscribe { [unowned self] value in
+            if value {
+                let tabBar = MainTabBarController()
+                tabBar.modalPresentationStyle = .fullScreen
+                self.present(tabBar, animated: true)
+            } else {
+                let popUpController = SignInPopUpController()
+                popUpController.presentPopUpController(self)
+                // ekrana pop up view ver ve email adresinizi doğrulayın çıksın. altına button ekle ve basınca email adresi doğrulama linki gönder
+            }
+        }.disposed(by: disposeBag)
+        
+        
+        // loading
+        
+        signInViewModel.isLoading.subscribe { [weak self] value in
+            if value {
+                self?.signInView.activityIndicator.startAnimating()
+            } else {
+                self?.signInView.activityIndicator.stopAnimating()
+            }
+        }.disposed(by: disposeBag)
+        
         // success
         signInViewModel.isSuccess.subscribe { [weak self] _ in
-            let tabBar = MainTabBarController()
-            tabBar.modalPresentationStyle = .fullScreen
-            self?.present(tabBar, animated: true)
+            self?.signInViewModel.checkEmailVerification()
+
         }.disposed(by: disposeBag)
         
         // errors
-        signInViewModel.errorMsg.subscribe { error in
-            print("errror agaaa \(error)")
+        signInViewModel.errorMsg.subscribe { [weak self] error in
+            self?.signInView.signInErrorLabel.text = error
         }.disposed(by: disposeBag)
         
     }

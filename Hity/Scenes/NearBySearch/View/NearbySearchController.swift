@@ -29,13 +29,14 @@ final class NearbySearchController: UIViewController {
     private let disposeBag = DisposeBag()
     
     //MARK: - Init Methods
-
-    init(lat: Double, lng: Double) {
+    
+    init(lat: Double, lng: Double, sortType: Observable<[SortType]>) {
         self.lat = lat
         self.lng = lng
+        self.observableSort = sortType
         super.init(nibName: nil, bundle: nil)
     }
- 
+    
     var searchDistance: String? = "1000"
     
     var observableDistance: Observable<[String]> = Observable.of([
@@ -48,6 +49,9 @@ final class NearbySearchController: UIViewController {
         "1500",
         "2000"
     ])
+    
+    var sortType: SortType?
+    var observableSort: Observable<[SortType]>
     
     var selectedRow = 0
     
@@ -75,17 +79,19 @@ final class NearbySearchController: UIViewController {
         didFetchPlaceDetails()
         createMainLocation()
         createSearchDistanceButtonCallbacks()
-        createPickerViewCallbacks()
+        createSearchDistancePickerViewCallbacks()
+        createSortButtonCallbacks()
+        createSortPickerViewCallbacks()
     }
     
     //MARK: - Make base location to CLLocation
-
+    
     private func createMainLocation() {
         self.mainLocation = CLLocation(latitude: lat, longitude: lng)
     }
     
     //MARK: - Reactive Collection View
-
+    
     
     private func configureCollectionView() {
         
@@ -110,34 +116,37 @@ final class NearbySearchController: UIViewController {
                 }
                 
             }).disposed(by: cell.disposeBag)
-
+            
         }.disposed(by: disposeBag)
         
-
+        
         // fetch nearPlaces
         
-        searchText.subscribe(onNext: { [weak self] text in
-            if let lat = self?.lat, let lng = self?.lng {
-                if let searchDistance = self?.searchDistance {
-                    print(searchDistance)
-                    self?.nearBySearchViewModel.fetchNearPlaces(text, lat, lng, searchDistance: searchDistance)
-
+        nearBySearchView.textField.rx.text.subscribe(onNext: { [weak self] text in
+            if let text = text {
+                if let lat = self?.lat, let lng = self?.lng {
+                    if let searchDistance = self?.searchDistance {
+                    
+                        self?.nearBySearchViewModel.fetchNearPlaces(text, lat, lng, searchDistance: searchDistance, sortType: .smart)
+                        
+                    }
                 }
             }
             
+            
         }).disposed(by: disposeBag)
-
+        
         
         
     }
-
+    
     
 }
 
 //MARK: - NearbyPlacesCellInterface, didFetchPlaceDetails, didFetchCoordinates
 
 extension NearbySearchController: NearbyPlacesCellInterface {
-  
+    
     func didTapDetailsButton(_ view: NearbyPlacesCell, _ placeUID: String) {
         nearBySearchViewModel.fetchPlaceDetails(placeUID)
     }
@@ -145,10 +154,11 @@ extension NearbySearchController: NearbyPlacesCellInterface {
     func didFetchPlaceDetails() {
         nearBySearchViewModel.placeDetails.subscribe(onNext: { [weak self] placeDetails in
             let controller = PlaceDetailController(place: placeDetails)
-            self?.show(controller, sender: nil)
+            self?.navigationController?.pushViewController(controller, animated: true)
+            //            self?.show(controller, sender: nil)
         }).disposed(by: disposeBag)
     }
-
+    
     func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D, _ placeName: String, _ placeImage: String) {
         self.delegate?.didTapNearLocation(coordinates, placeName, "", placeImage)
     }
@@ -161,7 +171,7 @@ extension NearbySearchController: NearbyPlacesCellInterface {
 
 extension NearbySearchController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (nearBySearchView.collectionView.frame.width / 2) - 10 , height: (nearBySearchView.collectionView.frame.width / 1.25))
+        return CGSize(width: (nearBySearchView.collectionView.frame.width / 2) - 10 , height: (nearBySearchView.collectionView.frame.width))
     }
 }
 
@@ -174,7 +184,7 @@ extension NearbySearchController {
         //Throttle ile birlikte kullanıcı arama yaparken textfield'in texi her değiştiğinde bu fonksiyon çalışacağı için google places'a birçok istek atmayı önlüyorum.
         nearBySearchView.textField.rx.text.throttle(.seconds(2), scheduler: MainScheduler.instance).bind(onNext: { [weak self] text in
             if let text = text, !text.isEmpty {
-             
+                
                 
                 self?.searchText.onNext(text)
             }
@@ -192,7 +202,16 @@ extension NearbySearchController {
         
         nearBySearchView.searchDistanceButton.rx.tap.bind(onNext: { [unowned self] in
             let controller = UIViewController()
-            self.present(controller.createPopUpPickerView(self.nearBySearchView.searchDistancePickerView, self.nearBySearchView.searchDistanceButton, self.observableDistance), animated: true)
+            self.present(controller.createDistancePopUpPickerView(self.nearBySearchView.searchDistancePickerView, self.nearBySearchView.searchDistanceButton, self.observableDistance), animated: true)
+            
+        }).disposed(by: disposeBag)
+        
+    }
+    
+    private func createSortButtonCallbacks() {
+        nearBySearchView.textField.sortButton.rx.tap.bind(onNext: { [unowned self] in
+            let controller = UIViewController()
+            self.present(controller.createSortPopUpPickerView(self.nearBySearchView.sortPickerView, self.nearBySearchView.textField.sortButton, observableSort: observableSort), animated: true)
             
         }).disposed(by: disposeBag)
     }
@@ -202,7 +221,7 @@ extension NearbySearchController {
 
 extension NearbySearchController {
     
-    private func createPickerViewCallbacks() {
+    private func createSearchDistancePickerViewCallbacks() {
         
         // bind distance meters to pickerview
         observableDistance.bind(to: nearBySearchView.searchDistancePickerView.rx.itemTitles) { row, element in
@@ -217,6 +236,7 @@ extension NearbySearchController {
             case .next((let row, _)):
                 self.observableDistance.subscribe { distances in
                     self.searchDistance = distances[row]
+                    self.nearBySearchViewModel.fetchNearPlaces(self.nearBySearchView.textField.text ?? "", self.lat, self.lng, searchDistance: distances[row], sortType: self.sortType ?? .smart )
                 }.disposed(by: self.disposeBag)
             default:
                 break
@@ -224,12 +244,40 @@ extension NearbySearchController {
             }
         }.disposed(by: disposeBag)
     }
+    
+    private func createSortPickerViewCallbacks() {
+        
+        // bind sort type to pickerview
+
+        observableSort.bind(to: nearBySearchView.sortPickerView.rx.itemTitles) {row, element in
+            return element.rawValue
+        }.disposed(by: disposeBag)
+        
+        
+        // handle selected
+        
+        nearBySearchView.sortPickerView.rx.itemSelected.subscribe { [unowned self] event in
+            switch event {
+                
+            case .next((let row, _)):
+                self.observableSort.subscribe(onNext: { sortType in
+                    self.sortType = sortType[row]
+                    self.nearBySearchViewModel.fetchNearPlaces(self.nearBySearchView.textField.text ?? "", self.lat, self.lng, searchDistance: self.searchDistance ?? "1000", sortType: sortType[row])
+                    
+                }).disposed(by: disposeBag)
+            default:
+                break
+            }
+            
+        }.disposed(by: disposeBag)
+    }
+    
 }
 
 
-    
-    
-   
+
+
+
 
 
 

@@ -38,7 +38,8 @@ final class SearchView: UIView {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.fill")
         imageView.tintColor = .black
-        imageView.contentMode = .scaleToFill
+        imageView.layer.cornerRadius = imageView.frame.size.height / 2
+        imageView.layer.masksToBounds = true
         return imageView
     }()
  
@@ -46,8 +47,7 @@ final class SearchView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        rightImageView.layer.cornerRadius = rightImageView.frame.height / 2
-        rightImageView.layer.masksToBounds = true
+ 
     }
 
     
@@ -86,6 +86,7 @@ extension SearchView {
     
     private func setupConstraints() {
         mapViewConstraints()
+        rightImageViewConstraints()
     }
     
     private func mapViewConstraints() {
@@ -93,6 +94,12 @@ extension SearchView {
             make.top.equalTo(self)
             make.bottom.equalTo(safeAreaLayoutGuide)
             make.leading.trailing.equalTo(safeAreaLayoutGuide)
+        }
+    }
+    
+    private func rightImageViewConstraints() {
+        rightImageView.snp.makeConstraints { make in
+            make.width.equalTo(rightImageView.snp.height)
         }
     }
    

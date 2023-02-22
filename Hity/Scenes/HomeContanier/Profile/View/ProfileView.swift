@@ -24,19 +24,30 @@ final class ProfileView: UIView {
         return imageView
     }()
     
-    var profileImageActivityIndicator = UIActivityIndicatorView()
+    var profileImageActivityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.contentMode = .scaleToFill
+        activityIndicator.color = .blue
+        return activityIndicator
+    }()
     
     let editButton: CircleButton = {
         let button = CircleButton(type: .custom)
         button.backgroundColor = .blue
         button.tintColor = .white
         button.setImage(UIImage(systemName: "pencil"), for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         button.contentHorizontalAlignment = .fill
         button.contentVerticalAlignment = .fill
         return button
     }()
     
-    var pickerControllerActivityIndicator = UIActivityIndicatorView()
+    var pickerControllerActivityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.contentMode = .scaleToFill
+        activityIndicator.color = .blue
+        return activityIndicator
+    }()
     
     private let seperatorView: UIView = {
         let view = UIView()
@@ -77,14 +88,12 @@ final class ProfileView: UIView {
     }()
     
     //MARK: - Layout Subviews
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
         profileImageView.layer.masksToBounds = true
         
-        seperatorView.layer.cornerRadius = seperatorView.frame.height / 2
-        seperatorView.layer.masksToBounds = true
     }
     
     
@@ -124,7 +133,6 @@ extension ProfileView {
         addSubview(profileImageView)
         addActivityIndicatorToProfileImage()
         addSubview(editButton)
-        addSubview(pickerControllerActivityIndicator)
         addSubview(seperatorView)
         addSubview(buttonStackView)
         buttonsToStackView()
@@ -132,6 +140,8 @@ extension ProfileView {
     
     private func addActivityIndicatorToProfileImage() {
         profileImageView.addSubview(profileImageActivityIndicator)
+            emptyView.addSubview(pickerControllerActivityIndicator)
+
     }
     
     private func buttonsToStackView() {
@@ -168,6 +178,7 @@ extension ProfileView {
     private func profileImageActivityIndicatorConstraints() {
         profileImageActivityIndicator.snp.makeConstraints { make in
             make.centerX.centerY.equalTo(profileImageView)
+            make.height.width.equalTo(emptyView.snp.height)
         }
     }
     
@@ -182,7 +193,8 @@ extension ProfileView {
     
     private func pickerControllerActivityIndicatorConstraints() {
         pickerControllerActivityIndicator.snp.makeConstraints { make in
-            make.centerX.centerY.equalTo(safeAreaLayoutGuide)
+            make.centerX.centerY.equalTo(emptyView)
+            make.height.width.equalTo(emptyView.snp.height)
         }
     }
     
@@ -190,14 +202,14 @@ extension ProfileView {
         seperatorView.snp.makeConstraints { make in
             make.top.equalTo(editButton.snp.bottom).offset(15)
             make.height.equalTo(1.5)
-            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(10)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-10)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
         }
     }
     
     private func buttonStackViewConstraints() {
         buttonStackView.snp.makeConstraints { make in
-            make.top.equalTo(seperatorView.snp.bottom).offset(15)
+            make.top.equalTo(seperatorView.snp.bottom)
             make.leading.trailing.equalTo(safeAreaLayoutGuide)
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.1666667)
         }

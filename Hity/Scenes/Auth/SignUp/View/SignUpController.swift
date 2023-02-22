@@ -61,15 +61,23 @@ extension SignUpController: SignUpViewInterface {
 }
 
 
-//MARK: - Creating Sign In Callbacks
+//MARK: - Creating Sign Up ViewModel Callbacks
 
 extension SignUpController {
     
     private func createCallbacks() {
         
-        signUpViewModel.isAccCreatingSuccess.subscribe { [weak self] value in
-            let controller = SignInController()
-            self?.navigationController?.pushViewController(controller, animated: true)
+        signUpViewModel.isAccCreating.subscribe { [weak self] value in
+            if value {
+                self?.signUpView.activityIndicator.startAnimating()
+            } else {
+                self?.signUpView.activityIndicator.stopAnimating()
+            }
+        }.disposed(by: disposeBag)
+        
+        signUpViewModel.isAccCreatingSuccess.subscribe { [unowned self] value in
+            let controller = SignUpPopUpController()
+            controller.presentPopUpController(self)
         }.disposed(by: disposeBag)
         
         
@@ -77,8 +85,8 @@ extension SignUpController {
             print("data base oluşturuldu")
         }).disposed(by: disposeBag)
         
-        signUpViewModel.errorMsg.subscribe(onNext: { error in
-            print(error)
+        signUpViewModel.errorMsg.subscribe(onNext: { [weak self] error in
+            self?.signUpView.signUpErrorLabel.text = error
         }).disposed(by: disposeBag)
     }
     

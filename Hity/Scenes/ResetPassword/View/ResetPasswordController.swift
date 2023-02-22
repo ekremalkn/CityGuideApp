@@ -19,6 +19,10 @@ final class ResetPasswordController: UIViewController {
     private let disposeBag = DisposeBag()
 
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        resetPasswordViewModel.getUserEmail()
+    }
     //MARK: - Lifecycle Methods
 
     override func viewDidLoad() {
@@ -53,11 +57,33 @@ final class ResetPasswordController: UIViewController {
     //MARK: - Creating ResetPassword ViewModel Callbacks
     
     private func createResetPasswordViewModelCallbacks() {
-        resetPasswordViewModel.isSendingResetEmailSuccess.subscribe(onNext: { _ in
-            print("reset emaili gönderildi")
+        resetPasswordViewModel.isSendingResetEmailSuccess.subscribe(onNext: { [weak self] isSend in
+            if isSend {
+                self?.resetPasswordView.submitCallbackLabel.textColor = .green
+                self?.resetPasswordView.submitCallbackLabel.text = "Password reset request was sent successfully."
+            }
             
         }).disposed(by: disposeBag)
+        
+        
+        resetPasswordViewModel.errorMsg.subscribe { [weak self] errorMsg in
+            self?.resetPasswordView.submitCallbackLabel.textColor = .red
+            self?.resetPasswordView.submitCallbackLabel.text = errorMsg
+        }.disposed(by: disposeBag)
+        
+        resetPasswordViewModel.isEmailGettingSuccess.subscribe { [weak self] email in
+            self?.resetPasswordView.emailTextField.text = email
+            self?.resetPasswordView.subTitleLabel.text = ""
+        }.disposed(by: disposeBag)
+        
+        resetPasswordViewModel.isEmailGettingUnsuccessful.subscribe { [weak self] _ in
+            self?.resetPasswordView.emailTextField.isUserInteractionEnabled = true
+        }.disposed(by: disposeBag)
+        
+        
     }
+    
+        
 
 
 

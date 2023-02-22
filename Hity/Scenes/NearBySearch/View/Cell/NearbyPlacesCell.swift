@@ -15,6 +15,7 @@ protocol NearbyPlacesCellProtocol {
     var placeImage: String { get}
     var placeName: String { get }
     var placeRating: String { get }
+    var placeRatingTotal: String { get }
     var placeAddress: String { get }
     var placeOpenClosedInfo: Bool { get }
 }
@@ -154,6 +155,13 @@ final class NearbyPlacesCell: UICollectionViewCell {
         return button
     }()
     
+    let userRatingTotalLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        
+        return label
+    }()
+    
     //MARK: - Properties
     weak var interace: NearbyPlacesCellInterface?
     private let nearBySearchViewModel = NearbySearchViewModel()
@@ -238,6 +246,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
         self.ratingLabel.text = data.placeRating
         self.distanceLabel.text = "\(self.calculateDistance(mainLocation, data.placeLocation))m"
         self.placeOpenClosedInfo = self.openClosedCheck(data.placeOpenClosedInfo, placeOpenClosedInfo)
+        self.userRatingTotalLabel.text = data.placeRatingTotal
     }
     
     //MARK: - Toogle fav button
@@ -293,6 +302,7 @@ extension NearbyPlacesCell {
         addSubview(placeOpenClosedInfo)
         addSubview(buttonStackView)
         buttonsToStackView()
+        addSubview(userRatingTotalLabel)
         
     }
     
@@ -336,6 +346,7 @@ extension NearbyPlacesCell {
         placeOpenClosedInfoConstraints()
         placeOpenClosedInfoConstraints()
         buttonStackViewConstraints()
+        userRatingTotalLabelConstraints()
     }
     
     private func placeImageBackgroundConstraints() {
@@ -343,7 +354,7 @@ extension NearbyPlacesCell {
             make.top.equalTo(safeAreaLayoutGuide).offset(10)
             make.leading.equalTo(safeAreaLayoutGuide).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.centerY)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.5)
         }
     }
     
@@ -383,6 +394,7 @@ extension NearbyPlacesCell {
     }
     private func placeOpenClosedInfoConstraints() {
         placeOpenClosedInfo.snp.makeConstraints { make in
+            make.top.equalTo(placeName.snp.bottom).offset(10)
             make.centerY.equalTo(distanceStackView.snp.centerY)
             make.trailing.equalTo(placeImageBackground.snp.trailing)
             make.width.equalTo(placeOpenClosedInfo.snp.width)
@@ -393,15 +405,18 @@ extension NearbyPlacesCell {
     
     private func buttonStackViewConstraints() {
         buttonStackView.snp.makeConstraints { make in
-            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.1666667)
+            make.top.equalTo(placeOpenClosedInfo.snp.bottom).offset(10)
+            make.height.equalTo(placeImageBackground.snp.width).multipliedBy(0.30)
             make.leading.trailing.equalTo(placeImageBackground)
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-10)
-            
         }
         
     }
     
-    
+    private func userRatingTotalLabelConstraints() {
+        userRatingTotalLabel.snp.makeConstraints { make in
+            make.top.equalTo(buttonStackView.snp.bottom).offset(10)
+        }
+    }
     
     
 }

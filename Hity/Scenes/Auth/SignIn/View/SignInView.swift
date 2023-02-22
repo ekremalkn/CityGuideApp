@@ -16,6 +16,7 @@ protocol SignInViewInterface: AnyObject {
     func appleSignInButtonTapped(_ view: SignInView)
     func signInButtonTapped(_ view: SignInView)
     func signUpButtonTapped(_ view: SignInView)
+    func forgotPasswordButtonTapped(_ view: SignInView)
 }
 final class SignInView: UIView {
     
@@ -25,6 +26,12 @@ final class SignInView: UIView {
     private let emptyView: UIView = {
         let view = UIView()
         return view
+    }()
+    
+    let activityIndicator : UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.contentMode = .scaleToFill
+        return activityIndicator
     }()
     
     private let titleView: UIView = {
@@ -83,19 +90,19 @@ final class SignInView: UIView {
         return textField
     }()
     
-    private let signInButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Sign In", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 10
-        return button
-    }()
-    
     private let forgotPasswordView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         return view
+    }()
+    
+    let signInErrorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .red
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.numberOfLines = 4
+        return label
     }()
     
     private let forgotPasswordButton: UIButton = {
@@ -104,6 +111,15 @@ final class SignInView: UIView {
         button.setTitleColor(.blue, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         button.backgroundColor = .clear
+        return button
+    }()
+    
+    private let signInButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Sign In", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -149,7 +165,18 @@ final class SignInView: UIView {
         return button
     }()
     
-    private let googleSignInButton = GIDSignInButton()
+    private let googleSignInBtn: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.setImage(UIImage(named: "googleLogo"), for: .normal)
+        button.setTitle("Continue with Google", for: .normal)
+        button.setTitleColor(.darkGray, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentHorizontalAlignment = .left
+        button.imageEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 0)
+        return button
+    }()
+    
     private let appleSignInButton = ASAuthorizationAppleIDButton(type: .continue, style: .black)
     let facebookSignInButton = FBLoginButton()
     
@@ -161,6 +188,13 @@ final class SignInView: UIView {
     var passwordSecure = true
     
     //MARK: - Init Methods
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        googleSignInBtn.addShadow()
+        facebookSignInButton.addShadow()
+        appleSignInButton.addShadow()
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -189,11 +223,12 @@ final class SignInView: UIView {
     //MARK: - AddAction
     
     private func addTarget() {
-        googleSignInButton.addTarget(self, action: #selector(signInGoogleButtonAction), for: .touchUpInside)
+        googleSignInBtn.addTarget(self, action: #selector(signInGoogleButtonAction), for: .touchUpInside)
         appleSignInButton.addTarget(self, action: #selector(signInAppleButtonAction), for: .touchUpInside)
         passwordEyeButton.addTarget(self, action: #selector(passwordEyeButtonAction), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(signInButtonAction), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonAction), for: .touchUpInside)
+        forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordButtonAction), for: .touchUpInside)
         
     }
     
@@ -215,6 +250,10 @@ final class SignInView: UIView {
     
     @objc private func signUpButtonAction(_ button: UIButton) {
         self.interface?.signUpButtonTapped(self)
+    }
+    
+    @objc private func forgotPasswordButtonAction(_ button: UIButton) {
+        self.interface?.forgotPasswordButtonTapped(self)
     }
     
     //MARK: - PasswordEyeButton Toggle
@@ -258,9 +297,7 @@ extension SignInView {
         titleView.addSubview(subTitle)
     }
     
-    private func forgotPasswordButtonToView() {
-        forgotPasswordView.addSubview(forgotPasswordButton)
-    }
+   
     private func textFieldsToStackView() {
         textFieldStackView.addArrangedSubview(emailTextField)
         textFieldStackView.addArrangedSubview(passwordTextField)
@@ -268,8 +305,14 @@ extension SignInView {
         textFieldStackView.addArrangedSubview(signInButton)
     }
     
+    private func forgotPasswordButtonToView() {
+        forgotPasswordView.addSubview(signInErrorLabel)
+        forgotPasswordView.addSubview(forgotPasswordButton)
+        forgotPasswordView.addSubview(activityIndicator)
+    }
+    
     private func providerButtonsToStackView() {
-        providerStackView.addArrangedSubview(googleSignInButton)
+        providerStackView.addArrangedSubview(googleSignInBtn)
         providerStackView.addArrangedSubview(facebookSignInButton)
         providerStackView.addArrangedSubview(appleSignInButton)
     }
@@ -287,7 +330,9 @@ extension SignInView {
         titleConstraints()
         subTitleConstraints()
         textFieldStackViewConstraints()
+        activityIndicatorConstraints()
         forgotPasswordButtonConstraints()
+        signInErrorLabelConstraints()
         orLabelConstraints()
         providerStackViewConstraints()
         signUpStackViewConstraints()
@@ -297,6 +342,13 @@ extension SignInView {
         emptyView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(safeAreaLayoutGuide)
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.083333335)
+        }
+    }
+    
+    private func activityIndicatorConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.height.width.equalTo(emptyView)
+            make.centerX.centerY.equalTo(forgotPasswordView)
         }
     }
     
@@ -336,9 +388,18 @@ extension SignInView {
         forgotPasswordButton.snp.makeConstraints { make in
             make.trailing.equalTo(forgotPasswordView.snp.trailing)
             make.top.equalTo(forgotPasswordView.snp.top)
-            
+            make.width.equalTo(forgotPasswordView.snp.width).multipliedBy(0.35)
         }
     }
+    
+    private func signInErrorLabelConstraints() {
+        signInErrorLabel.snp.makeConstraints { make in
+            make.leading.equalTo(forgotPasswordView.snp.leading)
+            make.top.equalTo(forgotPasswordView.snp.top)
+            make.trailing.equalTo(forgotPasswordButton.snp.leading).offset(-5)
+        }
+    }
+
     
     private func orLabelConstraints() {
         orLabel.snp.makeConstraints { make in

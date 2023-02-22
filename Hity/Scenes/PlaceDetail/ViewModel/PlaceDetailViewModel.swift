@@ -15,7 +15,7 @@ final class PlaceDetailViewModel {
     private let webServiceManager = Service.shared
     
     // Observable variables
-    var placeReviews = PublishSubject<[DetailReview]>()
+    var aPlaceReview = PublishSubject<[DetailReview]>()
     var isPlaceInFavoriteList = PublishSubject<Bool>()
     
     //Firebase properties
@@ -29,10 +29,12 @@ final class PlaceDetailViewModel {
         
         webServiceManager.placeDetail(placeUID: placeUID) { [weak self] place in
             if let placeReviews = place?.result?.reviews {
-                self?.placeReviews.onNext(placeReviews)
+                let randomInt = Int.random(in: 0..<placeReviews.count)
+                let array = Array(arrayLiteral: placeReviews[randomInt])
+                self?.aPlaceReview.onNext(array)
             }
         } onError: { [weak self] error in
-            self?.placeReviews.onError(error)
+            self?.aPlaceReview.onError(error)
         }
         
         
@@ -81,13 +83,18 @@ final class PlaceDetailViewModel {
             self?.favoriteList = favoriteList
             
             if let favoriteList = self?.favoriteList {
-                for (id, _ ) in favoriteList {
-                    if id == placeUID {
-                        self?.isPlaceInFavoriteList.onNext(true)
-                    } else {
-                        self?.isPlaceInFavoriteList.onNext(false)
+                if favoriteList.count == 0 {
+                    self?.isPlaceInFavoriteList.onNext(false)
+                } else {
+                    for (id, _ ) in favoriteList {
+                        if id == placeUID {
+                            self?.isPlaceInFavoriteList.onNext(true)
+                        } else if id != placeUID || favoriteList.count == 0 {
+                            self?.isPlaceInFavoriteList.onNext(false)
+                        }
                     }
                 }
+                
             }
             
             

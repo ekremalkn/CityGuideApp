@@ -20,11 +20,11 @@ final class ProfileViewModel {
     
     //observable variables
     
-    var isUploadingSuccess = PublishSubject<Bool>()
-    var isDownloadingURLSuccess = PublishSubject<String>()
-    var isSigningOutSuccess = PublishSubject<Bool>()
-    var errorMsg = PublishSubject<String>()
-    
+    let isUploadingSuccess = PublishSubject<Bool>()
+    let isDownloadingURLSuccess = PublishSubject<String>()
+    let isSigningOutSuccess = PublishSubject<Bool>()
+    let errorMsg = PublishSubject<String>()
+
     
     func uploadImageDataToFirebaseStorage(_ imageData: Data) {
         

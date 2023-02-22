@@ -91,21 +91,34 @@ final class SignUpView: UIView {
     
     private let passwordRequirementView: UIView = {
         let view = UIView()
-        
         return view
+    }()
+    
+    let activityIndicator : UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.contentMode = .scaleToFill
+        return activityIndicator
     }()
     
     private let passwordRequirementLabel: UILabel = {
         let label = UILabel()
-        label.text = "Password must be 8 chracter"
+        label.text = "Password must be 8 character"
         label.textColor = .systemGray
         label.font = UIFont.systemFont(ofSize: 13)
         return label
     }()
     
+    let signUpErrorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .red
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.numberOfLines = 0
+        return label
+    }()
+    
     private let passwordRequirementImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.isHidden = true
         return imageView
     }()
     
@@ -145,6 +158,7 @@ final class SignUpView: UIView {
         setupConstraints()
         addTarget()
         configurePasswordTextFieldRightButton()
+        reactivePasswordTextField()
     }
     
     private func configurePasswordTextFieldRightButton() {
@@ -159,7 +173,6 @@ final class SignUpView: UIView {
     }
     
     @objc private func signUpButtonAction(_ button: UIButton) {
-        reactivePasswordTextField()
         if let passwordChracter = passwordTextField.text?.count {
             if passwordChracter >= 8 {
                 self.interface?.signUpButtonTapped(self)
@@ -179,10 +192,13 @@ final class SignUpView: UIView {
     private func reactivePasswordTextField() {
         passwordTextField.rx.text.bind { [weak self] text in
             if let text = text {
-                if text.count >= 8 {
-                    self?.passwordRequirementImageToogle(true)
-                } else {
+                switch text.count {
+                case 0:
+                    self?.passwordRequirementImage.isHidden = true
+                case ..<8:
                     self?.passwordRequirementImageToogle(false)
+                default:
+                    self?.passwordRequirementImageToogle(true)
                 }
             }
         }.disposed(by: disposeBag)
@@ -247,6 +263,8 @@ extension SignUpView {
     }
     
     private func passwordRequirementsToView() {
+        passwordRequirementView.addSubview(activityIndicator)
+        passwordRequirementView.addSubview(signUpErrorLabel)
         passwordRequirementView.addSubview(passwordRequirementLabel)
         passwordRequirementView.addSubview(passwordRequirementImage)
         
@@ -260,8 +278,10 @@ extension SignUpView {
         titleConstraints()
         subTitleConstraints()
         textFieldStackViewConstraints()
+        activityIndicatorLabelConstraints()
         passwordRequirementLabelConstraints()
         passwordRequirementImageConstraints()
+        signUpErrorLabelConstraints()
     }
     
     private func emptyViewConstraints() {
@@ -303,9 +323,17 @@ extension SignUpView {
         }
     }
     
+    private func activityIndicatorLabelConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.height.equalTo(emptyView.snp.height)
+            make.centerX.centerY.equalTo(passwordRequirementView)
+        }
+    }
+    
     private func passwordRequirementLabelConstraints() {
         passwordRequirementLabel.snp.makeConstraints { make in
             make.top.equalTo(passwordRequirementView.snp.top)
+            make.height.equalTo(13)
         }
     }
     
@@ -313,6 +341,15 @@ extension SignUpView {
         passwordRequirementImage.snp.makeConstraints { make in
             make.leading.equalTo(passwordRequirementLabel.snp.trailing).offset(10)
             make.centerY.equalTo(passwordRequirementLabel.snp.centerY)
+            make.height.width.equalTo(passwordRequirementLabel.snp.height)
+        }
+    }
+    
+    private func signUpErrorLabelConstraints() {
+        signUpErrorLabel.snp.makeConstraints { make in
+            make.top.equalTo(passwordRequirementImage.snp.bottom).offset(3)
+            make.leading.trailing.equalTo(passwordRequirementView)
+            make.bottom.equalTo(passwordRequirementView.snp.bottom)
         }
     }
     

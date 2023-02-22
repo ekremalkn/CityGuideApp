@@ -11,10 +11,11 @@ final class CircleButton: UIButton {
 
     override func layoutSubviews() {
             super.layoutSubviews()
-            updateCornerRadius()
+            configureButton()
         }
-
-        private func updateCornerRadius() {
+    
+        
+        private func configureButton() {
             layer.cornerRadius = min(bounds.width, bounds.height) / 2
             layer.masksToBounds = true
         }

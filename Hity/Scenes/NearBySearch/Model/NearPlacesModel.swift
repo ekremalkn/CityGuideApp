@@ -16,7 +16,6 @@ struct NearPlacesModel: Codable {
 
 // MARK: - Result
 struct Result: Codable, NearbyPlacesCellProtocol {
-
  
     let businessStatus: String?
     let geometry: Geometry?
@@ -68,6 +67,14 @@ struct Result: Codable, NearbyPlacesCellProtocol {
         }
         return ""
     }
+    
+    var placeRatingTotal: String {
+        if let userRatingsTotal = userRatingsTotal {
+            return "\(userRatingsTotal)"
+        }
+        return ""
+    }
+
     
     var placeAddress: String {
         if let address = vicinity {

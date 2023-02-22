@@ -30,16 +30,12 @@ final class NearbySearchView: UIView {
         return pickerView
     }()
     
-    let textField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Search"
-        textField.layer.cornerRadius = 10
-        textField.backgroundColor = UIColor.white
-        textField.leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
-        textField.leftView?.tintColor = .systemGray
-        textField.leftViewMode = .always
-        return textField
+    let sortPickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        return pickerView
     }()
+    
+    let textField = NearbySearchTextField()
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -89,7 +85,7 @@ extension NearbySearchView {
         addSubview(textField)
         addSubview(collectionView)
     }
-    
+
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
@@ -124,7 +120,7 @@ extension NearbySearchView {
             
         }
     }
-    
+
     private func collectionViewConstraints() {
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(textField.snp.bottom).offset(10)

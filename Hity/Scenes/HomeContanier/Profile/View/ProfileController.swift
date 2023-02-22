@@ -9,49 +9,56 @@ import UIKit
 import RxSwift
 
 final class ProfileController: UIViewController {
-
+    
     
     //MARK: - Properties
     
     private let profileView = ProfileView()
     private let profileViewModel = ProfileViewModel()
-
     private let disposeBag = DisposeBag()
     
+    //MARK: - Observable
+    
+    let isPickerLoading = PublishSubject<Bool>()
+    let isProfilePhotoLoading = PublishSubject<Bool>()
+    
     //MARK: - Lifecycle Methods
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-        // Do any additional setup after loading the view.
     }
     
     //MARK: - Configure ViewController
     
     private func configureViewController() {
-        view.backgroundColor = .white
-        view = profileView
+        view.backgroundColor = .clear
+        addSubview()
+        setupConstraints()
         configureNavBar()
         creatingCallbacks()
         profileViewModel.fetchProfilePhoto()
     }
     
     private func configureNavBar() {
-            navigationController?.isNavigationBarHidden = false
-        }
+        title = "Profile"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.isNavigationBarHidden = false
+    }
     
     
     private func creatingCallbacks() {
+        createPickerControllerLifeCycleCallback()
         createProfileViewButtonsCallbacks()
         createProfileViewModelCallbacks()
     }
     
     //MARK: - Creating Profile ViewButton Callbacks
-
+    
     private func createProfileViewButtonsCallbacks() {
         
         profileView.editButton.rx.tap.subscribe(onNext: { [weak self] in
-            self?.profileView.pickerControllerActivityIndicator.startAnimating()
+            self?.isPickerLoading.onNext(true)
             self?.presentPickerController()
         }).disposed(by: disposeBag)
         
@@ -62,7 +69,8 @@ final class ProfileController: UIViewController {
         }).disposed(by: disposeBag)
         
         profileView.logOutButton.rx.tap.subscribe(onNext: {
-            self.profileViewModel.signOut()
+            let controller = ResetPasswordPopUpController()
+            controller.presentPopUpController(self)
         }).disposed(by: disposeBag)
         
         
@@ -80,9 +88,9 @@ final class ProfileController: UIViewController {
         
         profileViewModel.isDownloadingURLSuccess.subscribe(onNext: { [weak self] profileImageURL in
             self?.profileView.profileImageView.downloadSetImage(type: .onlyURL, url: profileImageURL, completion: {
-                print("fotoğraf ekleme işi bitii")
-                self?.profileView.profileImageActivityIndicator.stopAnimating()
+                self?.isProfilePhotoLoading.onNext(false)
             })
+
         }).disposed(by: disposeBag)
         
         
@@ -93,12 +101,12 @@ final class ProfileController: UIViewController {
         }.disposed(by: disposeBag)
     }
     
-
-
+    
+    
 }
 
 
-//MARK: - UIImagePicker
+//MARK: - UIImagePickerController
 
 extension ProfileController {
     
@@ -107,9 +115,29 @@ extension ProfileController {
         picker.sourceType = .photoLibrary
         picker.allowsEditing = true
         picker.delegate = self
-        self.present(picker, animated: true) {
-            self.profileView.pickerControllerActivityIndicator.stopAnimating()
+        self.present(picker, animated: true) { [weak self] in
+            self?.isPickerLoading.onNext(false)
         }
+    }
+    
+    // picker view lifecycle callbacks
+    
+    private func createPickerControllerLifeCycleCallback() {
+        isPickerLoading.subscribe { [weak self] loading in
+            if loading {
+                self?.profileView.pickerControllerActivityIndicator.startAnimating()
+            } else {
+                self?.profileView.pickerControllerActivityIndicator.stopAnimating()
+            }
+        }.disposed(by: disposeBag)
+        
+        isProfilePhotoLoading.subscribe { [weak self] loading in
+            if loading {
+                self?.profileView.profileImageActivityIndicator.startAnimating()
+            } else {
+                self?.profileView.profileImageActivityIndicator.stopAnimating()
+            }
+        }.disposed(by: disposeBag)
     }
     
     
@@ -120,20 +148,43 @@ extension ProfileController {
 extension ProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true)
-        profileView.profileImageActivityIndicator.startAnimating()
+        picker.dismiss(animated: true) { [weak self] in
+            self?.isProfilePhotoLoading.onNext(true)
+        }
+        
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
         guard let imageData = image.pngData() else { return }
         //upload image data
-        profileViewModel.uploadImageDataToFirebaseStorage(imageData)
+        self.profileViewModel.uploadImageDataToFirebaseStorage(imageData)
+        
+        
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true)
+        }
+        
         
     }
+}
+
+//MARK: - SearchView AddSubview / Constraints
+
+extension ProfileController {
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true)
+    //MARK: - AddSubview
+    
+    private func addSubview() {
+        view.addSubview(profileView)
     }
     
+    //MARK: - Setup Constraints
     
+    private func setupConstraints() {
+        profileView.snp.makeConstraints { make in
+            make.top.leading.bottom.equalTo(view)
+            make.width.equalTo(view.safeAreaLayoutGuide.snp.width).multipliedBy(0.78)
+        }
+    }
 }
 
 

@@ -42,11 +42,13 @@ final class SignUpViewModel {
             
             guard let authResult = authResult else { return }
             // created acc
+            self?.isAccCreating.onNext(false)
             self?.isAccCreatingSuccess.onNext(true)
             self?.createDatabaseForUser(authResult, username)
             
         }
     }
+    
     
     private func createDatabaseForUser(_ authResult: AuthDataResult, _ username: String) {
         self.isDatabaseCreating.onNext(true)

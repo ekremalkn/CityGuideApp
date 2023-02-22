@@ -29,7 +29,9 @@ final class SignInViewModel {
     
     let isSuccess = PublishSubject<Bool>()
     let isLoading = PublishSubject<Bool>()
+    let isEmailVerification = PublishSubject<Bool>()
     let errorMsg = PublishSubject<String>()
+    
     
     let isDatabaseCreatingSuccess = PublishSubject<Bool>()
     let isDatabaseCreating = PublishSubject<Bool>()
@@ -50,16 +52,31 @@ final class SignInViewModel {
                 return
             }
             guard let authResult = authResult else { return }
-            
             self?.isLoading.onNext(false)
             self?.isSuccess.onNext(true)
-            
             if let username = authResult.user.displayName {
                 self?.createDatabaseForUser(authResult, username)
             }
         }
         
     }
+    
+    
+    func checkEmailVerification() {
+        if let currentUser = firebaseAuth.currentUser {
+            if currentUser.isEmailVerified {
+                self.isEmailVerification.onNext(true)
+                // reset password buttonunu etkinleştir
+                // email verification buttonunu gizle
+            } else {
+                self.isEmailVerification.onNext(false)
+                // ekrana pop up view ver ve email adresinizi doğrulayın çıksın. altına button ekle ve basınca email adresi doğrulama linki gönder
+                // reset password buttonunu disable yap
+                // email verification buttonunu göster
+            }
+        }
+    }
+    
     
     func signInWithEmail(_ email: String, _ password: String) {
         
@@ -120,7 +137,7 @@ extension SignInViewModel {
         
     }
     
-   private func changeUserDisplayName(_ username: String) {
+    private func changeUserDisplayName(_ username: String) {
         let changeRequest = self.firebaseAuth.currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = username
         changeRequest?.commitChanges(completion: { [weak self] error in
@@ -130,7 +147,7 @@ extension SignInViewModel {
             }
         })
     }
-
+    
 }
 
 //MARK: - SignInWithGoogle Methods
@@ -161,7 +178,7 @@ extension SignInViewModel {
 extension SignInViewModel {
     func getFacebookCredential(_ tokenString: String) {
         let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
-        self.credential.onNext(credential)
+        self.signInWithProvider(credential)
     }
 }
 
@@ -188,7 +205,7 @@ extension SignInViewModel {
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {  print("Unable to serialize token string from data: \(appleIDToken.debugDescription)"); return}
             
             let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
-            self.credential.onNext(credential)
+            self.signInWithProvider(credential)
         }
         
     }
