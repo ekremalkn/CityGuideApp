@@ -1,5 +1,5 @@
 //
-//  ResetPasswordPopUpView.swift
+//  LogOutPopUpView.swift
 //  Hity
 //
 //  Created by Ekrem Alkan on 22.02.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ResetPasswordPopUpView: UIView {
+final class LogOutPopUpView: UIView {
     
     let contentView: UIView = {
         let view = UIView()
@@ -91,7 +91,7 @@ final class ResetPasswordPopUpView: UIView {
 
 //MARK: - UI Elements AddSubview / Constraints
 
-extension ResetPasswordPopUpView {
+extension LogOutPopUpView {
     
     //MARK: - AddSubview
     

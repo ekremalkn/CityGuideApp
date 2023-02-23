@@ -38,6 +38,7 @@ final class ProfileController: UIViewController {
         configureNavBar()
         creatingCallbacks()
         profileViewModel.fetchProfilePhoto()
+        profileViewModel.fetchUserDisplayName()
     }
     
     private func configureNavBar() {
@@ -62,14 +63,28 @@ final class ProfileController: UIViewController {
             self?.presentPickerController()
         }).disposed(by: disposeBag)
         
+        profileView.changeUserNameButton.rx.tap.subscribe(onNext: { [unowned self] in
+            let controller = ChangeUsernamePopUpController()
+            controller.presentPopUpController(self)
+        }).disposed(by: disposeBag)
         
-        profileView.changePasswordButton.rx.tap.subscribe(onNext: { [weak self] in
+        profileView.changeEmailButton.rx.tap.subscribe(onNext: { [unowned self] in
+            let controller = ChangeEmailPopUpController()
+            controller.presentPopUpController(self)
+        }).disposed(by: disposeBag)
+        
+        profileView.changePasswordButton.rx.tap.subscribe(onNext: { [unowned self] in
             let controller = ResetPasswordController()
-            self?.present(controller, animated: true)
+            controller.presentPopUpController(self)
+        }).disposed(by: disposeBag)
+        
+        profileView.deleteAccountButton.rx.tap.subscribe(onNext: { [unowned self] in
+            let controller = DeleteAccountPopUpController()
+            controller.presentPopUpController(self)
         }).disposed(by: disposeBag)
         
         profileView.logOutButton.rx.tap.subscribe(onNext: {
-            let controller = ResetPasswordPopUpController()
+            let controller = LogOutPopUpController()
             controller.presentPopUpController(self)
         }).disposed(by: disposeBag)
         
@@ -93,6 +108,9 @@ final class ProfileController: UIViewController {
 
         }).disposed(by: disposeBag)
         
+        profileViewModel.isFetchingUserDisplayName.subscribe { [weak self] name in
+            self?.profileView.userNameLabel.text = name
+        }.disposed(by: disposeBag)
         
         profileViewModel.isSigningOutSuccess.subscribe { _ in
             let signInVC = SignInController()

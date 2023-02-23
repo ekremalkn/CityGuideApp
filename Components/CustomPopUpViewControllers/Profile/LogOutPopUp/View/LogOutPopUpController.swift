@@ -1,5 +1,5 @@
 //
-//  ResetPasswordPopUpController.swift
+//  LogOutPopUpController.swift
 //  Hity
 //
 //  Created by Ekrem Alkan on 22.02.2023.
@@ -8,13 +8,13 @@
 import UIKit
 import RxSwift
 
-final class ResetPasswordPopUpController: UIViewController {
+final class LogOutPopUpController: UIViewController {
     
     
     //MARK: - Properties
     
-    private let resetPasswordPopUpView = ResetPasswordPopUpView()
-    private let resetPasswordPopUpViewModel = ResetPasswordPopUpViewModel()
+    private let resetPasswordPopUpView = LogOutPopUpView()
+    private let resetPasswordPopUpViewModel = LogOutPopUpViewModel()
     
     private let disposeBag = DisposeBag()
     
@@ -57,7 +57,7 @@ final class ResetPasswordPopUpController: UIViewController {
         }.disposed(by: disposeBag)
     }
     
-    //MARK: - Creating ResetPasswordPopUpViewModel Callbacks
+    //MARK: - Creating LogOutPopUpViewModel Callbacks
 
     private func createViewModelCallbacks() {
         resetPasswordPopUpViewModel.isSigningOutSuccess.subscribe { [weak self] isSignOut in
@@ -71,9 +71,9 @@ final class ResetPasswordPopUpController: UIViewController {
     
 }
 
-//MARK: - ResetPasswordPopUpView Configure
+//MARK: - LogOutPopUpView Configure
 
-extension ResetPasswordPopUpController {
+extension LogOutPopUpController {
     
     private func appearanceWhenViewDidLoad() {
         self.view.backgroundColor = .clear
@@ -112,7 +112,7 @@ extension ResetPasswordPopUpController {
 
 //MARK: - View AddSubview / Constraints
 
-extension ResetPasswordPopUpController {
+extension LogOutPopUpController {
     
     //MARK: - AddSubview
     

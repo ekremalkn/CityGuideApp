@@ -50,7 +50,9 @@ final class SignInPopUpController: UIViewController {
         self.signInPopUpView.sendButton.rx.tap.bind(onNext: { [weak self] in
             if let sendButtonTitle = self?.signInPopUpView.sendButton.titleLabel?.text {
                 if sendButtonTitle == "Cancel" {
+                    self?.signInPopUpViewModel.signOut()
                     self?.hidePopUpView()
+                    
                 } else {
                     self?.signInPopUpViewModel.sendEmailVerificationLink()
                 }
@@ -76,6 +78,14 @@ final class SignInPopUpController: UIViewController {
             }
         }.disposed(by: disposeBag)
         
+        signInPopUpViewModel.errorMsg.subscribe { [weak self] errorMsg in
+            if errorMsg == "Missing recipients" {
+                self?.signInPopUpView.subTitleLabel.textColor = .red
+                self?.signInPopUpView.subTitleLabel.text = "Invalid email"
+                self?.signInPopUpView.sendButton.setTitle("Cancel", for: .normal)
+
+            }
+        }.disposed(by: disposeBag)
     }
 
 

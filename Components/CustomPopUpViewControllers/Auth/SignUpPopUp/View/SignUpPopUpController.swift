@@ -13,7 +13,7 @@ final class SignUpPopUpController: UIViewController {
     //MARK: - Properties
     
     private let signUpPopUpView = SignUpPopUpView()
-    private let signUpPopUpViewModel = SignUpPopUpViewModel()
+//    private let signUpPopUpViewModel = SignUpPopUpViewModel()
     private let disposeBag = DisposeBag()
     
     //MARK: - Init Methods
@@ -40,9 +40,7 @@ final class SignUpPopUpController: UIViewController {
         addSubview()
         setupConstraints()
         appearanceWhenViewDidLoad()
-        createViewModelCallbacks()
         createContentViewButtonCallbacks()
-        signUpPopUpViewModel.sendEmailVerificationLink()
     }
     
     //MARK: - Creating SignUpPopUpView's ContentView Button Callbacks
@@ -55,15 +53,6 @@ final class SignUpPopUpController: UIViewController {
             })
         }.disposed(by: disposeBag)
     }
-    
-    //MARK: - Creating SignUpPopUpViewModel Callbacks
-    
-    private func createViewModelCallbacks() {
-        signUpPopUpViewModel.isSendEmailSuccess.subscribe { [weak self] value in
-                self?.signUpPopUpView.accordingToEmailVerification(value)
-        }.disposed(by: disposeBag)
-    }
-
     
     
 }

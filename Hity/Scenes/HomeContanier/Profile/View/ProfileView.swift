@@ -24,6 +24,16 @@ final class ProfileView: UIView {
         return imageView
     }()
     
+    let userNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.text = "Ekrem Alkan"
+        return label
+    }()
+    
     var profileImageActivityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.contentMode = .scaleToFill
@@ -64,9 +74,41 @@ final class ProfileView: UIView {
         return stackView
     }()
     
+    let changeUserNameButton: UIButton = {
+        let button = ProfileViewButton(type: .system)
+        button.setTitle("Change Username", for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.setImage(UIImage(systemName: "pencil.and.outline"), for: .normal)
+        button.rightImage.image = UIImage(systemName: "chevron.right")
+        button.backgroundColor = .white
+        button.tintColor = .black
+        return button
+    }()
+    
+    let changeEmailButton: UIButton = {
+        let button = ProfileViewButton(type: .system)
+        button.setTitle("Change Email", for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.setImage(UIImage(systemName: "envelope.open"), for: .normal)
+        button.rightImage.image = UIImage(systemName: "chevron.right")
+        button.backgroundColor = .white
+        button.tintColor = .black
+        return button
+    }()
+    
+    let deleteAccountButton: UIButton = {
+        let button = ProfileViewButton(type: .system)
+        button.setTitle("Delete Account", for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
+        button.backgroundColor = .white
+        button.tintColor = .red
+        return button
+    }()
+    
     let changePasswordButton: ProfileViewButton = {
         let button = ProfileViewButton(type: .system)
-        button.setTitle("Change password", for: .normal)
+        button.setTitle("Change Password", for: .normal)
         button.contentHorizontalAlignment = .left
         button.setTitleColor(.black, for: .normal)
         button.setImage(UIImage(systemName: "lock.fill"), for: .normal)
@@ -133,6 +175,7 @@ extension ProfileView {
         addSubview(profileImageView)
         addActivityIndicatorToProfileImage()
         addSubview(editButton)
+        addSubview(userNameLabel)
         addSubview(seperatorView)
         addSubview(buttonStackView)
         buttonsToStackView()
@@ -145,7 +188,10 @@ extension ProfileView {
     }
     
     private func buttonsToStackView() {
+        buttonStackView.addArrangedSubview(changeUserNameButton)
+        buttonStackView.addArrangedSubview(changeEmailButton)
         buttonStackView.addArrangedSubview(changePasswordButton)
+        buttonStackView.addArrangedSubview(deleteAccountButton)
         buttonStackView.addArrangedSubview(logOutButton)
     }
     //MARK: - Setup Constraints
@@ -155,6 +201,7 @@ extension ProfileView {
         profileImageConstraints()
         profileImageActivityIndicatorConstraints()
         editButtonConstraints()
+        userNameLabelConstraints()
         pickerControllerActivityIndicatorConstraints()
         seperatorViewConstraints()
         buttonStackViewConstraints()
@@ -163,10 +210,10 @@ extension ProfileView {
     private func emptyViewConstraints() {
         emptyView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.083333335)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.08333334)
         }
     }
-    
+  
     private func profileImageConstraints() {
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(emptyView.snp.bottom)
@@ -174,6 +221,7 @@ extension ProfileView {
             make.height.width.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.32)
         }
     }
+ 
     
     private func profileImageActivityIndicatorConstraints() {
         profileImageActivityIndicator.snp.makeConstraints { make in
@@ -191,6 +239,15 @@ extension ProfileView {
         }
     }
     
+    private func userNameLabelConstraints() {
+        userNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(editButton.snp.bottom).offset(10)
+            make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(20)
+            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-20)
+            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.041666667)
+        }
+    }
+    
     private func pickerControllerActivityIndicatorConstraints() {
         pickerControllerActivityIndicator.snp.makeConstraints { make in
             make.centerX.centerY.equalTo(emptyView)
@@ -200,7 +257,7 @@ extension ProfileView {
     
     private func seperatorViewConstraints() {
         seperatorView.snp.makeConstraints { make in
-            make.top.equalTo(editButton.snp.bottom).offset(15)
+            make.top.equalTo(userNameLabel.snp.bottom).offset(10)
             make.height.equalTo(1.5)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing)
@@ -211,7 +268,7 @@ extension ProfileView {
         buttonStackView.snp.makeConstraints { make in
             make.top.equalTo(seperatorView.snp.bottom)
             make.leading.trailing.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.1666667)
+            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
         }
     }
     

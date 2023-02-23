@@ -12,8 +12,24 @@ final class ResetPasswordView: UIView {
     
     //MARK: - Creating UI Elements
     
-    private let emptyView: UIView = {
+    let emptyView: UIView = {
         let view = UIView()
+        return view
+    }()
+    
+    let contentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.clipsToBounds = true
+        view.layer.cornerRadius = 10
+        view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        view.addShadow()
+        return view
+    }()
+    
+    let topGrabber: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray3
         return view
     }()
     
@@ -69,6 +85,15 @@ final class ResetPasswordView: UIView {
         return button
     }()
     
+    let activityIndicator : UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.contentMode = .scaleToFill
+        return activityIndicator
+    }()
+    
+    
+    
+    
     //MARK: - Layout Subviews
     
     override func layoutSubviews() {
@@ -76,7 +101,7 @@ final class ResetPasswordView: UIView {
         seperatorView.layer.cornerRadius = seperatorView.frame.height / 2
         seperatorView.layer.masksToBounds = true
     }
-
+    
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -91,7 +116,7 @@ final class ResetPasswordView: UIView {
     //MARK: - Configure View
     
     private func configureView() {
-        backgroundColor = .white
+        backgroundColor = .clear
         addSubview()
         setupConstraints()
     }
@@ -110,37 +135,66 @@ extension ResetPasswordView {
     
     private func addSubview() {
         addSubview(emptyView)
-        addSubview(titleLabel)
-        addSubview(subTitleLabel)
-        addSubview(seperatorView)
-        addSubview(emailTextField)
-        addSubview(submitCallbackLabel)
-        addSubview(submitButton)
+        addSubview(contentView)
+        elementsToContentView()
     }
     
+    private func elementsToContentView() {
+        contentView.addSubview(topGrabber)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(subTitleLabel)
+        contentView.addSubview(seperatorView)
+        contentView.addSubview(emailTextField)
+        contentView.addSubview(submitCallbackLabel)
+        contentView.addSubview(submitButton)
+        contentView.addSubview(activityIndicator)
+    }
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
         emptyViewConstraints()
+        contentViewConstraints()
+        topGrabberConstraints()
         titleLabelConstraints()
         subTitleLabelConstraints()
         seperatorViewConstraints()
         emailTextFieldConstraints()
         submitCallbackLabelConstraints()
         submitButtonConstraints()
+        activityIndicatorConstraints()
     }
+    
+    
     
     private func emptyViewConstraints() {
         emptyView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(safeAreaLayoutGuide)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.1666667)
+            make.top.leading.trailing.equalTo(self)
+            make.bottom.equalTo(self.snp.centerY)
+        }
+    }
+    
+    private func contentViewConstraints() {
+        contentView.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.centerY)
+            make.leading.trailing.bottom.equalTo(self)
+        }
+    }
+    
+    private func topGrabberConstraints() {
+        topGrabber.snp.makeConstraints { make in
+            make.height.equalTo(5)
+            make.top.equalTo(contentView.snp.top).offset(3)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.15)
+            make.centerX.equalTo(contentView.snp.centerX)
         }
     }
     
     private func titleLabelConstraints() {
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(emptyView.snp.bottom)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(15)
+            make.top.equalTo(topGrabber.snp.bottom)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
+            make.leading.equalTo(contentView.snp.leading).offset(10)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-10)
         }
     }
     
@@ -164,25 +218,32 @@ extension ResetPasswordView {
         emailTextField.snp.makeConstraints { make in
             make.top.equalTo(seperatorView.snp.bottom).offset(25)
             make.leading.trailing.equalTo(seperatorView)
-            make.height.equalTo(self).multipliedBy(0.08333334)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.1666667)
         }
     }
     
     private func submitCallbackLabelConstraints() {
         submitCallbackLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailTextField.snp.bottom).offset(15)
+            make.top.equalTo(emailTextField.snp.bottom)
             make.leading.trailing.equalTo(emailTextField)
-            make.height.equalTo(45)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.1)
         }
     }
     
     private func submitButtonConstraints() {
         submitButton.snp.makeConstraints { make in
             make.top.equalTo(submitCallbackLabel.snp.bottom).offset(20)
+            make.leading.equalTo(emailTextField.snp.leading)
             make.height.equalTo(emailTextField.snp.height).multipliedBy(0.75)
             make.width.equalTo(emailTextField.snp.height).multipliedBy(2)
-            make.leading.equalTo(titleLabel)
         }
     }
     
+    private func activityIndicatorConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.centerY.equalTo(submitButton.snp.centerY)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.height.width.equalTo(submitButton.snp.height)
+        }
+    }
 }

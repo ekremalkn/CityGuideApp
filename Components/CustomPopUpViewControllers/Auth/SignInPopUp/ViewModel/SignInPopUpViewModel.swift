@@ -15,6 +15,7 @@ final class SignInPopUpViewModel {
 
     let isSendEmailSuccess = PublishSubject<Bool>()
     let isSendingEmail = PublishSubject<Bool>()
+    let errorMsg = PublishSubject<String>()
     
     
     func sendEmailVerificationLink() {
@@ -22,9 +23,8 @@ final class SignInPopUpViewModel {
         if let currentUser = firebaseAuth.currentUser {
             currentUser.sendEmailVerification { error in
                 if let error = error {
-                    print(error.localizedDescription)
                     self.isSendingEmail.onNext(false)
-                    self.isSendEmailSuccess.onNext(false)
+                    self.errorMsg.onNext(error.localizedDescription)
                     return
                 }
                 self.isSendingEmail.onNext(false)
@@ -32,4 +32,14 @@ final class SignInPopUpViewModel {
             }
         }
     }
+    
+    func signOut() {
+            do {
+                try firebaseAuth.signOut()
+            } catch {
+                self.errorMsg.onNext(error.localizedDescription)
+                print(error.localizedDescription)
+            }
+        }
+    
 }

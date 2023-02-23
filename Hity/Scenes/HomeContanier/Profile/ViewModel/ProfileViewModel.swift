@@ -24,7 +24,7 @@ final class ProfileViewModel {
     let isDownloadingURLSuccess = PublishSubject<String>()
     let isSigningOutSuccess = PublishSubject<Bool>()
     let errorMsg = PublishSubject<String>()
-
+    let isFetchingUserDisplayName = PublishSubject<String>()
     
     func uploadImageDataToFirebaseStorage(_ imageData: Data) {
         
@@ -39,11 +39,22 @@ final class ProfileViewModel {
         
     }
     
+    func fetchUserDisplayName() {
+        if let currentUser = firebaseAuth.currentUser {
+            if let userDisplayName = currentUser.displayName {
+                self.isFetchingUserDisplayName.onNext(userDisplayName)
+            } else {
+                self.isFetchingUserDisplayName.onNext("Nameless User")
+            }
+            
+        }
+    }
+    
+    
     func fetchProfilePhoto() {
         //save download url
         if let currentUser = firebaseAuth.currentUser {
             let profileImageRef = storage.child("profileImages/file.png").child(currentUser.uid)
-            
             profileImageRef.downloadURL { profileImageURL, error in
                 guard let profileImageURL = profileImageURL, error == nil else { return }
                 let urlString = profileImageURL.absoluteString

@@ -89,7 +89,7 @@ extension SignInController: SignInViewInterface {
     
     func forgotPasswordButtonTapped(_ view: SignInView) {
         let controller = ResetPasswordController()
-        present(controller, animated: true)
+        controller.presentPopUpController(self)
     }
     
     

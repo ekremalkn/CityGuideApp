@@ -92,7 +92,8 @@ final class SignInPopUpView: UIView {
             titleLabel.text = "Success!"
             subTitleLabel.text = "A verification link has been sent to your email account"
             sendButton.setTitle("Cancel", for: .normal)
-        } else {
+        }
+        else {
             imageView.image = UIImage(systemName: "multiply")
             imageView.tintColor = .red
             titleLabel.text = "Unsuccessful"

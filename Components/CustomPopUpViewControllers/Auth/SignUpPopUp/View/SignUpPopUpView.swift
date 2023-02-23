@@ -50,7 +50,7 @@ final class SignUpPopUpView: UIView {
     let okButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blue
-        button.setTitle("Got it", for: .normal)
+        button.setTitle("OK", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 15
         button.layer.masksToBounds = true
@@ -77,17 +77,6 @@ final class SignUpPopUpView: UIView {
         setupConstraints()
     }
     
-    //MARK: - If email verification true / false
-    
-    func accordingToEmailVerification(_ value: Bool) {
-        if value {
-            subTitleLabel.text = "Don't forget to verify your email. A verification link has been sent to your email account."
-        }  else {
-            subTitleLabel.textColor = .red
-            subTitleLabel.text = "Failed to send verification email."
-        }
-    }
-
 }
 
 

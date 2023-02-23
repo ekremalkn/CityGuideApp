@@ -16,18 +16,21 @@ final class ResetPasswordViewModel {
     private let firebaseAuth = Auth.auth()
     
     // observabvle variables
-    
-    let isSendingResetEmailSuccess = PublishSubject<Bool>()
     let isEmailGettingSuccess = PublishSubject<String>()
     let isEmailGettingUnsuccessful = PublishSubject<Bool>()
+    let isSendingResetEmail = PublishSubject<Bool>()
+    let isSendingResetEmailSuccess = PublishSubject<Bool>()
     let errorMsg = PublishSubject<String>()
     
     func sendPasswordResetEmail(_ email: String) {
+        self.isSendingResetEmail.onNext(true)
         firebaseAuth.sendPasswordReset(withEmail: email) { [weak self] error in
             if let error = error {
+                self?.isSendingResetEmail.onNext(false)
                 self?.errorMsg.onNext(error.localizedDescription)
                 return
             }
+            self?.isSendingResetEmail.onNext(false)
             self?.isSendingResetEmailSuccess.onNext(true)
         }
     }

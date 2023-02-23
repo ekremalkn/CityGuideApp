@@ -9,10 +9,7 @@
 /* Begin PBXBuildFile section */
 		1350F679322A5873075E17B8 /* libPods-Hity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 784BF3C55039876571558652 /* libPods-Hity.a */; };
 		F0380984299AA86C0080AB1C /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0380983299AA86C0080AB1C /* UIView+Shadow.swift */; };
-		F0448D8C29A23F2E00CED699 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0448D8B29A23F2E00CED699 /* ProfileController.swift */; };
-		F0448D8E29A23F3D00CED699 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0448D8D29A23F3D00CED699 /* ProfileView.swift */; };
 		F0448D9129A24E1500CED699 /* ProfileViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0448D9029A24E1500CED699 /* ProfileViewButton.swift */; };
-		F0448D9429A331F500CED699 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0448D9329A331F500CED699 /* ProfileViewModel.swift */; };
 		F0448D9729A335B900CED699 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0448D9629A335B900CED699 /* FirebaseAuth */; };
 		F0448D9929A335B900CED699 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = F0448D9829A335B900CED699 /* FirebaseFirestore */; };
 		F0448D9B29A335B900CED699 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = F0448D9A29A335B900CED699 /* FirebaseStorage */; };
@@ -68,6 +65,18 @@
 		F0C4FB1C2998190500823275 /* UITextField+PaddingPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1B2998190500823275 /* UITextField+PaddingPoints.swift */; };
 		F0C4FB1F2998216700823275 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB1E2998216700823275 /* SignUpViewModel.swift */; };
 		F0C4FB2129983EC200823275 /* UITextField+RightViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */; };
+		F0CD655329A7325E00D4D45A /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD654F29A7325E00D4D45A /* ProfileViewModel.swift */; };
+		F0CD655429A7325E00D4D45A /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655129A7325E00D4D45A /* ProfileView.swift */; };
+		F0CD655529A7325E00D4D45A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655229A7325E00D4D45A /* ProfileController.swift */; };
+		F0CD655A29A742A700D4D45A /* ChangeUsernamePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655929A742A700D4D45A /* ChangeUsernamePopUpView.swift */; };
+		F0CD655C29A749FE00D4D45A /* ChangeUsernamePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655B29A749FE00D4D45A /* ChangeUsernamePopUpController.swift */; };
+		F0CD655F29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655E29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift */; };
+		F0CD656329A778DB00D4D45A /* ChangeEmailPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD656229A778DB00D4D45A /* ChangeEmailPopUpController.swift */; };
+		F0CD656529A778F100D4D45A /* ChangeEmailPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD656429A778F100D4D45A /* ChangeEmailPopUpView.swift */; };
+		F0CD656829A7859800D4D45A /* ChangeEmailPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD656729A7859800D4D45A /* ChangeEmailPopUpViewModel.swift */; };
+		F0CD656C29A7A18600D4D45A /* DeleteAccountPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD656B29A7A18600D4D45A /* DeleteAccountPopUpView.swift */; };
+		F0CD656E29A7A8DE00D4D45A /* DeleteAccountPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD656D29A7A8DE00D4D45A /* DeleteAccountPopUpController.swift */; };
+		F0CD657129A7AB4100D4D45A /* DeleteAccountPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD657029A7AB4100D4D45A /* DeleteAccountPopUpViewModel.swift */; };
 		F0D3430629A165F400266DA2 /* UIViewController+PopUpPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D3430529A165F400266DA2 /* UIViewController+PopUpPickerView.swift */; };
 		F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634A29923D9B00303553 /* MainTabBarController.swift */; };
 		F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634E29923F5400303553 /* FavoriteController.swift */; };
@@ -78,9 +87,9 @@
 		F0E6AE5829A637420092538A /* SignUpPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE5729A637420092538A /* SignUpPopUpController.swift */; };
 		F0E6AE5B29A645C50092538A /* SignUpPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE5A29A645C40092538A /* SignUpPopUpViewModel.swift */; };
 		F0E6AE6329A66B7D0092538A /* ContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE6229A66B7D0092538A /* ContainerController.swift */; };
-		F0E6AE6829A6A04A0092538A /* ResetPasswordPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE6729A6A04A0092538A /* ResetPasswordPopUpController.swift */; };
-		F0E6AE6A29A6A05E0092538A /* ResetPasswordPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE6929A6A05E0092538A /* ResetPasswordPopUpView.swift */; };
-		F0E6AE6D29A6ACF00092538A /* ResetPasswordPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE6C29A6ACF00092538A /* ResetPasswordPopUpViewModel.swift */; };
+		F0E6AE6829A6A04A0092538A /* LogOutPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE6729A6A04A0092538A /* LogOutPopUpController.swift */; };
+		F0E6AE6A29A6A05E0092538A /* LogOutPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE6929A6A05E0092538A /* LogOutPopUpView.swift */; };
+		F0E6AE6D29A6ACF00092538A /* LogOutPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE6C29A6ACF00092538A /* LogOutPopUpViewModel.swift */; };
 		F0EA1F80299F8C29005409A6 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EA1F7F299F8C29005409A6 /* FavoriteViewModel.swift */; };
 		F0FEA0012996378800EE7D45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */; };
 		F0FEA00A29963E1600EE7D45 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F0FEA00929963E1600EE7D45 /* GoogleSignIn */; };
@@ -98,10 +107,7 @@
 		BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.release.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.release.xcconfig"; sourceTree = "<group>"; };
 		F01AA3192996930B0097173D /* Hity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hity.entitlements; sourceTree = "<group>"; };
 		F0380983299AA86C0080AB1C /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
-		F0448D8B29A23F2E00CED699 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
-		F0448D8D29A23F3D00CED699 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		F0448D9029A24E1500CED699 /* ProfileViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewButton.swift; sourceTree = "<group>"; };
-		F0448D9329A331F500CED699 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		F0448D9E29A35BCB00CED699 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		F0448DA029A3619300CED699 /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
 		F0448DA329A364B700CED699 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -156,6 +162,18 @@
 		F0C4FB1B2998190500823275 /* UITextField+PaddingPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+PaddingPoints.swift"; sourceTree = "<group>"; };
 		F0C4FB1E2998216700823275 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		F0C4FB2029983EC200823275 /* UITextField+RightViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+RightViewButton.swift"; sourceTree = "<group>"; };
+		F0CD654F29A7325E00D4D45A /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		F0CD655129A7325E00D4D45A /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		F0CD655229A7325E00D4D45A /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		F0CD655929A742A700D4D45A /* ChangeUsernamePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePopUpView.swift; sourceTree = "<group>"; };
+		F0CD655B29A749FE00D4D45A /* ChangeUsernamePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePopUpController.swift; sourceTree = "<group>"; };
+		F0CD655E29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePopUpVieModel.swift; sourceTree = "<group>"; };
+		F0CD656229A778DB00D4D45A /* ChangeEmailPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailPopUpController.swift; sourceTree = "<group>"; };
+		F0CD656429A778F100D4D45A /* ChangeEmailPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailPopUpView.swift; sourceTree = "<group>"; };
+		F0CD656729A7859800D4D45A /* ChangeEmailPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailPopUpViewModel.swift; sourceTree = "<group>"; };
+		F0CD656B29A7A18600D4D45A /* DeleteAccountPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountPopUpView.swift; sourceTree = "<group>"; };
+		F0CD656D29A7A8DE00D4D45A /* DeleteAccountPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountPopUpController.swift; sourceTree = "<group>"; };
+		F0CD657029A7AB4100D4D45A /* DeleteAccountPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountPopUpViewModel.swift; sourceTree = "<group>"; };
 		F0D3430529A165F400266DA2 /* UIViewController+PopUpPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PopUpPickerView.swift"; sourceTree = "<group>"; };
 		F0D5634A29923D9B00303553 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F0D5634E29923F5400303553 /* FavoriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteController.swift; sourceTree = "<group>"; };
@@ -166,9 +184,9 @@
 		F0E6AE5729A637420092538A /* SignUpPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPopUpController.swift; sourceTree = "<group>"; };
 		F0E6AE5A29A645C40092538A /* SignUpPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPopUpViewModel.swift; sourceTree = "<group>"; };
 		F0E6AE6229A66B7D0092538A /* ContainerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerController.swift; sourceTree = "<group>"; };
-		F0E6AE6729A6A04A0092538A /* ResetPasswordPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPopUpController.swift; sourceTree = "<group>"; };
-		F0E6AE6929A6A05E0092538A /* ResetPasswordPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPopUpView.swift; sourceTree = "<group>"; };
-		F0E6AE6C29A6ACF00092538A /* ResetPasswordPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordPopUpViewModel.swift; sourceTree = "<group>"; };
+		F0E6AE6729A6A04A0092538A /* LogOutPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutPopUpController.swift; sourceTree = "<group>"; };
+		F0E6AE6929A6A05E0092538A /* LogOutPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutPopUpView.swift; sourceTree = "<group>"; };
+		F0E6AE6C29A6ACF00092538A /* LogOutPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutPopUpViewModel.swift; sourceTree = "<group>"; };
 		F0EA1F7F299F8C29005409A6 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F0FEA00D29963E9700EE7D45 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
@@ -212,40 +230,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F0448D8929A23D5900CED699 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				F0448D9229A331E800CED699 /* ViewModel */,
-				F0448D8A29A23F1B00CED699 /* View */,
-			);
-			name = Profile;
-			path = Profile/Container/Profile;
-			sourceTree = "<group>";
-		};
-		F0448D8A29A23F1B00CED699 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				F0448D8B29A23F2E00CED699 /* ProfileController.swift */,
-				F0448D8D29A23F3D00CED699 /* ProfileView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		F0448D9229A331E800CED699 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				F0448D9329A331F500CED699 /* ProfileViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		F0448D9C29A35BA100CED699 /* ResetPassword */ = {
+		F0448D9C29A35BA100CED699 /* ResetPasswordPopUp */ = {
 			isa = PBXGroup;
 			children = (
 				F0448DA229A364A600CED699 /* ViewModel */,
 				F0448D9D29A35BAF00CED699 /* View */,
 			);
-			path = ResetPassword;
+			path = ResetPasswordPopUp;
 			sourceTree = "<group>";
 		};
 		F0448D9D29A35BAF00CED699 /* View */ = {
@@ -404,8 +395,7 @@
 				F0FEA00B29963E7A00EE7D45 /* Auth */,
 				F0D5634729923D5600303553 /* TabBar */,
 				F0E6AE6029A66B3D0092538A /* HomeContanier */,
-				F0448D8929A23D5900CED699 /* Profile */,
-				F0448D9C29A35BA100CED699 /* ResetPassword */,
+				F0CD654D29A7325E00D4D45A /* Profile */,
 				F061A5BC2986EBA300EAD006 /* Search */,
 				F055FCAF298D5FD800A928CB /* NearBySearch */,
 				F0AE3634298F75CB0054D14E /* PlaceDetail */,
@@ -680,6 +670,120 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		F0CD654D29A7325E00D4D45A /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD654E29A7325E00D4D45A /* ViewModel */,
+				F0CD655029A7325E00D4D45A /* View */,
+			);
+			name = Profile;
+			path = HomeContanier/Profile;
+			sourceTree = "<group>";
+		};
+		F0CD654E29A7325E00D4D45A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD654F29A7325E00D4D45A /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0CD655029A7325E00D4D45A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD655129A7325E00D4D45A /* ProfileView.swift */,
+				F0CD655229A7325E00D4D45A /* ProfileController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0CD655629A7338C00D4D45A /* LogOutPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				F0E6AE6B29A6ACD60092538A /* ViewModel */,
+				F0E6AE6629A6A0370092538A /* View */,
+			);
+			path = LogOutPopUp;
+			sourceTree = "<group>";
+		};
+		F0CD655729A7428500D4D45A /* ChangeUsernamePopUp */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD655D29A75EF400D4D45A /* ViewModel */,
+				F0CD655829A7428D00D4D45A /* View */,
+			);
+			path = ChangeUsernamePopUp;
+			sourceTree = "<group>";
+		};
+		F0CD655829A7428D00D4D45A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD655929A742A700D4D45A /* ChangeUsernamePopUpView.swift */,
+				F0CD655B29A749FE00D4D45A /* ChangeUsernamePopUpController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0CD655D29A75EF400D4D45A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD655E29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0CD656029A7787900D4D45A /* ChangeEmailPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD656629A7858700D4D45A /* ViewModel */,
+				F0CD656129A778C200D4D45A /* View */,
+			);
+			path = ChangeEmailPopUp;
+			sourceTree = "<group>";
+		};
+		F0CD656129A778C200D4D45A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD656229A778DB00D4D45A /* ChangeEmailPopUpController.swift */,
+				F0CD656429A778F100D4D45A /* ChangeEmailPopUpView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0CD656629A7858700D4D45A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD656729A7859800D4D45A /* ChangeEmailPopUpViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F0CD656929A7A15900D4D45A /* DeleteAccountPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD656F29A7AB2900D4D45A /* ViewModel */,
+				F0CD656A29A7A17200D4D45A /* View */,
+			);
+			path = DeleteAccountPopUp;
+			sourceTree = "<group>";
+		};
+		F0CD656A29A7A17200D4D45A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD656B29A7A18600D4D45A /* DeleteAccountPopUpView.swift */,
+				F0CD656D29A7A8DE00D4D45A /* DeleteAccountPopUpController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		F0CD656F29A7AB2900D4D45A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				F0CD657029A7AB4100D4D45A /* DeleteAccountPopUpViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		F0D5634729923D5600303553 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -719,7 +823,7 @@
 			isa = PBXGroup;
 			children = (
 				F0E6AE5229A636F90092538A /* Auth */,
-				F0E6AE6429A6A0070092538A /* ResetPassword */,
+				F0E6AE6429A6A0070092538A /* Profile */,
 			);
 			path = CustomPopUpViewControllers;
 			sourceTree = "<group>";
@@ -801,20 +905,23 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		F0E6AE6429A6A0070092538A /* ResetPassword */ = {
+		F0E6AE6429A6A0070092538A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				F0E6AE6B29A6ACD60092538A /* ViewModel */,
-				F0E6AE6629A6A0370092538A /* View */,
+				F0CD655729A7428500D4D45A /* ChangeUsernamePopUp */,
+				F0CD656029A7787900D4D45A /* ChangeEmailPopUp */,
+				F0448D9C29A35BA100CED699 /* ResetPasswordPopUp */,
+				F0CD656929A7A15900D4D45A /* DeleteAccountPopUp */,
+				F0CD655629A7338C00D4D45A /* LogOutPopUp */,
 			);
-			path = ResetPassword;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		F0E6AE6629A6A0370092538A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F0E6AE6729A6A04A0092538A /* ResetPasswordPopUpController.swift */,
-				F0E6AE6929A6A05E0092538A /* ResetPasswordPopUpView.swift */,
+				F0E6AE6729A6A04A0092538A /* LogOutPopUpController.swift */,
+				F0E6AE6929A6A05E0092538A /* LogOutPopUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -822,7 +929,7 @@
 		F0E6AE6B29A6ACD60092538A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F0E6AE6C29A6ACF00092538A /* ResetPasswordPopUpViewModel.swift */,
+				F0E6AE6C29A6ACF00092538A /* LogOutPopUpViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1032,11 +1139,13 @@
 			files = (
 				F0EA1F80299F8C29005409A6 /* FavoriteViewModel.swift in Sources */,
 				F0FEA02229967B4F00EE7D45 /* Sha256.swift in Sources */,
-				F0448D8C29A23F2E00CED699 /* ProfileController.swift in Sources */,
+				F0CD656529A778F100D4D45A /* ChangeEmailPopUpView.swift in Sources */,
 				F0C4FB1029978BB600823275 /* Encodable+Dictionary.swift in Sources */,
 				F055FCA6298D46A000A928CB /* NetworkHelper.swift in Sources */,
 				F0B0A007299EC173000B4552 /* PlaceDetailViewModel.swift in Sources */,
+				F0CD656C29A7A18600D4D45A /* DeleteAccountPopUpView.swift in Sources */,
 				F061A5C12986EC4300EAD006 /* SearchView.swift in Sources */,
+				F0CD655429A7325E00D4D45A /* ProfileView.swift in Sources */,
 				F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */,
 				F055FCB2298D600A00A928CB /* NearbySearchController.swift in Sources */,
 				F055FCAC298D496700A928CB /* WebService.swift in Sources */,
@@ -1045,22 +1154,26 @@
 				F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */,
 				F0FEA01029963EA500EE7D45 /* SignInView.swift in Sources */,
 				F0B0F94429936AFE00C54A33 /* FavoriteView.swift in Sources */,
+				F0CD655F29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift in Sources */,
 				F0B09FFA299E85AF000B4552 /* ReviewsController.swift in Sources */,
 				F0E6AE4A29A607A60092538A /* SignInPopUpController.swift in Sources */,
 				F0E6AE6329A66B7D0092538A /* ContainerController.swift in Sources */,
 				F0B09FF7299E859E000B4552 /* ReviewsView.swift in Sources */,
 				F0B6F03D299D413100F9B0A9 /* PlaceDetailImageCell.swift in Sources */,
 				F0FEA00E29963E9700EE7D45 /* SignInController.swift in Sources */,
+				F0CD657129A7AB4100D4D45A /* DeleteAccountPopUpViewModel.swift in Sources */,
 				F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */,
 				F0448DA429A364B700CED699 /* ResetPasswordViewModel.swift in Sources */,
 				F0B09FF1299E58F5000B4552 /* PlaceWeekdaysView.swift in Sources */,
 				F0C4FB2129983EC200823275 /* UITextField+RightViewButton.swift in Sources */,
 				F0448DA629A36AC700CED699 /* UserDataViewModel.swift in Sources */,
-				F0E6AE6A29A6A05E0092538A /* ResetPasswordPopUpView.swift in Sources */,
+				F0E6AE6A29A6A05E0092538A /* LogOutPopUpView.swift in Sources */,
+				F0CD655329A7325E00D4D45A /* ProfileViewModel.swift in Sources */,
 				F0C3303E299E234700F02DBF /* MKMapKit+OpenMapWithCoordinates.swift in Sources */,
 				F055FCA4298D42EF00A928CB /* NetworkManager.swift in Sources */,
-				F0E6AE6D29A6ACF00092538A /* ResetPasswordPopUpViewModel.swift in Sources */,
+				F0E6AE6D29A6ACF00092538A /* LogOutPopUpViewModel.swift in Sources */,
 				F0B09FFC299E8DEA000B4552 /* ReviewsCell.swift in Sources */,
+				F0CD656829A7859800D4D45A /* ChangeEmailPopUpViewModel.swift in Sources */,
 				F0B0A004299EBAE4000B4552 /* PlaceReviewsView.swift in Sources */,
 				F04A8F39298FEA2000E245AF /* NearbyPlacesCell.swift in Sources */,
 				F0C4FB1A29980A5000823275 /* SignUpView.swift in Sources */,
@@ -1072,17 +1185,19 @@
 				F0E6AE5829A637420092538A /* SignUpPopUpController.swift in Sources */,
 				F0B6F037299D237300F9B0A9 /* CircleButton.swift in Sources */,
 				F0B0F94729936C8B00C54A33 /* FavoriteCell.swift in Sources */,
+				F0CD656329A778DB00D4D45A /* ChangeEmailPopUpController.swift in Sources */,
 				F061A5BF2986EBD700EAD006 /* SearchController.swift in Sources */,
 				F0E6AE5B29A645C50092538A /* SignUpPopUpViewModel.swift in Sources */,
 				F0C33040299E2E2B00F02DBF /* UIApplication+OpenURL.swift in Sources */,
 				F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */,
 				F0380984299AA86C0080AB1C /* UIView+Shadow.swift in Sources */,
+				F0CD655A29A742A700D4D45A /* ChangeUsernamePopUpView.swift in Sources */,
 				F0B6F033299D0C6700F9B0A9 /* UIColor+HEXColor.swift in Sources */,
 				F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */,
-				F0E6AE6829A6A04A0092538A /* ResetPasswordPopUpController.swift in Sources */,
+				F0CD655529A7325E00D4D45A /* ProfileController.swift in Sources */,
+				F0E6AE6829A6A04A0092538A /* LogOutPopUpController.swift in Sources */,
 				F0448DA129A3619300CED699 /* ResetPasswordController.swift in Sources */,
 				F0C4FB1F2998216700823275 /* SignUpViewModel.swift in Sources */,
-				F0448D8E29A23F3D00CED699 /* ProfileView.swift in Sources */,
 				F0448D9129A24E1500CED699 /* ProfileViewButton.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
 				F0D3430629A165F400266DA2 /* UIViewController+PopUpPickerView.swift in Sources */,
@@ -1098,7 +1213,8 @@
 				F0B0A000299E95F9000B4552 /* ReviewsViewModel.swift in Sources */,
 				F0C4FB1C2998190500823275 /* UITextField+PaddingPoints.swift in Sources */,
 				F0C4FB1829980A4200823275 /* SignUpController.swift in Sources */,
-				F0448D9429A331F500CED699 /* ProfileViewModel.swift in Sources */,
+				F0CD656E29A7A8DE00D4D45A /* DeleteAccountPopUpController.swift in Sources */,
+				F0CD655C29A749FE00D4D45A /* ChangeUsernamePopUpController.swift in Sources */,
 				F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */,
 				F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */,
 				F055FCB7298D6C4300A928CB /* NearbySearchViewModel.swift in Sources */,

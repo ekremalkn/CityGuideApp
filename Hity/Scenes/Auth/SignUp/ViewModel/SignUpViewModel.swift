@@ -44,6 +44,7 @@ final class SignUpViewModel {
             // created acc
             self?.isAccCreating.onNext(false)
             self?.isAccCreatingSuccess.onNext(true)
+            self?.changeUserDisplayName(username)
             self?.createDatabaseForUser(authResult, username)
             
         }
@@ -52,9 +53,6 @@ final class SignUpViewModel {
     
     private func createDatabaseForUser(_ authResult: AuthDataResult, _ username: String) {
         self.isDatabaseCreating.onNext(true)
-        
-        self.changeUserDisplayName(username)
-        
         let email = authResult.user.email
         let uid = authResult.user.uid
         let favorite: [String: Int] = [:]
