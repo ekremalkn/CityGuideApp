@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>682157527477-gje7nbg5ru2nt2mggg6sm7imj4o9mt6t.apps.googleusercontent.com</string>
+	<string>728713632221-66mcu7vqkg0648o9bb25oh1mhrn7jgt8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.682157527477-gje7nbg5ru2nt2mggg6sm7imj4o9mt6t</string>
+	<string>com.googleusercontent.apps.728713632221-66mcu7vqkg0648o9bb25oh1mhrn7jgt8</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDtE5_vty3jLMzv7el1MLF5tpDiW7bmC_I</string>
+	<string>AIzaSyDhIqzrzyv0-0nru5kPDXwXZIpA9P-IdXM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>682157527477</string>
+	<string>728713632221</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.ekremalkan.Hity</string>
 	<key>PROJECT_ID</key>
-	<string>hity-376108</string>
+	<string>hity-second-378809</string>
 	<key>STORAGE_BUCKET</key>
-	<string>hity-376108.appspot.com</string>
+	<string>hity-second-378809.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:682157527477:ios:914ec0b4e411a7166d89fc</string>
+	<string>1:728713632221:ios:1081b81f4b29d23f4bbe34</string>
 </dict>
 </plist>

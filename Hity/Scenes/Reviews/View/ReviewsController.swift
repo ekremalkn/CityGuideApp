@@ -48,6 +48,7 @@ final class ReviewsController: UIViewController {
     private func customizeNavBar() {
         title = "Reviews"
         navigationController?.navigationBar.prefersLargeTitles = true
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: reviewsView)
     }
     
     //MARK: - TableView Callbacks
@@ -76,6 +77,9 @@ final class ReviewsController: UIViewController {
                     UIApplication.shared.openURL(URL)
                 }
             }
+            
+            
+
             
         }).disposed(by: disposeBag)
         

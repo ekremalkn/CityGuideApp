@@ -105,7 +105,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     private var distanceLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 1
-        label.textColor = .systemGray
+        label.textColor = .darkGray
         label.font = UIFont.systemFont(ofSize: 14)
         label.textAlignment = .center
         return label
@@ -130,7 +130,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
         button.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
         button.tintColor = .darkGray
         button.setTitleColor(.darkGray, for: .normal)
-        button.backgroundColor = .systemGray6
+        button.backgroundColor = .white
         button.addShadow()
         return button
     }()
@@ -140,7 +140,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
         button.setImage(UIImage(systemName: "info"), for: .normal)
         button.tintColor = .blue
         button.setTitleColor(.darkGray, for: .normal)
-        button.backgroundColor = .systemGray6
+        button.backgroundColor = .white
         button.addShadow()
         return button
     }()
@@ -150,15 +150,33 @@ final class NearbyPlacesCell: UICollectionViewCell {
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .darkGray
         
-        button.backgroundColor = .systemGray6
+        button.backgroundColor = .white
         button.addShadow()
         return button
     }()
     
+    let userRatingTotalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    let userRatingTotalImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .darkGray
+        imageView.image = UIImage(systemName: "person.fill")
+        return imageView
+    }()
+    
     let userRatingTotalLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        
+        label.textColor = .systemGray
+        label.numberOfLines = 0
+//        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textAlignment = .center
         return label
     }()
     
@@ -196,7 +214,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
     //MARK: - Configure Cell
     
     private func configureCell() {
-        backgroundColor = .white
+        backgroundColor = .systemGray6
         layer.cornerRadius = 25
         addSubview()
         setupConstraints()
@@ -227,10 +245,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
             placeOpenClosedInfoLbl.text = "Closed"
             placeOpenClosedInfoLbl.textColor = .red
             return placeOpenClosedInfoLbl
-        default:
-            placeOpenClosedInfoLbl.text = "Unknown"
-            placeOpenClosedInfoLbl.textColor = .black
-            return placeOpenClosedInfoLbl
+            
         }
         
     }
@@ -246,7 +261,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
         self.ratingLabel.text = data.placeRating
         self.distanceLabel.text = "\(self.calculateDistance(mainLocation, data.placeLocation))m"
         self.placeOpenClosedInfo = self.openClosedCheck(data.placeOpenClosedInfo, placeOpenClosedInfo)
-        self.userRatingTotalLabel.text = data.placeRatingTotal
+        self.userRatingTotalLabel.text = "\(data.placeRatingTotal) total ratings"
     }
     
     //MARK: - Toogle fav button
@@ -293,7 +308,7 @@ extension NearbyPlacesCell {
     private func addSubview() {
         addSubview(placeImageBackground)
         placeImageToBackgroundView()
-        ratingStackViewToPlaceImage()
+        ratingStackViewsToPlaceImage()
         ratingElementsToStackView()
         ratingBlurViewToStackView()
         addSubview(placeName)
@@ -302,17 +317,19 @@ extension NearbyPlacesCell {
         addSubview(placeOpenClosedInfo)
         addSubview(buttonStackView)
         buttonsToStackView()
-        addSubview(userRatingTotalLabel)
-        
+        addSubview(userRatingTotalStackView)
+        userRatingTotalElementsToStackView()
+
     }
     
     private func placeImageToBackgroundView() {
         placeImageBackground.addSubview(placeImage)
     }
     
-    private func ratingStackViewToPlaceImage() {
+    private func ratingStackViewsToPlaceImage() {
         placeImage.addSubview(ratingStackView)
     }
+    
     
     private func ratingElementsToStackView() {
         ratingStackView.addArrangedSubview(ratingImage)
@@ -334,6 +351,11 @@ extension NearbyPlacesCell {
         buttonStackView.addArrangedSubview(favButton)
     }
     
+    private func userRatingTotalElementsToStackView() {
+        userRatingTotalStackView.addArrangedSubview(userRatingTotalImage)
+        userRatingTotalStackView.addArrangedSubview(userRatingTotalLabel)
+    }
+    
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
@@ -346,7 +368,7 @@ extension NearbyPlacesCell {
         placeOpenClosedInfoConstraints()
         placeOpenClosedInfoConstraints()
         buttonStackViewConstraints()
-        userRatingTotalLabelConstraints()
+        userRatingTotalStackViewConstraints()
     }
     
     private func placeImageBackgroundConstraints() {
@@ -412,11 +434,14 @@ extension NearbyPlacesCell {
         
     }
     
-    private func userRatingTotalLabelConstraints() {
-        userRatingTotalLabel.snp.makeConstraints { make in
-            make.top.equalTo(buttonStackView.snp.bottom).offset(10)
+    private func userRatingTotalStackViewConstraints() {
+        userRatingTotalStackView.snp.makeConstraints { make in
+            make.leading.equalTo(buttonStackView.snp.leading)
+            make.bottom.equalTo(self.snp.bottom).offset(-10)
+            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.04666667)
         }
     }
+ 
     
     
 }

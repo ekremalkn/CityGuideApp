@@ -65,14 +65,14 @@ struct Result: Codable, NearbyPlacesCellProtocol {
         if let rating = rating {
             return "\(rating)"
         }
-        return ""
+        return "0"
     }
     
     var placeRatingTotal: String {
         if let userRatingsTotal = userRatingsTotal {
             return "\(userRatingsTotal)"
         }
-        return ""
+        return "0"
     }
 
     

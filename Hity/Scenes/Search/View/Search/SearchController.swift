@@ -171,10 +171,11 @@ extension SearchController {
         let lat = coordinates.latitude
         let lng = coordinates.longitude
         
-        let nearbySearchController = NearbySearchController(lat: lat, lng: lng, sortType: .of([.maxToMinRating, .userTotalRatingMaxToMin, .smart]))
+        let nearbySearchController = NearbySearchController(lat: lat, lng: lng)
         nearbySearchController.delegate = self
         
         panel.set(contentViewController: nearbySearchController)
+        
         panel.addPanel(toParent: self)
     }
     

@@ -17,6 +17,16 @@ final class PlaceReviewsView: UIView {
         return tableview
     }()
     
+    let noReviewsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "This place doesn't have reviews."
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.addShadow()
+        label.isHidden = true
+        return label
+    }()
+    
     let showMoreButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Show more reviews", for: .normal)
@@ -53,6 +63,7 @@ extension PlaceReviewsView {
     
     private func addSubview() {
         addSubview(reviewsTableView)
+        addSubview(noReviewsLabel)
         addSubview(showMoreButton)
     }
     
@@ -61,21 +72,29 @@ extension PlaceReviewsView {
     private func setupConstraints() {
         reviewsTableViewConstraints()
         showMoreButtonConstraints()
+        noReviewsLabelConstraints()
     }
     
     private func reviewsTableViewConstraints() {
         reviewsTableView.snp.makeConstraints { make in
             make.top.equalTo(self)
-            make.bottom.equalTo(self.snp.centerY)
+            make.height.equalTo(self.snp.height).multipliedBy(0.75)
             make.leading.equalTo(self).offset(10)
             make.trailing.equalTo(self).offset(-10)
+        }
+    }
+    
+    private func noReviewsLabelConstraints() {
+        noReviewsLabel.snp.makeConstraints { make in
+            make.centerX.centerY.equalTo(self)
         }
     }
     
     private func showMoreButtonConstraints() {
         showMoreButton.snp.makeConstraints { make in
             make.centerX.equalTo(reviewsTableView.snp.centerX)
-            make.top.equalTo(reviewsTableView.snp.bottom).offset(25)
+            make.top.equalTo(reviewsTableView.snp.bottom)
+            make.bottom.equalTo(self.snp.bottom)
         }
     }
 

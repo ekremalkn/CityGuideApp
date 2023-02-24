@@ -16,7 +16,6 @@ import FBSDKCoreKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
       
@@ -28,11 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let _ = GIDConfiguration(clientID: clientID)
         }
         
+        
         // Facebook SignIn
         FBSDKCoreKit.ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // Google Places
-        GMSPlacesClient.provideAPIKey("AIzaSyAkPTDhADLekUMuAMbmMWmSYD_v_bAboQg")
+        GMSPlacesClient.provideAPIKey("AIzaSyDhIqzrzyv0-0nru5kPDXwXZIpA9P-IdXM")
  
         
         return true

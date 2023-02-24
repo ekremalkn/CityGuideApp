@@ -45,7 +45,7 @@ final class DeleteAccountPopUpView: UIView {
    
     let subTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Confirm you want to delete this collection by typing your password."
+        label.text = "Confirm you want to delete this collection by typing your email."
         label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .left

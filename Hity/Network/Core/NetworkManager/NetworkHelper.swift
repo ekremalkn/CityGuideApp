@@ -16,7 +16,7 @@ enum NetworkEndPoint: String {
 }
 
 enum ApiKey: String {
-    case API_KEY = "AIzaSyAkPTDhADLekUMuAMbmMWmSYD_v_bAboQg"
+    case API_KEY = "AIzaSyDhIqzrzyv0-0nru5kPDXwXZIpA9P-IdXM"
 }
 
 final class NetworkHelper {

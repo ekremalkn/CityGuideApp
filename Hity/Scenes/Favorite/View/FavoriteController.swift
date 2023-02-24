@@ -10,7 +10,7 @@ import RxSwift
 import MapKit
 
 final class FavoriteController: UIViewController {
-
+    
     
     //MARK: - Properties
     
@@ -18,7 +18,7 @@ final class FavoriteController: UIViewController {
     private let favoriteViewModel = FavoriteViewModel()
     
     private let disposeBag = DisposeBag()
-
+    
     //MARK: - Lifecycle Methods
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,29 +50,33 @@ final class FavoriteController: UIViewController {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back to Favorites", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
     }
-
+    
     
     //MARK: - Creating FavoriteCollectionView callbacks
     
     private func createFavoriteCollectionViewCalllbacks() {
         
-        //bind favorite places to collectionView
+//        bind favorite places to collectionView
+ 
 
         favoriteViewModel.behaviorFavoriteList.bind(to: favoriteView.favoriteCollectionView.rx.items(cellIdentifier: FavoriteCell.identifier, cellType: FavoriteCell.self)) { row, favoritePlaces, cell in
+            print("1 kere eklendi")
             cell.configure(favoritePlaces)
             cell.favButton.isSelected = true
             cell.favButtonTap.subscribe(onNext: {
                 if let placeUID = favoritePlaces.placeID {
-                        let indexPath = self.favoriteViewModel.getProductIndexPath(placeUID: placeUID)
-                        self.favoriteViewModel.removeProduct(index: row)
-                        self.favoriteView.favoriteCollectionView.deleteItems(at: [indexPath])
-                        self.favoriteViewModel.updateFirestoreFavoriteList(placeUID, false)
-                    
+                    let indexPath = self.favoriteViewModel.getProductIndexPath(placeUID: placeUID)
+                    self.favoriteViewModel.removeProduct(index: indexPath.row)
+                    self.favoriteView.favoriteCollectionView.deleteItems(at: [indexPath])
+                    self.favoriteViewModel.updateFirestoreFavoriteList(placeUID, false)
+                    print("ekrem")
+
                     cell.favButton.isSelected.toggle()
                 }
             }).disposed(by: cell.disposeBag)
-            
+
             cell.locationButtonTap.subscribe(onNext: {
+                print("alkan")
                 let lat = cell.location.latitude
                 let lng = cell.location.longitude
                 let mkMapItem = MKMapItem()
@@ -83,16 +87,16 @@ final class FavoriteController: UIViewController {
                 }
 
             }).disposed(by: cell.disposeBag)
-            
+
         }.disposed(by: disposeBag)
-        
-        
+
+
         // fetch nearPlaces
         
         favoriteViewModel.isListUpdated.subscribe(onNext: { [weak self] _ in
             self?.favoriteViewModel.fetchFavoriteList()
         }).disposed(by: disposeBag)
-        
+
         
         favoriteView.favoriteCollectionView.rx.modelSelected(DetailResults.self).bind(onNext: { [weak self] placeDetails in
             let controller = PlaceDetailController(place: placeDetails)
@@ -101,9 +105,9 @@ final class FavoriteController: UIViewController {
         }).disposed(by: disposeBag)
         
     }
-
-
-
+    
+    
+    
 }
 
 extension FavoriteController: UICollectionViewDelegateFlowLayout {

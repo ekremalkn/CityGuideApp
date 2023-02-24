@@ -9,11 +9,6 @@ import RxSwift
 import FirebaseAuth
 import FirebaseFirestore
 
-enum SortType: String {
-    case maxToMinRating = "Max to Min Rating"
-    case userTotalRatingMaxToMin = "Max to Min User Total Rating"
-    case smart = "Smart Sorting"
-}
 
 final class NearbySearchViewModel {
     
@@ -26,29 +21,29 @@ final class NearbySearchViewModel {
     
     var nearPlaces = PublishSubject<[Result]>()
     var placeDetails = PublishSubject<DetailResults>()
+
     
     
-    
-    func fetchNearPlaces(_ input: String, _ lat: Double, _ lng: Double, searchDistance: String, sortType: SortType) {
+    func fetchNearPlaces(_ input: String, _ lat: Double, _ lng: Double, searchDistance: String, sortType: SortTypesTitle) {
         
         webServiceManager.nearyBySearch(input: input, lat: lat, lng: lng, searchDistance: searchDistance) { [weak self] nearPlaces in
             if let nearPlaces = nearPlaces?.results {
                 
                 switch sortType {
                     
+                case .logic:
+                    self?.nearPlaces.onNext(nearPlaces)
                 case .maxToMinRating:
                     let sortedPlaces = nearPlaces.sorted {
-                        $0.rating ?? 0 > $1.rating ?? 0 }
-                    self?.nearPlaces.onNext(sortedPlaces)
-                case .userTotalRatingMaxToMin:
+                                            $0.rating ?? 0 > $1.rating ?? 0 }
+                                        self?.nearPlaces.onNext(sortedPlaces)
+                case .userRatingTotal:
                     let sortesPlaces = nearPlaces.sorted {
-                        $0.userRatingsTotal ?? 0 > $1.userRatingsTotal ?? 0
-                    }
+                                            $0.userRatingsTotal ?? 0 > $1.userRatingsTotal ?? 0
+                                        }
                     self?.nearPlaces.onNext(sortesPlaces)
-                case .smart:
-                    self?.nearPlaces.onNext(nearPlaces)
-                
                 }
+
             }
         } onError: { error in
             self.nearPlaces.onError(error)
@@ -69,6 +64,7 @@ final class NearbySearchViewModel {
         
         
     }
+    
     
     // write placeUID to firebase FirestoreDatabase
     

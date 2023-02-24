@@ -34,11 +34,12 @@ final class NearbySearchTextField: UITextField {
     private func configureTextField() {
         placeholder = "Search"
         layer.cornerRadius = 10
-        backgroundColor = UIColor.white
+        backgroundColor = UIColor.systemGray6
         leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))
         leftView?.tintColor = .systemGray
         leftViewMode = .always
         rightView = sortButton
+        rightView?.contentMode = .scaleAspectFit
         rightViewMode = .always
         rightView?.frame.origin.x = -15
     }

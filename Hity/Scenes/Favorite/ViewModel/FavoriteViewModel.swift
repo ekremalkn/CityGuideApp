@@ -29,6 +29,7 @@ final class FavoriteViewModel {
     
     var isListUpdated = PublishSubject<Bool>()
     var behaviorFavoriteList = BehaviorRelay<[DetailResults]>(value: [])
+    var rastgele = BehaviorRelay<[DetailResults]>(value: [])
     
     
     
@@ -67,6 +68,7 @@ final class FavoriteViewModel {
             var array = behaviorFavoriteList.value
             array.removeAll()
             self.behaviorFavoriteList.accept(array)
+            print("başladı")
             for (id, _) in favoriteList {
                 self.fetchPlace(id)
             }

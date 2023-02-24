@@ -62,6 +62,7 @@ final class PlaceDetailController: UIViewController {
         createInfoViewButtonCallbacks()
         placeDetailView.addressInfoButton.sendActions(for: .touchUpInside)
         createReviewsViewTableViewCallbacks()
+        createPlaceNoReviewsCallback()
         createReviewsViewButtonCallbacks()
         
     }
@@ -159,7 +160,7 @@ extension PlaceDetailController: UITableViewDelegate {
     private func createReviewsViewTableViewCallbacks() {
         
         //bind placereviews to tableview
-        placeDetailViewModel.aPlaceReview.bind(to: placeDetailView.placeReviewsView.reviewsTableView.rx.items(cellIdentifier: ReviewsCell.identifier, cellType: ReviewsCell.self)) { row, placeReviews, cell in
+        placeDetailViewModel.aPlaceReview.bind(to: placeDetailView.placeReviewsView.reviewsTableView.rx.items(cellIdentifier: ReviewsCell.identifier, cellType: ReviewsCell.self)) { [weak self] row, placeReviews, cell in
             cell.configure(placeReviews)
         }.disposed(by: disposeBag)
         
@@ -176,6 +177,15 @@ extension PlaceDetailController: UITableViewDelegate {
         
         // set scroll allows
         placeDetailView.placeReviewsView.reviewsTableView.rx.isScrollEnabled.onNext(false)
+    }
+    
+    func createPlaceNoReviewsCallback() {
+        placeDetailViewModel.noReviews.subscribe { [weak self] noReviews in
+            if noReviews {
+                self?.placeDetailView.placeReviewsView.showMoreButton.isHidden = true
+                self?.placeDetailView.placeReviewsView.noReviewsLabel.isHidden = false
+            }
+        }.disposed(by: disposeBag)
     }
     
     // TableView Delegate Rowheight
@@ -223,9 +233,9 @@ extension PlaceDetailController {
         
         placeInfoView.openingHours.rx.tap.bind(onNext: { [unowned self] in
             
-            if let placeWeekdayText = self.place.currentOpeningHours?.weekdayText {
+            let placeWeekdayText = self.place.currentOpeningHours?.weekdayText
                 self.placeDetailView.placeWeekdaysView.configure(placeWeekdayText)
-            }
+            
             self.placeDetailView.toggleViews(self.placeDetailView.buttonBottomLine2)
 
         }).disposed(by: disposeBag)

@@ -33,12 +33,7 @@ final class MainTabBarController: UITabBarController {
         return containerController
     }
     
-//    private func searchController() -> UINavigationController {
-//        let searchController = SearchController()
-//        searchController.title = "Hity"
-//        searchController.tabBarItem = UITabBarItem(title: "Hity", image: UIImage(systemName: "map"), selectedImage: UIImage(systemName: "map.fill"))
-//        return UINavigationController(rootViewController: searchController)
-//    }
+
     
     private func favoriteControler() -> UINavigationController {
         let favoriteController = FavoriteController()

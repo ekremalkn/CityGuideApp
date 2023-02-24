@@ -48,9 +48,10 @@ final class PlaceDetailView: UIView {
     
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
-        stackView.backgroundColor = .clear
+        stackView.backgroundColor = .systemGray6
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
+        stackView.spacing = 1.5
         return stackView
     }()
     
@@ -79,6 +80,7 @@ final class PlaceDetailView: UIView {
         let button = UIButton()
         button.setTitle("Info", for: .normal)
         button.setTitleColor(.darkGray, for: .normal)
+        button.backgroundColor = .white
         return button
     }()
     
@@ -86,7 +88,7 @@ final class PlaceDetailView: UIView {
         let button = UIButton()
         button.setTitle("Weekday", for: .normal)
         button.setTitleColor(.darkGray, for: .normal)
-        button.backgroundColor = .clear
+        button.backgroundColor = .white
         return button
     }()
     
@@ -94,7 +96,7 @@ final class PlaceDetailView: UIView {
         let button = UIButton()
         button.setTitle("Reviews", for: .normal)
         button.setTitleColor(.darkGray, for: .normal)
-        button.backgroundColor = .clear
+        button.backgroundColor = .white
         return button
     }()
     

@@ -91,18 +91,23 @@ final class PlaceInfoView: UIView {
                 self.openingHours.setTitleColor(.red, for: .normal)
                 self.openingHours.setTitle("Closed", for: .normal)
             }
+        } else {
+            self.openingHours.setTitleColor(.systemGray4, for: .normal)
+            self.openingHours.setTitle("Place doesn't have open / closed info.", for: .normal)
         }
         
         if let website = data.website {
             self.website.setTitle(website, for: .normal)
         } else {
-            self.website.setTitle("Workplace doesn't have a website / didn't share.", for: .normal)
+            self.website.setTitleColor(.systemGray4, for: .normal)
+            self.website.setTitle("Place doesn't have a website / didn't share.", for: .normal)
         }
         
         if let phoneNumber = data.internationalPhoneNumber {
             self.phoneNumber.setTitle(phoneNumber, for: .normal)
         } else {
-            self.phoneNumber.setTitle("Workplace doesn't have a phone number / didn't share.", for: .normal)
+            self.phoneNumber.setTitleColor(.systemGray4, for: .normal)
+            self.phoneNumber.setTitle("Place doesn't have a phone number / didn't share.", for: .normal)
         }
     }
 

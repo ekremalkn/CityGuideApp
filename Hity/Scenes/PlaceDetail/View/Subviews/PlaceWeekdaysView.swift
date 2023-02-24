@@ -22,7 +22,7 @@ final class PlaceWeekdaysView: UIView {
     
     private let day1Label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.backgroundColor = .white
         label.textColor = .black
         return label
@@ -30,7 +30,7 @@ final class PlaceWeekdaysView: UIView {
     
     private let day2Label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.backgroundColor = .white
         label.textColor = .black
         return label
@@ -38,7 +38,7 @@ final class PlaceWeekdaysView: UIView {
     
     private let day3Label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.backgroundColor = .white
         label.textColor = .black
         return label
@@ -46,7 +46,7 @@ final class PlaceWeekdaysView: UIView {
     
     private let day4Label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.backgroundColor = .white
         label.textColor = .black
         return label
@@ -54,7 +54,7 @@ final class PlaceWeekdaysView: UIView {
     
     private let day5Label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.backgroundColor = .white
         label.textColor = .black
         return label
@@ -62,7 +62,7 @@ final class PlaceWeekdaysView: UIView {
     
     private let day6Label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.backgroundColor = .white
         label.textColor = .black
         return label
@@ -70,7 +70,7 @@ final class PlaceWeekdaysView: UIView {
     
     private let day7Label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.backgroundColor = .white
         label.textColor = .black
         return label
@@ -96,14 +96,20 @@ final class PlaceWeekdaysView: UIView {
         setupConstraints()
     }
     
-    func configure(_ weekdayText: [String]) {
-        day1Label.text = weekdayText[0]
-        day2Label.text = weekdayText[1]
-        day3Label.text = weekdayText[2]
-        day4Label.text = weekdayText[3]
-        day5Label.text = weekdayText[4]
-        day6Label.text = weekdayText[5]
-        day7Label.text = weekdayText[6]
+    func configure(_ weekdayText: [String]?) {
+        if let weekdayText = weekdayText {
+            day1Label.text = weekdayText[0]
+            day2Label.text = weekdayText[1]
+            day3Label.text = weekdayText[2]
+            day4Label.text = weekdayText[3]
+            day5Label.text = weekdayText[4]
+            day6Label.text = weekdayText[5]
+            day7Label.text = weekdayText[6]
+        } else {
+            day1Label.textColor = .systemGray4
+            day1Label.text = "Place doesn't have working hours"
+        }
+        
     }
 
     

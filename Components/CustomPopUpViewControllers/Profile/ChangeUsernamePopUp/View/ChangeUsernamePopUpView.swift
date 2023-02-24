@@ -28,7 +28,7 @@ final class ChangeUsernamePopUpView: UIView {
     
     let topGrabber: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray3
+        view.backgroundColor = .systemGray
         return view
     }()
     

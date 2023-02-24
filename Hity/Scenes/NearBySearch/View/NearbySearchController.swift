@@ -15,6 +15,10 @@ protocol NearbySearchControllerDelegate: AnyObject {
 
 final class NearbySearchController: UIViewController {
     
+    //MARK: - View Controllers
+    
+    let distancePopUpController = DistancePopUpController()
+    let sortPopUpController = SortPopUpController()
     
     //MARK: - Properties
     weak var delegate: NearbySearchControllerDelegate?
@@ -25,34 +29,17 @@ final class NearbySearchController: UIViewController {
     var lat: Double
     var lng: Double
     var mainLocation: CLLocation?
-    
     private let disposeBag = DisposeBag()
-    
+    var searchDistance: String = "1000"
+    var sortType: SortTypesTitle?
     //MARK: - Init Methods
     
-    init(lat: Double, lng: Double, sortType: Observable<[SortType]>) {
+    init(lat: Double, lng: Double) {
         self.lat = lat
         self.lng = lng
-        self.observableSort = sortType
         super.init(nibName: nil, bundle: nil)
     }
-    
-    var searchDistance: String? = "1000"
-    
-    var observableDistance: Observable<[String]> = Observable.of([
-        "100",
-        "200",
-        "300",
-        "400",
-        "500",
-        "1000",
-        "1500",
-        "2000"
-    ])
-    
-    var sortType: SortType?
-    var observableSort: Observable<[SortType]>
-    
+        
     var selectedRow = 0
     
     required init?(coder: NSCoder) {
@@ -71,17 +58,13 @@ final class NearbySearchController: UIViewController {
     
     private func configureViewController() {
         nearBySearchView.collectionView.delegate = self
-        
-        view.backgroundColor = .systemBackground
         view = nearBySearchView
         reactiveTextField()
         configureCollectionView()
         didFetchPlaceDetails()
         createMainLocation()
         createSearchDistanceButtonCallbacks()
-        createSearchDistancePickerViewCallbacks()
         createSortButtonCallbacks()
-        createSortPickerViewCallbacks()
     }
     
     //MARK: - Make base location to CLLocation
@@ -112,9 +95,8 @@ final class NearbySearchController: UIViewController {
                     } else {
                         self?.nearBySearchViewModel.updateFirestoreFavoriteList(placeUID, true)
                     }
-                    cell.favButton.isSelected.toggle()
                 }
-                
+                cell.favButton.isSelected.toggle()
             }).disposed(by: cell.disposeBag)
             
         }.disposed(by: disposeBag)
@@ -125,11 +107,10 @@ final class NearbySearchController: UIViewController {
         nearBySearchView.textField.rx.text.subscribe(onNext: { [weak self] text in
             if let text = text {
                 if let lat = self?.lat, let lng = self?.lng {
-                    if let searchDistance = self?.searchDistance {
                     
-                        self?.nearBySearchViewModel.fetchNearPlaces(text, lat, lng, searchDistance: searchDistance, sortType: .smart)
+                    self?.nearBySearchViewModel.fetchNearPlaces(text, lat, lng, searchDistance: self?.searchDistance ?? "", sortType: .logic)
                         
-                    }
+                    
                 }
             }
             
@@ -194,84 +175,46 @@ extension NearbySearchController {
 }
 
 
-//MARK: - SearchDistanceButton callbacks
+//MARK: - Search Distance / Sort button callbacks
 
 extension NearbySearchController {
     
     private func createSearchDistanceButtonCallbacks() {
         
         nearBySearchView.searchDistanceButton.rx.tap.bind(onNext: { [unowned self] in
-            let controller = UIViewController()
-            self.present(controller.createDistancePopUpPickerView(self.nearBySearchView.searchDistancePickerView, self.nearBySearchView.searchDistanceButton, self.observableDistance), animated: true)
+            self.distancePopUpController.presentPopUpController(self)
             
         }).disposed(by: disposeBag)
+        
+        
+        distancePopUpController.whenTapSetButtonDistance.subscribe { [weak self] distance in
+            self?.searchDistance = distance
+            self?.nearBySearchView.searchDistanceButton.setTitle("about in: \(distance)m", for: .normal)
+            self?.nearBySearchViewModel.fetchNearPlaces(self?.nearBySearchView.textField.text ?? "", self!.lat, self!.lng, searchDistance: distance, sortType: self?.sortType ?? .logic)
+        }.disposed(by: disposeBag)
         
     }
     
     private func createSortButtonCallbacks() {
         nearBySearchView.textField.sortButton.rx.tap.bind(onNext: { [unowned self] in
-            let controller = UIViewController()
-            self.present(controller.createSortPopUpPickerView(self.nearBySearchView.sortPickerView, self.nearBySearchView.textField.sortButton, observableSort: observableSort), animated: true)
+            self.sortPopUpController.presentPopUpController(self)
             
         }).disposed(by: disposeBag)
-    }
-}
-
-//MARK: - Creating PickerView Callbakcs
-
-extension NearbySearchController {
-    
-    private func createSearchDistancePickerViewCallbacks() {
         
-        // bind distance meters to pickerview
-        observableDistance.bind(to: nearBySearchView.searchDistancePickerView.rx.itemTitles) { row, element in
-            return element
-        }.disposed(by: disposeBag)
         
-        // handle selected
-        
-        nearBySearchView.searchDistancePickerView.rx.itemSelected.subscribe { [unowned self] event in
-            switch event {
+        self.sortPopUpController.tableViewCellSelected.subscribe { [weak self] sortTypeTitle in
+            switch sortTypeTitle {
                 
-            case .next((let row, _)):
-                self.observableDistance.subscribe { distances in
-                    self.searchDistance = distances[row]
-                    self.nearBySearchViewModel.fetchNearPlaces(self.nearBySearchView.textField.text ?? "", self.lat, self.lng, searchDistance: distances[row], sortType: self.sortType ?? .smart )
-                }.disposed(by: self.disposeBag)
-            default:
-                break
-                
-            }
-        }.disposed(by: disposeBag)
-    }
-    
-    private func createSortPickerViewCallbacks() {
-        
-        // bind sort type to pickerview
-
-        observableSort.bind(to: nearBySearchView.sortPickerView.rx.itemTitles) {row, element in
-            return element.rawValue
-        }.disposed(by: disposeBag)
-        
-        
-        // handle selected
-        
-        nearBySearchView.sortPickerView.rx.itemSelected.subscribe { [unowned self] event in
-            switch event {
-                
-            case .next((let row, _)):
-                self.observableSort.subscribe(onNext: { sortType in
-                    self.sortType = sortType[row]
-                    self.nearBySearchViewModel.fetchNearPlaces(self.nearBySearchView.textField.text ?? "", self.lat, self.lng, searchDistance: self.searchDistance ?? "1000", sortType: sortType[row])
-                    
-                }).disposed(by: disposeBag)
+            case .next(let sortType):
+                self?.sortType = sortType
+                self?.nearBySearchViewModel.fetchNearPlaces(self?.nearBySearchView.textField.text ?? "", self!.lat, self!.lng, searchDistance: "1000", sortType: sortType )
             default:
                 break
             }
-            
-        }.disposed(by: disposeBag)
+        }.disposed(by: sortPopUpController.disposeBag)
     }
     
+
 }
 
 

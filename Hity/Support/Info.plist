@@ -2,15 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Fotoğraf için izin ver</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Bulunduğun konuma göre arama yapabilmek için konumunuza erişmeliyiz.</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
-	</array>
+	<key></key>
+	<string></string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -18,8 +11,15 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>com.googleusercontent.apps.728713632221-66mcu7vqkg0648o9bb25oh1mhrn7jgt8</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
 				<string>fb924543785238665</string>
-				<string>com.googleusercontent.apps.682157527477-gje7nbg5ru2nt2mggg6sm7imj4o9mt6t</string>
 			</array>
 		</dict>
 	</array>
@@ -30,7 +30,12 @@
 	<key>FacebookDisplayName</key>
 	<string>Hity</string>
 	<key>GIDClientID</key>
-	<string>682157527477-gje7nbg5ru2nt2mggg6sm7imj4o9mt6t.apps.googleusercontent.com</string>
+	<string>728713632221-66mcu7vqkg0648o9bb25oh1mhrn7jgt8.apps.googleusercontent.com</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

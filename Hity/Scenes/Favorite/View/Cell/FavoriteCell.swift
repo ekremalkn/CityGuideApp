@@ -103,7 +103,7 @@ final class FavoriteCell: UICollectionViewCell {
     
     
     
-    let disposeBag = DisposeBag()
+    private (set) var disposeBag = DisposeBag()
     //observable variables
     
     var favButtonTap: Observable<Void> {
@@ -116,6 +116,11 @@ final class FavoriteCell: UICollectionViewCell {
     
     var location = CLLocationCoordinate2D()
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        
+    }
     //MARK: - Init Methods
     
     override init(frame: CGRect) {

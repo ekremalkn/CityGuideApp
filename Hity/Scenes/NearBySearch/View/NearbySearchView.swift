@@ -43,12 +43,11 @@ final class NearbySearchView: UIView {
         layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 10
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.showsHorizontalScrollIndicator = false
-        collection.backgroundColor = .systemGray6
+        collection.showsVerticalScrollIndicator = false
+        collection.backgroundColor = .white
         collection.register(NearbyPlacesCell.self, forCellWithReuseIdentifier: NearbyPlacesCell.identifier)
         return collection
     }()
-    
     
     //MARK: - Init Methods
     
@@ -64,7 +63,7 @@ final class NearbySearchView: UIView {
     //MARK: - Configure View
     
     private func configureView() {
-        backgroundColor = .systemGray6
+        backgroundColor = .white
         addSubview()
         setupConstraints()
     }

@@ -17,6 +17,8 @@
 		F0448DA129A3619300CED699 /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0448DA029A3619300CED699 /* ResetPasswordController.swift */; };
 		F0448DA429A364B700CED699 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0448DA329A364B700CED699 /* ResetPasswordViewModel.swift */; };
 		F0448DA629A36AC700CED699 /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0448DA529A36AC700CED699 /* UserDataViewModel.swift */; };
+		F048D1FA29A7F1E3002BB468 /* SortPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F048D1F929A7F1E3002BB468 /* SortPopUpController.swift */; };
+		F048D1FC29A7F1F4002BB468 /* SortPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F048D1FB29A7F1F4002BB468 /* SortPopUpView.swift */; };
 		F04A8F39298FEA2000E245AF /* NearbyPlacesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04A8F38298FEA2000E245AF /* NearbyPlacesCell.swift */; };
 		F053F38B298910C3001D9CD6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38A298910C3001D9CD6 /* OnboardingView.swift */; };
 		F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F053F38C298916A7001D9CD6 /* OnboardingController.swift */; };
@@ -38,6 +40,10 @@
 		F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CE2986F57700EAD006 /* PlacesModel.swift */; };
 		F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5D12986FD2300EAD006 /* SearchViewModel.swift */; };
 		F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */; };
+		F07E5DB829A877D400FB04BB /* SortPopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07E5DB729A877D400FB04BB /* SortPopUpCell.swift */; };
+		F07E5DBB29A881A100FB04BB /* DistancePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07E5DBA29A881A100FB04BB /* DistancePopUpView.swift */; };
+		F07E5DBD29A8820600FB04BB /* DistancePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07E5DBC29A8820600FB04BB /* DistancePopUpController.swift */; };
+		F07E5DC129A9115400FB04BB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F07E5DC029A9115400FB04BB /* GoogleService-Info.plist */; };
 		F08CB52529A4B9F800B87E09 /* NearbySearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08CB52429A4B9F800B87E09 /* NearbySearchTextField.swift */; };
 		F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE3636298F75F80054D14E /* PlaceDetailController.swift */; };
 		F0AE3639298F760D0054D14E /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0AE3638298F760D0054D14E /* PlaceDetailView.swift */; };
@@ -91,7 +97,6 @@
 		F0E6AE6A29A6A05E0092538A /* LogOutPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE6929A6A05E0092538A /* LogOutPopUpView.swift */; };
 		F0E6AE6D29A6ACF00092538A /* LogOutPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE6C29A6ACF00092538A /* LogOutPopUpViewModel.swift */; };
 		F0EA1F80299F8C29005409A6 /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EA1F7F299F8C29005409A6 /* FavoriteViewModel.swift */; };
-		F0FEA0012996378800EE7D45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */; };
 		F0FEA00A29963E1600EE7D45 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F0FEA00929963E1600EE7D45 /* GoogleSignIn */; };
 		F0FEA00E29963E9700EE7D45 /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FEA00D29963E9700EE7D45 /* SignInController.swift */; };
 		F0FEA01029963EA500EE7D45 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FEA00F29963EA500EE7D45 /* SignInView.swift */; };
@@ -112,6 +117,8 @@
 		F0448DA029A3619300CED699 /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
 		F0448DA329A364B700CED699 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		F0448DA529A36AC700CED699 /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
+		F048D1F929A7F1E3002BB468 /* SortPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPopUpController.swift; sourceTree = "<group>"; };
+		F048D1FB29A7F1F4002BB468 /* SortPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPopUpView.swift; sourceTree = "<group>"; };
 		F04A8F38298FEA2000E245AF /* NearbyPlacesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyPlacesCell.swift; sourceTree = "<group>"; };
 		F053F38A298910C3001D9CD6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		F053F38C298916A7001D9CD6 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
@@ -135,6 +142,10 @@
 		F061A5CE2986F57700EAD006 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
 		F061A5D12986FD2300EAD006 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
+		F07E5DB729A877D400FB04BB /* SortPopUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPopUpCell.swift; sourceTree = "<group>"; };
+		F07E5DBA29A881A100FB04BB /* DistancePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistancePopUpView.swift; sourceTree = "<group>"; };
+		F07E5DBC29A8820600FB04BB /* DistancePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistancePopUpController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		F07E5DC029A9115400FB04BB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F08CB52429A4B9F800B87E09 /* NearbySearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbySearchTextField.swift; sourceTree = "<group>"; };
 		F0AE3636298F75F80054D14E /* PlaceDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailController.swift; sourceTree = "<group>"; };
 		F0AE3638298F760D0054D14E /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
@@ -188,7 +199,6 @@
 		F0E6AE6929A6A05E0092538A /* LogOutPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutPopUpView.swift; sourceTree = "<group>"; };
 		F0E6AE6C29A6ACF00092538A /* LogOutPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutPopUpViewModel.swift; sourceTree = "<group>"; };
 		F0EA1F7F299F8C29005409A6 /* FavoriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
-		F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F0FEA00D29963E9700EE7D45 /* SignInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInController.swift; sourceTree = "<group>"; };
 		F0FEA00F29963EA500EE7D45 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		F0FEA0132996415800EE7D45 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -254,6 +264,41 @@
 				F0448DA329A364B700CED699 /* ResetPasswordViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		F048D1F529A7D151002BB468 /* NearbySearch */ = {
+			isa = PBXGroup;
+			children = (
+				F048D1F629A7D166002BB468 /* DistancePopUp */,
+				F048D1F729A7D179002BB468 /* SortPopUp */,
+			);
+			path = NearbySearch;
+			sourceTree = "<group>";
+		};
+		F048D1F629A7D166002BB468 /* DistancePopUp */ = {
+			isa = PBXGroup;
+			children = (
+				F07E5DB929A8817F00FB04BB /* View */,
+			);
+			path = DistancePopUp;
+			sourceTree = "<group>";
+		};
+		F048D1F729A7D179002BB468 /* SortPopUp */ = {
+			isa = PBXGroup;
+			children = (
+				F048D1F829A7F1D6002BB468 /* View */,
+			);
+			path = SortPopUp;
+			sourceTree = "<group>";
+		};
+		F048D1F829A7F1D6002BB468 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F07E5DB429A8778A00FB04BB /* Cell */,
+				F048D1F929A7F1E3002BB468 /* SortPopUpController.swift */,
+				F048D1FB29A7F1F4002BB468 /* SortPopUpView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		F053F388298910AB001D9CD6 /* Onboarding */ = {
@@ -382,8 +427,8 @@
 		F061A5BA2986EB0200EAD006 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				F07E5DC029A9115400FB04BB /* GoogleService-Info.plist */,
 				F061A5B22986EA7500EAD006 /* Info.plist */,
-				F0FEA0002996378800EE7D45 /* GoogleService-Info.plist */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -482,6 +527,23 @@
 				F0D3430529A165F400266DA2 /* UIViewController+PopUpPickerView.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F07E5DB429A8778A00FB04BB /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F07E5DB729A877D400FB04BB /* SortPopUpCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		F07E5DB929A8817F00FB04BB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F07E5DBA29A881A100FB04BB /* DistancePopUpView.swift */,
+				F07E5DBC29A8820600FB04BB /* DistancePopUpController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		F08CB52329A4B9D800B87E09 /* TextFields */ = {
@@ -824,6 +886,7 @@
 			children = (
 				F0E6AE5229A636F90092538A /* Auth */,
 				F0E6AE6429A6A0070092538A /* Profile */,
+				F048D1F529A7D151002BB468 /* NearbySearch */,
 			);
 			path = CustomPopUpViewControllers;
 			sourceTree = "<group>";
@@ -1066,8 +1129,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F061A5B12986EA7500EAD006 /* LaunchScreen.storyboard in Resources */,
+				F07E5DC129A9115400FB04BB /* GoogleService-Info.plist in Resources */,
 				F061A5AE2986EA7500EAD006 /* Assets.xcassets in Resources */,
-				F0FEA0012996378800EE7D45 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1157,6 +1220,7 @@
 				F0CD655F29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift in Sources */,
 				F0B09FFA299E85AF000B4552 /* ReviewsController.swift in Sources */,
 				F0E6AE4A29A607A60092538A /* SignInPopUpController.swift in Sources */,
+				F07E5DBB29A881A100FB04BB /* DistancePopUpView.swift in Sources */,
 				F0E6AE6329A66B7D0092538A /* ContainerController.swift in Sources */,
 				F0B09FF7299E859E000B4552 /* ReviewsView.swift in Sources */,
 				F0B6F03D299D413100F9B0A9 /* PlaceDetailImageCell.swift in Sources */,
@@ -1166,6 +1230,7 @@
 				F0448DA429A364B700CED699 /* ResetPasswordViewModel.swift in Sources */,
 				F0B09FF1299E58F5000B4552 /* PlaceWeekdaysView.swift in Sources */,
 				F0C4FB2129983EC200823275 /* UITextField+RightViewButton.swift in Sources */,
+				F07E5DB829A877D400FB04BB /* SortPopUpCell.swift in Sources */,
 				F0448DA629A36AC700CED699 /* UserDataViewModel.swift in Sources */,
 				F0E6AE6A29A6A05E0092538A /* LogOutPopUpView.swift in Sources */,
 				F0CD655329A7325E00D4D45A /* ProfileViewModel.swift in Sources */,
@@ -1202,9 +1267,11 @@
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
 				F0D3430629A165F400266DA2 /* UIViewController+PopUpPickerView.swift in Sources */,
 				F0C33038299E04F200F02DBF /* PlaceInfoView.swift in Sources */,
+				F048D1FA29A7F1E3002BB468 /* SortPopUpController.swift in Sources */,
 				F0C4FB1329978CB700823275 /* User.swift in Sources */,
 				F0E6AE4C29A608390092538A /* SignInPopUpView.swift in Sources */,
 				F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */,
+				F07E5DBD29A8820600FB04BB /* DistancePopUpController.swift in Sources */,
 				F0E6AE5029A618E00092538A /* SignInPopUpViewModel.swift in Sources */,
 				F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */,
 				F0FEA01B299675DF00EE7D45 /* GooglePlacesManager.swift in Sources */,
@@ -1221,6 +1288,7 @@
 				F08CB52529A4B9F800B87E09 /* NearbySearchTextField.swift in Sources */,
 				F0C12F0929A20F420083B0EA /* CustomAnnotationView.swift in Sources */,
 				F0FEA02029967B1200EE7D45 /* RandomNonceString.swift in Sources */,
+				F048D1FC29A7F1F4002BB468 /* SortPopUpView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1364,6 +1432,8 @@
 				DEVELOPMENT_TEAM = 78Y3UD747G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hity/Support/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Bulunduğun konuma göre arama yapabilmek için konumunuza erişmeliyiz.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Fotoğraf için izin ver";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1394,6 +1464,8 @@
 				DEVELOPMENT_TEAM = 78Y3UD747G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hity/Support/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Bulunduğun konuma göre arama yapabilmek için konumunuza erişmeliyiz.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Fotoğraf için izin ver";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

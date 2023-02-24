@@ -29,25 +29,49 @@ final class PlaceDetailImageCell: UICollectionViewCell {
         return imageView
     }()
     
+    
+    let userRatingTotalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.spacing = 5
+        stackView.layer.cornerRadius = 10
+        stackView.layer.masksToBounds = true
+        return stackView
+    }()
+    
+    let userRatingTotalImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.tintColor = .white
+        imageView.image = UIImage(systemName: "person.fill")
+        return imageView
+    }()
+    
+    let userRatingTotalLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textAlignment = .center
+        return label
+    }()
+    
     private let ratingBlurView: UIVisualEffectView = {
         let visualView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
         return visualView
     }()
     
-    private let ratingStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.layer.cornerRadius = 10
-        stackView.layer.masksToBounds = true
-        return stackView
+    private let ratingView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
+        return view
     }()
     
     private let ratingImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "star.fill")
         imageView.tintColor = UIColor().hexStringToUIColor(hex: "#FAAC4B")
-
         return imageView
     }()
     
@@ -55,7 +79,7 @@ final class PlaceDetailImageCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textAlignment = .center
         return label
     }()
@@ -82,7 +106,9 @@ final class PlaceDetailImageCell: UICollectionViewCell {
         if let photoURL = photoData.photoReference {
             self.placeImage.downloadSetImage(type: .photoReference, url: photoURL)
         }
-
+        if let userRatingTotal = placeData.userRatingsTotal {
+            self.userRatingTotalLabel.text = "\(userRatingTotal) total ratings"
+        }
         if let rating = placeData.rating {
             self.ratingLabel.text = "\(rating)"
         }
@@ -101,7 +127,7 @@ extension PlaceDetailImageCell {
     private func addSubview() {
         addSubview(placeImageBackground)
         placeImageToBackgroundView()
-        ratingStackViewToPlaceImage()
+        ratingViewToPlaceImage()
         ratingElementsToStackView()
         ratingBlurViewToStackView()
     }
@@ -110,17 +136,23 @@ extension PlaceDetailImageCell {
         placeImageBackground.addSubview(placeImage)
     }
     
-    private func ratingStackViewToPlaceImage() {
-        placeImage.addSubview(ratingStackView)
+    private func ratingViewToPlaceImage() {
+        placeImage.addSubview(ratingView)
+        
+        placeImage.addSubview(userRatingTotalStackView)
     }
     
     private func ratingElementsToStackView() {
-        ratingStackView.addArrangedSubview(ratingImage)
-        ratingStackView.addArrangedSubview(ratingLabel)
+        ratingView.addSubview(ratingImage)
+        ratingView.addSubview(ratingLabel)
+        
+        userRatingTotalStackView.addArrangedSubview(userRatingTotalImage)
+        userRatingTotalStackView.addArrangedSubview(userRatingTotalLabel)
     }
     
     private func ratingBlurViewToStackView() {
-        ratingStackView.insertSubview(ratingBlurView, at: 0)
+        ratingView.insertSubview(ratingBlurView, at: 0)
+        
     }
     
     //MARK: - Setup Constraints
@@ -128,8 +160,11 @@ extension PlaceDetailImageCell {
     private func setupConstraints() {
         placeImageBackgroundConstraints()
         placeImageConstraints()
-        ratingStackViewConstraints()
+        userRatingTotalStackViewConstraints()
+        ratingViewConstraints()
         ratingBlurViewConstraints()
+        ratingImageConstraints()
+        ratingLabelConstraints()
     }
     
     private func placeImageBackgroundConstraints() {
@@ -144,18 +179,41 @@ extension PlaceDetailImageCell {
         }
     }
     
-    private func ratingStackViewConstraints() {
-        ratingStackView.snp.makeConstraints { make in
+    private func userRatingTotalStackViewConstraints() {
+        userRatingTotalStackView.snp.makeConstraints { make in
+            make.bottom.equalTo(placeImage.snp.bottom).offset(-10)
+            make.leading.equalTo(placeImage.snp.leading).offset(10)
+        }
+    }
+
+    private func ratingViewConstraints() {
+        ratingView.snp.makeConstraints { make in
             make.bottom.equalTo(placeImage.snp.bottom).offset(-10)
             make.trailing.equalTo(placeImage.snp.trailing).offset(-10)
-            make.height.equalTo(placeImage.snp.height).multipliedBy(0.1)
+            make.height.equalTo(placeImage.snp.height).multipliedBy(0.10)
             make.width.equalTo(placeImage.snp.width).multipliedBy(0.15)
         }
     }
     
     private func ratingBlurViewConstraints() {
         ratingBlurView.snp.makeConstraints { make in
-            make.top.leading.bottom.trailing.equalTo(ratingStackView)
+            make.top.leading.bottom.trailing.equalTo(ratingView)
+        }
+    }
+    
+    private func ratingImageConstraints() {
+        ratingImage.snp.makeConstraints { make in
+            make.leading.equalTo(ratingView.snp.leading).offset(5)
+            make.centerY.equalTo(ratingView.snp.centerY)
+            make.height.width.equalTo(ratingView.snp.height).multipliedBy(0.5)
+        }
+    }
+    
+    
+    private func ratingLabelConstraints() {
+        ratingLabel.snp.makeConstraints { make in
+            make.trailing.equalTo(ratingView.snp.trailing).offset(-5)
+            make.centerY.equalTo(ratingImage.snp.centerY)
         }
     }
     

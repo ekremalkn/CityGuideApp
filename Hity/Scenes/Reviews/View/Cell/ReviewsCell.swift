@@ -39,7 +39,7 @@ final class ReviewsCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.spacing = 15
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = .clear
         return stackView
     }()
     
@@ -48,7 +48,7 @@ final class ReviewsCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.spacing = 5
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = .clear
         return stackView
     }()
     
@@ -69,8 +69,17 @@ final class ReviewsCell: UITableViewCell {
     private let relativeTimeDescription: UILabel = {
         let label = UILabel()
         label.textColor = .systemGray
-        label.backgroundColor = .white
+        label.backgroundColor = .clear
         label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    private let readMore: UILabel = {
+        let label = UILabel()
+        label.text = "Read more..."
+        label.textColor = .blue
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.backgroundColor = .clear
         return label
     }()
     
@@ -124,6 +133,7 @@ extension ReviewsCell {
         addSubview(ratingTimeStackView)
         ratingRelativeTimeToStackView()
         ratingElementsToStackView()
+        addSubview(readMore)
         addSubview(authorTextLabel)
     }
     
@@ -144,6 +154,7 @@ extension ReviewsCell {
         authorNameConstraints()
         ratingTimeStackViewConstraints()
         ratingImageConstraints()
+        readMoreLabelConstraints()
         authorTextLabelConstraints()
     }
 
@@ -157,14 +168,15 @@ extension ReviewsCell {
     private func authorNameConstraints() {
         authorName.snp.makeConstraints { make in
             make.leading.equalTo(authorImageView.snp.trailing).offset(10)
-            make.centerY.equalTo(authorImageView.snp.centerY)
+            make.top.equalTo(authorImageView.snp.top)
+            make.height.equalTo(authorImageView.snp.height).multipliedBy(0.5)
         }
     }
     
     private func ratingTimeStackViewConstraints() {
         ratingTimeStackView.snp.makeConstraints { make in
-            make.top.equalTo(authorImageView.snp.bottom).offset(10)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
+            make.leading.equalTo(authorName.snp.leading)
+            make.top.equalTo(authorName.snp.bottom).offset(5)
         }
     }
     
@@ -174,9 +186,16 @@ extension ReviewsCell {
         }
     }
     
+    private func readMoreLabelConstraints() {
+        readMore.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide).offset(15)
+            make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)
+        }
+    }
+    
     private func authorTextLabelConstraints() {
         authorTextLabel.snp.makeConstraints { make in
-            make.top.equalTo(ratingStackView.snp.bottom).offset(10)
+            make.top.equalTo(ratingStackView.snp.bottom).offset(7)
             make.leading.equalTo(authorImageView.snp.leading)
             make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-15)
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
