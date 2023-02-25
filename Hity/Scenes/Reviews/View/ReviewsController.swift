@@ -48,7 +48,6 @@ final class ReviewsController: UIViewController {
     private func customizeNavBar() {
         title = "Reviews"
         navigationController?.navigationBar.prefersLargeTitles = true
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: reviewsView)
     }
     
     //MARK: - TableView Callbacks
@@ -67,7 +66,7 @@ final class ReviewsController: UIViewController {
         self.reviewsViewModel.fetchPlaceReviews(placeUID)
         
         //handle did select
-        
+                
         reviewsView.reviewsTableView.rx.modelSelected(DetailReview.self).bind(onNext: { placeReviews in
             if let authorProfileURL = placeReviews.authorURL {
                 guard let URL = URL(string: authorProfileURL) else { return }
@@ -78,14 +77,11 @@ final class ReviewsController: UIViewController {
                 }
             }
             
-            
-
-            
-        }).disposed(by: disposeBag)
+        }).disposed(by: reviewsView.disposeBag)
         
         // set tableview delegate for row height
         
-        reviewsView.reviewsTableView.rx.setDelegate(self).disposed(by: disposeBag)
+        reviewsView.reviewsTableView.rx.setDelegate(self).disposed(by: reviewsView.disposeBag)
         
     }
 
@@ -99,4 +95,6 @@ extension ReviewsController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.frame.size.height * 0.33
     }
+    
+    
 }

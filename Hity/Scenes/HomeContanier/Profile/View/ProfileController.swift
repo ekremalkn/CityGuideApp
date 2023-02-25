@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Photos
+import PhotosUI
 import RxSwift
 
 final class ProfileController: UIViewController {
@@ -17,10 +19,11 @@ final class ProfileController: UIViewController {
     private let profileViewModel = ProfileViewModel()
     private let disposeBag = DisposeBag()
     
-    //MARK: - Observable
+    //MARK: - Observable Variables
     
     let isPickerLoading = PublishSubject<Bool>()
     let isProfilePhotoLoading = PublishSubject<Bool>()
+    
     
     //MARK: - Lifecycle Methods
     
@@ -36,9 +39,9 @@ final class ProfileController: UIViewController {
         addSubview()
         setupConstraints()
         configureNavBar()
-        creatingCallbacks()
-        profileViewModel.fetchProfilePhoto()
-        profileViewModel.fetchUserDisplayName()
+        createCallbacks()
+        fetchUserData()
+        
     }
     
     private func configureNavBar() {
@@ -47,46 +50,61 @@ final class ProfileController: UIViewController {
         navigationController?.isNavigationBarHidden = false
     }
     
+    //MARK: - Create Callbacks
     
-    private func creatingCallbacks() {
-        createPickerControllerLifeCycleCallback()
-        createProfileViewButtonsCallbacks()
+    private func createCallbacks() {
+        createPhotoPickerControllerLifeCycleCallback()
+        createProfileViewButtonCallbacks()
         createProfileViewModelCallbacks()
     }
     
-    //MARK: - Creating Profile ViewButton Callbacks
+    //MARK: - Fetch User Display Data
     
-    private func createProfileViewButtonsCallbacks() {
+    private func fetchUserData() {
+        profileViewModel.fetchProfilePhoto()
+        profileViewModel.fetchUserDisplayName()
+    }
+    
+    
+    //MARK: - Creating ProfileView Button Callbacks
+    
+    private func createProfileViewButtonCallbacks() {
         
+        // Profile Photo Edit Button
         profileView.editButton.rx.tap.subscribe(onNext: { [weak self] in
             self?.isPickerLoading.onNext(true)
-            self?.presentPickerController()
-        }).disposed(by: disposeBag)
+            self?.presentPHpickerController()
+        }).disposed(by: profileView.disposeBag)
         
+        // Change Username Button
         profileView.changeUserNameButton.rx.tap.subscribe(onNext: { [unowned self] in
             let controller = ChangeUsernamePopUpController()
             controller.presentPopUpController(self)
-        }).disposed(by: disposeBag)
+        }).disposed(by: profileView.disposeBag)
         
+        // Change Email Button
         profileView.changeEmailButton.rx.tap.subscribe(onNext: { [unowned self] in
             let controller = ChangeEmailPopUpController()
             controller.presentPopUpController(self)
-        }).disposed(by: disposeBag)
+        }).disposed(by: profileView.disposeBag)
         
+        // Change Password Button
         profileView.changePasswordButton.rx.tap.subscribe(onNext: { [unowned self] in
             let controller = ResetPasswordController()
             controller.presentPopUpController(self)
-        }).disposed(by: disposeBag)
+        }).disposed(by: profileView.disposeBag)
         
+        // Delete Account Button
         profileView.deleteAccountButton.rx.tap.subscribe(onNext: { [unowned self] in
             let controller = DeleteAccountPopUpController()
             controller.presentPopUpController(self)
-        }).disposed(by: disposeBag)
+        }).disposed(by: profileView.disposeBag)
         
+        // Log Out Button
         profileView.logOutButton.rx.tap.subscribe(onNext: {
             let controller = LogOutPopUpController()
             controller.presentPopUpController(self)
-        }).disposed(by: disposeBag)
+        }).disposed(by: profileView.disposeBag)
         
         
     }
@@ -95,23 +113,26 @@ final class ProfileController: UIViewController {
     //MARK: - Creating ProfileViewModel Callbacks
     
     private func createProfileViewModelCallbacks() {
+        
+        // Profile photo uploading Success
         profileViewModel.isUploadingSuccess.subscribe(onNext: { [weak self] _ in
             //get download url
             self?.profileViewModel.fetchProfilePhoto()
         }).disposed(by: disposeBag)
         
-        
+        // Profile photo url downloading success
         profileViewModel.isDownloadingURLSuccess.subscribe(onNext: { [weak self] profileImageURL in
             self?.profileView.profileImageView.downloadSetImage(type: .onlyURL, url: profileImageURL, completion: {
                 self?.isProfilePhotoLoading.onNext(false)
             })
-
         }).disposed(by: disposeBag)
         
+        // Fetching User Displayname Success
         profileViewModel.isFetchingUserDisplayName.subscribe { [weak self] name in
             self?.profileView.userNameLabel.text = name
         }.disposed(by: disposeBag)
         
+        // Sign Out Success
         profileViewModel.isSigningOutSuccess.subscribe { _ in
             let signInVC = SignInController()
             signInVC.modalPresentationStyle = .fullScreen
@@ -120,27 +141,11 @@ final class ProfileController: UIViewController {
     }
     
     
+    //MARK: - PickerController(Loading, Load, Cancelled), Photo(Uploading, Uploaded, Downloading, Downloaded, Setted)
     
-}
-
-
-//MARK: - UIImagePickerController
-
-extension ProfileController {
-    
-    private func presentPickerController() {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.allowsEditing = true
-        picker.delegate = self
-        self.present(picker, animated: true) { [weak self] in
-            self?.isPickerLoading.onNext(false)
-        }
-    }
-    
-    // picker view lifecycle callbacks
-    
-    private func createPickerControllerLifeCycleCallback() {
+    private func createPhotoPickerControllerLifeCycleCallback() {
+        
+        // Picker Controller Activity Indicator Start / Stop
         isPickerLoading.subscribe { [weak self] loading in
             if loading {
                 self?.profileView.pickerControllerActivityIndicator.startAnimating()
@@ -149,34 +154,94 @@ extension ProfileController {
             }
         }.disposed(by: disposeBag)
         
+        // Profile Photo Activity Indicator Start / Stop
         isProfilePhotoLoading.subscribe { [weak self] loading in
             if loading {
-                self?.profileView.profileImageActivityIndicator.startAnimating()
+                DispatchQueue.main.async {
+                    self?.profileView.profileImageActivityIndicator.startAnimating()
+                }
             } else {
                 self?.profileView.profileImageActivityIndicator.stopAnimating()
             }
         }.disposed(by: disposeBag)
     }
     
+}
+
+//MARK: - if #available(iOS 14.0, *) PHPickerController
+
+extension ProfileController: PHPickerViewControllerDelegate {
+    
+    // Present PHpicker Controller
+    private func presentPHpickerController() {
+        if #available(iOS 14.0, *) {
+            var config = PHPickerConfiguration(photoLibrary: .shared())
+            config.selectionLimit = 1
+            config.filter = .images
+            let vc = PHPickerViewController(configuration: config)
+            vc.delegate = self
+            present(vc, animated: true) {
+                self.isPickerLoading.onNext(false)
+                
+            }
+            
+        } else {
+            presentPickerController()
+        }
+        
+    }
+    
+    @available(iOS 14, *)
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        results.forEach { result in
+            
+            result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] reading, error in
+                guard let image = reading as? UIImage, error == nil else { return }
+                
+                guard let imageData = image.jpegData(compressionQuality: 0.3) else { return }
+                //upload image data
+                self?.isProfilePhotoLoading.onNext(true)
+                self?.profileViewModel.uploadImageDataToFirebaseStorage(imageData)
+            }
+        }
+    }
+    
+    
+    
     
 }
 
-//MARK: - UIImagePickerController Delegate
+//MARK: - if not #available(iOS 14.0, *) UIImagePickerController
 
 extension ProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true) { [weak self] in
-            self?.isProfilePhotoLoading.onNext(true)
+    // Present UIImagePickerController
+    private func presentPickerController() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        picker.delegate = self
+        
+        self.present(picker, animated: true) { [weak self] in
+            self?.isPickerLoading.onNext(false)
         }
         
+    }
+    
+    // Did Finish Picking Media
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        
         guard let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else { return }
-        guard let imageData = image.pngData() else { return }
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
         //upload image data
+        self.isProfilePhotoLoading.onNext(true)
         self.profileViewModel.uploadImageDataToFirebaseStorage(imageData)
         
         
-        
+        // Did Cancel Picking
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             picker.dismiss(animated: true)
         }

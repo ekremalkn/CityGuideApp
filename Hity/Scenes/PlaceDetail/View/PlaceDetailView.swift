@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import RxSwift
+
+protocol PlaceDetailViewProtocol {
+    var placeDetailViewName: String { get }
+    var placeDetailPhotos: [DetailPhoto] { get }
+}
 
 final class PlaceDetailView: UIView {
     
@@ -76,7 +82,7 @@ final class PlaceDetailView: UIView {
         return view
     }()
     
-    let addressInfoButton: UIButton = {
+    let infoButton: UIButton = {
         let button = UIButton()
         button.setTitle("Info", for: .normal)
         button.setTitleColor(.darkGray, for: .normal)
@@ -84,7 +90,7 @@ final class PlaceDetailView: UIView {
         return button
     }()
     
-    let openClosedInfoButton: UIButton = {
+    let weekdayButton: UIButton = {
         let button = UIButton()
         button.setTitle("Weekday", for: .normal)
         button.setTitleColor(.darkGray, for: .normal)
@@ -107,6 +113,11 @@ final class PlaceDetailView: UIView {
     let placeWeekdaysView = PlaceWeekdaysView()
     let placeReviewsView = PlaceReviewsView()
     
+    
+    //MARK: - DisposeBag
+    
+    let disposeBag = DisposeBag()
+
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -136,13 +147,10 @@ final class PlaceDetailView: UIView {
         toggleFavButton()
     }
     
-    func configure(data: DetailResults) {
-        self.placeName.text = data.name
-        if let photoCount = data.photos?.count {
-            self.pageControl.numberOfPages = photoCount
-        } else {
-            self.pageControl.numberOfPages = 1
-        }
+    func configure(_ data: PlaceDetailViewProtocol) {
+        self.placeName.text = data.placeDetailViewName
+        self.pageControl.numberOfPages = data.placeDetailPhotos.count
+        
     }
     
     //MARK: - Toogle fav button
@@ -155,7 +163,7 @@ final class PlaceDetailView: UIView {
     }
     
     
-    //MARK: - buttons bottom line toogle and view toogle
+    //MARK: - According to buttons bottom line will toggle bottom line and view
     func toggleViews(_ bottomLine: UIView) {
         switch bottomLine {
         case buttonBottomLine1:
@@ -208,14 +216,14 @@ extension PlaceDetailView {
     }
     
     private func buttonsToStackView() {
-        buttonStackView.addArrangedSubview(addressInfoButton)
-        buttonStackView.addArrangedSubview(openClosedInfoButton)
+        buttonStackView.addArrangedSubview(infoButton)
+        buttonStackView.addArrangedSubview(weekdayButton)
         buttonStackView.addArrangedSubview(reviewsButton)
     }
     
     private func buttonBottomLineToButtons() {
-        addressInfoButton.addSubview(buttonBottomLine1)
-        openClosedInfoButton.addSubview(buttonBottomLine2)
+        infoButton.addSubview(buttonBottomLine1)
+        weekdayButton.addSubview(buttonBottomLine2)
         reviewsButton.addSubview(buttonBottomLine3)
     }
     
@@ -227,8 +235,8 @@ extension PlaceDetailView {
         placeNameConstraints()
         saveButtonConstraints()
         buttonStackViewConstraints()
-        buttonBottomLineConstraints(addressInfoButton, buttonBottomLine1)
-        buttonBottomLineConstraints(openClosedInfoButton, buttonBottomLine2)
+        buttonBottomLineConstraints(infoButton, buttonBottomLine1)
+        buttonBottomLineConstraints(weekdayButton, buttonBottomLine2)
         buttonBottomLineConstraints(reviewsButton, buttonBottomLine3)
         placeInfoViewConstraints()
         placeWeekdaysViewConstraints()

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class ReviewsView: UIView {
 
@@ -17,6 +18,9 @@ final class ReviewsView: UIView {
         return tableview
     }()
     
+    //MARK: - Dispose Bag
+    
+    let disposeBag = DisposeBag()
     
     //MARK: - Init Methods
     

@@ -5,7 +5,6 @@
 //  Created by Ekrem Alkan on 11.02.2023.
 //
 
-import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import RxSwift
@@ -27,7 +26,7 @@ final class SignUpViewModel {
     let isDatabaseCreating = PublishSubject<Bool>()
     let errorMsg = PublishSubject<String>()
     
-    //MARK: - SignUpMethod
+    //MARK: - Sign Up with Email
     
     func signUp(_ username: String, _ email: String, _ password: String) {
         
@@ -50,6 +49,7 @@ final class SignUpViewModel {
         }
     }
     
+    //MARK: - Create User Database
     
     private func createDatabaseForUser(_ authResult: AuthDataResult, _ username: String) {
         self.isDatabaseCreating.onNext(true)
@@ -72,7 +72,9 @@ final class SignUpViewModel {
         
     }
     
-   private func changeUserDisplayName(_ username: String) {
+    //MARK: - Change User Display Name
+    
+    private func changeUserDisplayName(_ username: String) {
         let changeRequest = self.firebaseAuth.currentUser?.createProfileChangeRequest()
         changeRequest?.displayName = username
         changeRequest?.commitChanges(completion: { [weak self] error in

@@ -10,23 +10,28 @@ import RxSwift
 import RxCocoa
 import CoreLocation
 
-protocol SearchResultControllerDelegate: AnyObject {
-    func didTapSearchLocation(_ coordinates: CLLocationCoordinate2D)
-}
+
 
 final class SearchResultController: UIViewController {
     
-    //MARK: - Properties
+    //MARK: - Constants
     
-    weak var searchResultControllerDelegate: SearchResultControllerDelegate?
     private let searchResultView = SearchResultView()
-    private let searchViewModel = SearchViewModel()
+    private let searchResultViewModel = SearchResultViewModel()
     
-    var searchText = PublishSubject<String>()
-    var placeName = PublishSubject<String>()
+    //MARK: - Observable Variables
+
+    let searchText = PublishSubject<String>()
+    let placeName = PublishSubject<String>()
+    let didTapSearchLocation = PublishSubject<CLLocationCoordinate2D>()
+
+    //MARK: - Dispose Bag
+
+    private (set) var disposeBag = DisposeBag()
     
-    private let disposeBag = DisposeBag()
-    
+   
+    //MARK: - Life Cycle Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
@@ -37,46 +42,51 @@ final class SearchResultController: UIViewController {
     
     private func configureViewController() {
         view = searchResultView
+        createCallbacks()
+    }
+    
+    private func createCallbacks() {
+        createSearchResultViewModelCallbacks()
         configureTableView()
-        didFetchCoordinate()
     }
     
     
+    //MARK: - Create SearchResultViewModelCallbacks
     
+    private func createSearchResultViewModelCallbacks() {
+        
+        // Fetched coordinate
+        searchResultViewModel.coordinates.subscribe(onNext: { [weak self] coordinates in
+            self?.didTapSearchLocation.onNext(coordinates)
+        }).disposed(by: self.disposeBag)
+        
+        
+    }
+    
+    //MARK: - Configure TableView
+
     private func configureTableView() {
         
         // bind places to tableview
         
-        searchViewModel.places.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { [weak self] row, place, cell in
+        searchResultViewModel.places.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { [weak self] row, place, cell in
             self?.searchResultView.configureCellProperties(cell)
             cell.textLabel?.text = place.placeName
         }.disposed(by: disposeBag)
         
         // fetch places
         searchText.subscribe(onNext: { [weak self] text in
-            self?.searchViewModel.fetchPlaces(text)
+            self?.searchResultViewModel.fetchPlaces(text)
             
         }).disposed(by: disposeBag)
         
         // handle didselect
         searchResultView.tableView.rx.modelSelected(PlacesModel.self).bind(onNext: { [weak self] place in
-            self?.searchViewModel.fetchCoordinates(place.placeUID)
+            self?.searchResultViewModel.fetchCoordinates(place.placeUID)
             self?.placeName.onNext(place.placeName)
         }).disposed(by: disposeBag)
         
     }
-    
-    //MARK: - Pin location on map
-    
-    private func didFetchCoordinate() {
-        
-        searchViewModel.coordinates.subscribe(onNext: { [weak self] coordinates in
-            self?.searchResultControllerDelegate?.didTapSearchLocation(coordinates)
-        }).disposed(by: self.disposeBag)
-        
-        
-    }
-    
     
 }
 

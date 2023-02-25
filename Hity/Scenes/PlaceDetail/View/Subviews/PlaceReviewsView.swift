@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class PlaceReviewsView: UIView {
 
@@ -33,6 +34,10 @@ final class PlaceReviewsView: UIView {
         return button
     }()
     
+    //MARK: - Dispose Bag
+    
+    let disposeBag = DisposeBag()
+
     
     //MARK: - Init Methods
     
@@ -44,6 +49,7 @@ final class PlaceReviewsView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     //MARK: - Configure View
     

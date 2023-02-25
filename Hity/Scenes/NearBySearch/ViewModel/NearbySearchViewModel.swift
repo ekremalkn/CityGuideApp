@@ -12,17 +12,19 @@ import FirebaseFirestore
 
 final class NearbySearchViewModel {
     
-    
+    //MARK: - Constants
     
     private let webServiceManager = Service.shared
-    
     private let database = Firestore.firestore()
     private let firebaseAuth = Auth.auth()
     
-    var nearPlaces = PublishSubject<[Result]>()
-    var placeDetails = PublishSubject<DetailResults>()
-
+    //MARK: - Observable Variables
     
+    let nearPlaces = PublishSubject<[Result]>()
+    let placeDetails = PublishSubject<DetailResults>()
+    
+    
+    //MARK: - Fetch Near Places
     
     func fetchNearPlaces(_ input: String, _ lat: Double, _ lng: Double, searchDistance: String, sortType: SortTypesTitle) {
         
@@ -35,21 +37,23 @@ final class NearbySearchViewModel {
                     self?.nearPlaces.onNext(nearPlaces)
                 case .maxToMinRating:
                     let sortedPlaces = nearPlaces.sorted {
-                                            $0.rating ?? 0 > $1.rating ?? 0 }
-                                        self?.nearPlaces.onNext(sortedPlaces)
+                        $0.rating ?? 0 > $1.rating ?? 0 }
+                    self?.nearPlaces.onNext(sortedPlaces)
                 case .userRatingTotal:
                     let sortesPlaces = nearPlaces.sorted {
-                                            $0.userRatingsTotal ?? 0 > $1.userRatingsTotal ?? 0
-                                        }
+                        $0.userRatingsTotal ?? 0 > $1.userRatingsTotal ?? 0
+                    }
                     self?.nearPlaces.onNext(sortesPlaces)
                 }
-
+                
             }
         } onError: { error in
             self.nearPlaces.onError(error)
         }
         
     }
+    
+    //MARK: - Fetch Place Details
     
     func fetchPlaceDetails(_ placeUID: String) {
         
@@ -61,12 +65,11 @@ final class NearbySearchViewModel {
             self?.placeDetails.onError(error)
         }
         
-        
-        
     }
     
     
-    // write placeUID to firebase FirestoreDatabase
+    //MARK: - Write placeUID to FirestoreDatabase
+
     
     func updateFirestoreFavoriteList(_ placeUID: String, _ isAdded: Bool) {
         guard let currentUser = firebaseAuth.currentUser else { return }

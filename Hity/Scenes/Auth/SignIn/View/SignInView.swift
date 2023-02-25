@@ -6,18 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 import GoogleSignIn
 import AuthenticationServices
 import FBSDKLoginKit
 
 
-protocol SignInViewInterface: AnyObject {
-    func googleSignInButtonTapped(_ view: SignInView)
-    func appleSignInButtonTapped(_ view: SignInView)
-    func signInButtonTapped(_ view: SignInView)
-    func signUpButtonTapped(_ view: SignInView)
-    func forgotPasswordButtonTapped(_ view: SignInView)
-}
 final class SignInView: UIView {
     
     
@@ -76,7 +70,7 @@ final class SignInView: UIView {
         return textField
     }()
     
-    private let passwordEyeButton = UIButton(type: .custom)
+    let passwordEyeButton = UIButton(type: .custom)
     
     let passwordTextField: UITextField = {
         let textField = UITextField()
@@ -105,7 +99,7 @@ final class SignInView: UIView {
         return label
     }()
     
-    private let forgotPasswordButton: UIButton = {
+    let forgotPasswordButton: UIButton = {
         let button = UIButton()
         button.setTitle("Forgot password?", for: .normal)
         button.setTitleColor(.blue, for: .normal)
@@ -114,7 +108,7 @@ final class SignInView: UIView {
         return button
     }()
     
-    private let signInButton: UIButton = {
+    let signInButton: UIButton = {
         let button = UIButton()
         button.setTitle("Sign In", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -157,7 +151,7 @@ final class SignInView: UIView {
         return label
     }()
     
-    private let signUpButton: UIButton = {
+    let signUpButton: UIButton = {
         let button = UIButton()
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.blue, for: .normal)
@@ -165,41 +159,54 @@ final class SignInView: UIView {
         return button
     }()
     
-    private let googleSignInBtn: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .white
-        button.setImage(UIImage(named: "googleLogo"), for: .normal)
-        button.setTitle("Continue with Google", for: .normal)
-        button.setTitleColor(.darkGray, for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.contentHorizontalAlignment = .left
-        button.imageEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 0)
-        return button
-    }()
+//    let googleSignInBtn: UIButton = {
+//        let button = UIButton()
+//        button.backgroundColor = .white
+//        button.setImage(UIImage(named: "google1x"), for: .normal)
+//        button.setTitle("Continue with Google", for: .normal)
+//        button.setTitleColor(.darkGray, for: .normal)
+//        button.imageView?.contentMode = .scaleAspectFit
+//        button.contentHorizontalAlignment = .center
+//        button.addShadow()
+//        //        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
+//        return button
+//    }()
     
-    private let appleSignInButton = ASAuthorizationAppleIDButton(type: .continue, style: .black)
-    let facebookSignInButton = FBLoginButton()
+    let googleSignInBtn = ProviderSignInButton(UIImage(named: "google1x")!, "Continue with Google", .white, .black)
+     
+//    let facebookSignInBtn: UIButton = {
+//        let button = UIButton()
+////        button.backgroundColor = UIColor().hexStringToUIColor(hex: "2874F2")
+//        button.backgroundColor = .white
+//        button.setImage(UIImage(named: "facebook1x"), for: .normal)
+//        button.setTitle("Continue with Facebook", for: .normal)
+//        button.setTitleColor(UIColor().hexStringToUIColor(hex: "2874F2"), for: .normal)
+//        button.imageView?.contentMode = .scaleAspectFit
+//        button.contentHorizontalAlignment = .center
+//        button.addShadow()
+//        return button
+//    }()
     
+    let facebookSignInBtn = ProviderSignInButton(UIImage(named: "facebook1x")!, "Continue with Facebook", UIColor().hexStringToUIColor(hex: "3B5997"), .white)
+    
+//    let appleSignInButton = ASAuthorizationAppleIDButton(type: .continue, style: .black)
+    let appleSignInButton = ProviderSignInButton(UIImage(named: "apple1x")!, "Continue with Apple", .black, .white)
     
     //MARK: - Properties
     
-    weak var interface: SignInViewInterface?
-    
+    let disposeBag = DisposeBag()
     var passwordSecure = true
     
     //MARK: - Init Methods
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        googleSignInBtn.addShadow()
-        facebookSignInButton.addShadow()
         appleSignInButton.addShadow()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureView()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -212,7 +219,6 @@ final class SignInView: UIView {
         backgroundColor = .white
         addSubView()
         setupConstraints()
-        addTarget()
         configurePasswordTextFieldRightButton()
     }
     
@@ -220,45 +226,10 @@ final class SignInView: UIView {
         passwordTextField.setRightVewButton(passwordEyeButton, "eye.slash")
     }
     
-    //MARK: - AddAction
-    
-    private func addTarget() {
-        googleSignInBtn.addTarget(self, action: #selector(signInGoogleButtonAction), for: .touchUpInside)
-        appleSignInButton.addTarget(self, action: #selector(signInAppleButtonAction), for: .touchUpInside)
-        passwordEyeButton.addTarget(self, action: #selector(passwordEyeButtonAction), for: .touchUpInside)
-        signInButton.addTarget(self, action: #selector(signInButtonAction), for: .touchUpInside)
-        signUpButton.addTarget(self, action: #selector(signUpButtonAction), for: .touchUpInside)
-        forgotPasswordButton.addTarget(self, action: #selector(forgotPasswordButtonAction), for: .touchUpInside)
-        
-    }
-    
-    @objc private func signInGoogleButtonAction(_ button: UIButton) {
-        self.interface?.googleSignInButtonTapped(self)
-    }
-    
-    @objc private func signInAppleButtonAction(_ button: UIButton) {
-        self.interface?.appleSignInButtonTapped(self)
-    }
-    
-    @objc private func passwordEyeButtonAction(_ button: UIButton) {
-        passwordEyeButtonToggle()
-    }
-    
-    @objc private func signInButtonAction(_ button: UIButton) {
-        self.interface?.signInButtonTapped(self)
-    }
-    
-    @objc private func signUpButtonAction(_ button: UIButton) {
-        self.interface?.signUpButtonTapped(self)
-    }
-    
-    @objc private func forgotPasswordButtonAction(_ button: UIButton) {
-        self.interface?.forgotPasswordButtonTapped(self)
-    }
     
     //MARK: - PasswordEyeButton Toggle
     
-    private func passwordEyeButtonToggle() {
+    func passwordEyeButtonToggle() {
         if passwordSecure {
             passwordTextField.isSecureTextEntry = false
             passwordTextField.setRightVewButton(passwordEyeButton, "eye")
@@ -297,7 +268,7 @@ extension SignInView {
         titleView.addSubview(subTitle)
     }
     
-   
+    
     private func textFieldsToStackView() {
         textFieldStackView.addArrangedSubview(emailTextField)
         textFieldStackView.addArrangedSubview(passwordTextField)
@@ -313,7 +284,7 @@ extension SignInView {
     
     private func providerButtonsToStackView() {
         providerStackView.addArrangedSubview(googleSignInBtn)
-        providerStackView.addArrangedSubview(facebookSignInButton)
+        providerStackView.addArrangedSubview(facebookSignInBtn)
         providerStackView.addArrangedSubview(appleSignInButton)
     }
     
@@ -399,7 +370,7 @@ extension SignInView {
             make.trailing.equalTo(forgotPasswordButton.snp.leading).offset(-5)
         }
     }
-
+    
     
     private func orLabelConstraints() {
         orLabel.snp.makeConstraints { make in

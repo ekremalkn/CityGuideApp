@@ -14,30 +14,28 @@ protocol ServiceProtocol {
 
 
 final class Service: ServiceProtocol {
-
-
-
+    
     static let shared = Service()
     
     
     public func nearyBySearch(input: String, lat: Double, lng: Double, searchDistance: String, onSuccess: @escaping (NearPlacesModel?) -> (), onError: @escaping (Alamofire.AFError) -> ()) {
-       NetworkManager.shared.request(path: NetworkHelper.shared.nearPlaceRequest(input: input, lat: lat, lng: lng, searchDistance: searchDistance)) { (response: NearPlacesModel?) in
-           
+        NetworkManager.shared.request(path: NetworkHelper.shared.nearPlaceRequest(input: input, lat: lat, lng: lng, searchDistance: searchDistance)) { (response: NearPlacesModel?) in
+            
             onSuccess(response)
         } onError: { error in
             onError(error)
         }
-
+        
     }
-
     
-   public func placeDetail(placeUID: String, onSuccess: @escaping (Place?) -> (), onError: @escaping (Alamofire.AFError) -> ()) {
-       NetworkManager.shared.request(path: NetworkHelper.shared.placeDetailRequest(placeUID: placeUID)) { (response: Place?) in
-           onSuccess(response)
-       } onError: { error in
-           onError(error)
-       }
-
+    
+    public func placeDetail(placeUID: String, onSuccess: @escaping (Place?) -> (), onError: @escaping (Alamofire.AFError) -> ()) {
+        NetworkManager.shared.request(path: NetworkHelper.shared.placeDetailRequest(placeUID: placeUID)) { (response: Place?) in
+            onSuccess(response)
+        } onError: { error in
+            onError(error)
+        }
+        
     }
     
     

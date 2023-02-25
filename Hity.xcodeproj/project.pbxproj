@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1350F679322A5873075E17B8 /* libPods-Hity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 784BF3C55039876571558652 /* libPods-Hity.a */; };
+		F0022CEE29AA8FC80012D73F /* ProviderSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0022CED29AA8FC80012D73F /* ProviderSignInButton.swift */; };
 		F0380984299AA86C0080AB1C /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0380983299AA86C0080AB1C /* UIView+Shadow.swift */; };
 		F0448D9129A24E1500CED699 /* ProfileViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0448D9029A24E1500CED699 /* ProfileViewButton.swift */; };
 		F0448D9729A335B900CED699 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0448D9629A335B900CED699 /* FirebaseAuth */; };
@@ -38,7 +39,7 @@
 		F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5C52986EF6700EAD006 /* SearchResultController.swift */; };
 		F061A5C82986EF7300EAD006 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5C72986EF7300EAD006 /* SearchResultView.swift */; };
 		F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5CE2986F57700EAD006 /* PlacesModel.swift */; };
-		F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5D12986FD2300EAD006 /* SearchViewModel.swift */; };
+		F061A5D22986FD2300EAD006 /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F061A5D12986FD2300EAD006 /* SearchResultViewModel.swift */; };
 		F0735B07298E81AF005306D8 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */; };
 		F07E5DB829A877D400FB04BB /* SortPopUpCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07E5DB729A877D400FB04BB /* SortPopUpCell.swift */; };
 		F07E5DBB29A881A100FB04BB /* DistancePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F07E5DBA29A881A100FB04BB /* DistancePopUpView.swift */; };
@@ -76,7 +77,7 @@
 		F0CD655529A7325E00D4D45A /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655229A7325E00D4D45A /* ProfileController.swift */; };
 		F0CD655A29A742A700D4D45A /* ChangeUsernamePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655929A742A700D4D45A /* ChangeUsernamePopUpView.swift */; };
 		F0CD655C29A749FE00D4D45A /* ChangeUsernamePopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655B29A749FE00D4D45A /* ChangeUsernamePopUpController.swift */; };
-		F0CD655F29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655E29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift */; };
+		F0CD655F29A75F0E00D4D45A /* ChangeUsernamePopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD655E29A75F0E00D4D45A /* ChangeUsernamePopUpViewModel.swift */; };
 		F0CD656329A778DB00D4D45A /* ChangeEmailPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD656229A778DB00D4D45A /* ChangeEmailPopUpController.swift */; };
 		F0CD656529A778F100D4D45A /* ChangeEmailPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD656429A778F100D4D45A /* ChangeEmailPopUpView.swift */; };
 		F0CD656829A7859800D4D45A /* ChangeEmailPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CD656729A7859800D4D45A /* ChangeEmailPopUpViewModel.swift */; };
@@ -110,6 +111,7 @@
 		784BF3C55039876571558652 /* libPods-Hity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		961A847DF6CDB85E3223EDFC /* Pods-Hity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.debug.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.debug.xcconfig"; sourceTree = "<group>"; };
 		BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.release.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.release.xcconfig"; sourceTree = "<group>"; };
+		F0022CED29AA8FC80012D73F /* ProviderSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderSignInButton.swift; sourceTree = "<group>"; };
 		F01AA3192996930B0097173D /* Hity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hity.entitlements; sourceTree = "<group>"; };
 		F0380983299AA86C0080AB1C /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		F0448D9029A24E1500CED699 /* ProfileViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewButton.swift; sourceTree = "<group>"; };
@@ -140,7 +142,7 @@
 		F061A5C52986EF6700EAD006 /* SearchResultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultController.swift; sourceTree = "<group>"; };
 		F061A5C72986EF7300EAD006 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		F061A5CE2986F57700EAD006 /* PlacesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesModel.swift; sourceTree = "<group>"; };
-		F061A5D12986FD2300EAD006 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		F061A5D12986FD2300EAD006 /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		F0735B06298E81AF005306D8 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		F07E5DB729A877D400FB04BB /* SortPopUpCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortPopUpCell.swift; sourceTree = "<group>"; };
 		F07E5DBA29A881A100FB04BB /* DistancePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistancePopUpView.swift; sourceTree = "<group>"; };
@@ -178,7 +180,7 @@
 		F0CD655229A7325E00D4D45A /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		F0CD655929A742A700D4D45A /* ChangeUsernamePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePopUpView.swift; sourceTree = "<group>"; };
 		F0CD655B29A749FE00D4D45A /* ChangeUsernamePopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePopUpController.swift; sourceTree = "<group>"; };
-		F0CD655E29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePopUpVieModel.swift; sourceTree = "<group>"; };
+		F0CD655E29A75F0E00D4D45A /* ChangeUsernamePopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernamePopUpViewModel.swift; sourceTree = "<group>"; };
 		F0CD656229A778DB00D4D45A /* ChangeEmailPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailPopUpController.swift; sourceTree = "<group>"; };
 		F0CD656429A778F100D4D45A /* ChangeEmailPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailPopUpView.swift; sourceTree = "<group>"; };
 		F0CD656729A7859800D4D45A /* ChangeEmailPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeEmailPopUpViewModel.swift; sourceTree = "<group>"; };
@@ -347,9 +349,9 @@
 		F055FCAF298D5FD800A928CB /* NearBySearch */ = {
 			isa = PBXGroup;
 			children = (
+				F055FCB0298D5FEB00A928CB /* View */,
 				F0B6F02F299D084B00F9B0A9 /* Model */,
 				F055FCB5298D6C3600A928CB /* ViewModel */,
-				F055FCB0298D5FEB00A928CB /* View */,
 			);
 			path = NearBySearch;
 			sourceTree = "<group>";
@@ -499,7 +501,7 @@
 		F061A5D02986FD1600EAD006 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F061A5D12986FD2300EAD006 /* SearchViewModel.swift */,
+				F061A5D12986FD2300EAD006 /* SearchResultViewModel.swift */,
 				F0448DA529A36AC700CED699 /* UserDataViewModel.swift */,
 			);
 			path = ViewModel;
@@ -558,8 +560,8 @@
 			isa = PBXGroup;
 			children = (
 				F0B0A005299EC161000B4552 /* ViewModel */,
-				F0B6F031299D086D00F9B0A9 /* Model */,
 				F0AE3635298F75D80054D14E /* View */,
+				F0B6F031299D086D00F9B0A9 /* Model */,
 			);
 			path = PlaceDetail;
 			sourceTree = "<group>";
@@ -675,6 +677,7 @@
 		F0B6F035299D231900F9B0A9 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				F0022CED29AA8FC80012D73F /* ProviderSignInButton.swift */,
 				F0B6F036299D237300F9B0A9 /* CircleButton.swift */,
 				F0448D9029A24E1500CED699 /* ProfileViewButton.swift */,
 			);
@@ -789,7 +792,7 @@
 		F0CD655D29A75EF400D4D45A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				F0CD655E29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift */,
+				F0CD655E29A75F0E00D4D45A /* ChangeUsernamePopUpViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1217,7 +1220,7 @@
 				F053F38D298916A7001D9CD6 /* OnboardingController.swift in Sources */,
 				F0FEA01029963EA500EE7D45 /* SignInView.swift in Sources */,
 				F0B0F94429936AFE00C54A33 /* FavoriteView.swift in Sources */,
-				F0CD655F29A75F0E00D4D45A /* ChangeUsernamePopUpVieModel.swift in Sources */,
+				F0CD655F29A75F0E00D4D45A /* ChangeUsernamePopUpViewModel.swift in Sources */,
 				F0B09FFA299E85AF000B4552 /* ReviewsController.swift in Sources */,
 				F0E6AE4A29A607A60092538A /* SignInPopUpController.swift in Sources */,
 				F07E5DBB29A881A100FB04BB /* DistancePopUpView.swift in Sources */,
@@ -1267,6 +1270,7 @@
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
 				F0D3430629A165F400266DA2 /* UIViewController+PopUpPickerView.swift in Sources */,
 				F0C33038299E04F200F02DBF /* PlaceInfoView.swift in Sources */,
+				F0022CEE29AA8FC80012D73F /* ProviderSignInButton.swift in Sources */,
 				F048D1FA29A7F1E3002BB468 /* SortPopUpController.swift in Sources */,
 				F0C4FB1329978CB700823275 /* User.swift in Sources */,
 				F0E6AE4C29A608390092538A /* SignInPopUpView.swift in Sources */,
@@ -1275,7 +1279,7 @@
 				F0E6AE5029A618E00092538A /* SignInPopUpViewModel.swift in Sources */,
 				F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */,
 				F0FEA01B299675DF00EE7D45 /* GooglePlacesManager.swift in Sources */,
-				F061A5D22986FD2300EAD006 /* SearchViewModel.swift in Sources */,
+				F061A5D22986FD2300EAD006 /* SearchResultViewModel.swift in Sources */,
 				F055FCB4298D601800A928CB /* NearbySearchView.swift in Sources */,
 				F0B0A000299E95F9000B4552 /* ReviewsViewModel.swift in Sources */,
 				F0C4FB1C2998190500823275 /* UITextField+PaddingPoints.swift in Sources */,

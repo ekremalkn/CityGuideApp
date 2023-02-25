@@ -16,23 +16,7 @@ final class SignUpController: UIViewController {
     private let signUpViewModel = SignUpViewModel()
     private let disposeBag = DisposeBag()
     
-    //MARK: - Gettable Properties
-    
-    var username: String {
-        guard let username = signUpView.userNameTextField.text else { return ""}
-        return username
-    }
-    
-    var email: String {
-        guard let email = signUpView.emailTextField.text else { return ""}
-        return email
-    }
-    
-    var password: String {
-        guard let password = signUpView.passwordTextField.text else { return ""}
-        return password
-    }
-    
+    //MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,52 +27,75 @@ final class SignUpController: UIViewController {
     
     private func configureViewController() {
         view = signUpView
-        signUpView.interface = self
         createCallbacks()
     }
     
+    //MARK: - Create Callbacks
     
-}
-
-//MARK: - SignUpViewInterface
-
-extension SignUpController: SignUpViewInterface {
-    func signUpButtonTapped(_ view: SignUpView) {
-        signUpViewModel.signUp(username, email, password)
+    private func createCallbacks() {
+        signUpViewButtonCallbacks()
+        signUpViewModelCallbacks()
     }
     
-    
 }
 
-
-//MARK: - Creating Sign Up ViewModel Callbacks
+//MARK: - Create SigUpView Button Callbacks
 
 extension SignUpController {
     
-    private func createCallbacks() {
+    private func signUpViewButtonCallbacks() {
         
-        signUpViewModel.isAccCreating.subscribe { [weak self] value in
-            if value {
+        // Password Eye Button
+        signUpView.passwordEyeButton.rx.tap.subscribe(onNext: { [weak self] in
+            self?.signUpView.passwordEyeButtonToggle()
+        }).disposed(by: signUpView.disposeBag)
+        
+        // Sign Up Button
+        signUpView.signUpButton.rx.tap.subscribe(onNext: { [weak self] in
+            if let username = self?.signUpView.userNameTextField.text, let email = self?.signUpView.emailTextField.text, let password = self?.signUpView.passwordTextField.text {
+                self?.signUpViewModel.signUp(username, email, password)
+            } else {
+                self?.signUpViewModel.errorMsg.onNext("Fields cannot be left blank.")
+            }
+            
+        }).disposed(by: signUpView.disposeBag)
+    }
+}
+
+//MARK: - Create SignUpViewModel Callbacks
+
+extension SignUpController {
+    
+    func signUpViewModelCallbacks() {
+        
+        // Sign Up Loading
+        signUpViewModel.isAccCreating.subscribe(onNext: { [weak self] isAccCreated in
+            if isAccCreated {
                 self?.signUpView.activityIndicator.startAnimating()
             } else {
                 self?.signUpView.activityIndicator.stopAnimating()
             }
-        }.disposed(by: disposeBag)
-        
-        signUpViewModel.isAccCreatingSuccess.subscribe { [unowned self] value in
-            let controller = SignUpPopUpController()
-            controller.presentPopUpController(self)
-        }.disposed(by: disposeBag)
-        
-        
-        signUpViewModel.isDatabaseCreatingSuccess.subscribe(onNext: { value in
-            print("data base oluşturuldu")
         }).disposed(by: disposeBag)
         
-        signUpViewModel.errorMsg.subscribe(onNext: { [weak self] error in
-            self?.signUpView.signUpErrorLabel.text = error
+        // Sign Up Success
+        signUpViewModel.isAccCreatingSuccess.subscribe(onNext: { [unowned self] _ in
+            let controller = SignUpPopUpController()
+            controller.presentPopUpController(self)
+        }).disposed(by: disposeBag)
+        
+        // Create Database Success
+        signUpViewModel.isDatabaseCreatingSuccess.subscribe(onNext: { _ in
+            print("Database has been created")
+        }).disposed(by: disposeBag)
+        
+        // Sign Up Error
+        signUpViewModel.errorMsg.subscribe(onNext: { [weak self] errorMsg in
+            self?.signUpView.signUpErrorLabel.text = errorMsg
         }).disposed(by: disposeBag)
     }
     
-    
 }
+
+
+
+

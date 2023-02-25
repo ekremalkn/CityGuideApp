@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class ProfileView: UIView {
     
@@ -129,13 +130,16 @@ final class ProfileView: UIView {
         return button
     }()
     
+    //MARK: - DisposeBag
+    
+    let disposeBag = DisposeBag()
+    
     //MARK: - Layout Subviews
     
     override func layoutSubviews() {
         super.layoutSubviews()
         profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
         profileImageView.layer.masksToBounds = true
-        
     }
     
     
@@ -158,10 +162,6 @@ final class ProfileView: UIView {
         setupConstraints()
     }
     
-    
-    
-    
-    
 }
 
 //MARK: - UI Elements AddSubview / Constraints
@@ -183,8 +183,8 @@ extension ProfileView {
     
     private func addActivityIndicatorToProfileImage() {
         profileImageView.addSubview(profileImageActivityIndicator)
-            emptyView.addSubview(pickerControllerActivityIndicator)
-
+        emptyView.addSubview(pickerControllerActivityIndicator)
+        
     }
     
     private func buttonsToStackView() {
@@ -213,7 +213,7 @@ extension ProfileView {
             make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.08333334)
         }
     }
-  
+    
     private func profileImageConstraints() {
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(emptyView.snp.bottom)
@@ -221,7 +221,7 @@ extension ProfileView {
             make.height.width.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.32)
         }
     }
- 
+    
     
     private func profileImageActivityIndicatorConstraints() {
         profileImageActivityIndicator.snp.makeConstraints { make in

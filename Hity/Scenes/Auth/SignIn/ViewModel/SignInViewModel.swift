@@ -32,13 +32,14 @@ final class SignInViewModel {
     let isEmailVerification = PublishSubject<Bool>()
     let errorMsg = PublishSubject<String>()
     
-    
     let isDatabaseCreatingSuccess = PublishSubject<Bool>()
     let isDatabaseCreating = PublishSubject<Bool>()
     
     //MARK: - FirestoreDatabase Constants
     private let database = Firestore.firestore()
     private let firebaseAuth = Auth.auth()
+    
+    //MARK: - Sign In With Provider
     
     func signInWithProvider(_ credential: AuthCredential) {
         
@@ -61,8 +62,10 @@ final class SignInViewModel {
         
     }
     
+    //MARK: - Check Email Verification
     
     func checkEmailVerification() {
+        
         if let currentUser = firebaseAuth.currentUser {
             if currentUser.isEmailVerified {
                 self.isEmailVerification.onNext(true)
@@ -77,6 +80,7 @@ final class SignInViewModel {
         }
     }
     
+    //MARK: - Sign In With Email
     
     func signInWithEmail(_ email: String, _ password: String) {
         
@@ -95,7 +99,10 @@ final class SignInViewModel {
         }
     }
     
+    //MARK: - Sign Out
+    
     func signOut() {
+        
         let firebaseAuth = Auth.auth()
         
         do {
@@ -109,7 +116,7 @@ final class SignInViewModel {
     
 }
 
-//MARK: - Creating FirestoreDatabase
+//MARK: - Create FirestoreDatabase
 
 extension SignInViewModel {
     
@@ -176,6 +183,23 @@ extension SignInViewModel {
 //MARK: - SignInWithFacebook Methods
 
 extension SignInViewModel {
+    
+    func getFacebookToken(_ sender: UIViewController) {
+        let loginManager = LoginManager()
+        loginManager.logIn(permissions: ["public_profile"], from: sender) { [weak self] result, error in
+            if let error = error {
+                self?.errorMsg.onNext(error.localizedDescription)
+            } else if let result = result, result.isCancelled {
+                // cancelled
+            } else {
+                // logged in
+                if let tokenString = result?.token?.tokenString {
+                    self?.getFacebookCredential(tokenString)
+                }
+            }
+        }
+    }
+    
     func getFacebookCredential(_ tokenString: String) {
         let credential = FacebookAuthProvider.credential(withAccessToken: tokenString)
         self.signInWithProvider(credential)

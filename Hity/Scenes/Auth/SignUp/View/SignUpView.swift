@@ -8,9 +8,6 @@
 import UIKit
 import RxSwift
 
-protocol SignUpViewInterface: AnyObject {
-    func signUpButtonTapped(_ view: SignUpView)
-}
 
 final class SignUpView: UIView {
     
@@ -75,7 +72,7 @@ final class SignUpView: UIView {
         return textField
     }()
     
-    private let passwordEyeButton = UIButton(type: .custom)
+    let passwordEyeButton = UIButton(type: .custom)
     
     let passwordTextField: UITextField = {
         let textField = UITextField()
@@ -122,7 +119,7 @@ final class SignUpView: UIView {
         return imageView
     }()
     
-    private let signUpButton: UIButton = {
+    let signUpButton: UIButton = {
         let button = UIButton()
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -133,8 +130,7 @@ final class SignUpView: UIView {
     
     //MARK: - Properties
     
-    weak var interface: SignUpViewInterface?
-    private let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     var passwordText = PublishSubject<String>()
     
     var passwordSecure = true
@@ -156,35 +152,12 @@ final class SignUpView: UIView {
         backgroundColor = .white
         addSubview()
         setupConstraints()
-        addTarget()
         configurePasswordTextFieldRightButton()
         reactivePasswordTextField()
     }
     
     private func configurePasswordTextFieldRightButton() {
         passwordTextField.setRightVewButton(passwordEyeButton, "eye.slash")
-    }
-    
-    //MARK: - Addtarget
-    
-    private func addTarget() {
-        signUpButton.addTarget(self, action: #selector(signUpButtonAction), for: .touchUpInside)
-        passwordEyeButton.addTarget(self, action: #selector(passwordEyeButtonAction), for: .touchUpInside)
-    }
-    
-    @objc private func signUpButtonAction(_ button: UIButton) {
-        if let passwordChracter = passwordTextField.text?.count {
-            if passwordChracter >= 8 {
-                self.interface?.signUpButtonTapped(self)
-            }
-            else {
-                print("karakter sayısı 8 den az ")
-            }
-        }
-    }
-    
-    @objc private func passwordEyeButtonAction(_ button: UIButton) {
-        passwordEyeButtonToggle()
     }
     
     //MARK: - Configure Password TextField
@@ -205,6 +178,8 @@ final class SignUpView: UIView {
         
     }
     
+    //MARK: - Password Requirement Image Toogle
+    
     private func passwordRequirementImageToogle(_ requirement: Bool) {
         if requirement {
             passwordRequirementImage.image = UIImage(systemName: "checkmark")
@@ -220,7 +195,7 @@ final class SignUpView: UIView {
     
     //MARK: - PasswordEyeButton Toggle
     
-    private func passwordEyeButtonToggle() {
+    func passwordEyeButtonToggle() {
         if passwordSecure {
             passwordTextField.isSecureTextEntry = false
             passwordTextField.setRightVewButton(passwordEyeButton, "eye")

@@ -5,7 +5,6 @@
 //  Created by Ekrem Alkan on 3.02.2023.
 //
 
-import Foundation
 import CoreLocation
 
 // MARK: - Places
@@ -16,7 +15,7 @@ struct NearPlacesModel: Codable {
 
 // MARK: - Result
 struct Result: Codable, NearbyPlacesCellProtocol {
- 
+    
     let businessStatus: String?
     let geometry: Geometry?
     let icon: String?
@@ -74,7 +73,7 @@ struct Result: Codable, NearbyPlacesCellProtocol {
         }
         return "0"
     }
-
+    
     
     var placeAddress: String {
         if let address = vicinity {
@@ -89,11 +88,8 @@ struct Result: Codable, NearbyPlacesCellProtocol {
         }
         return Bool()
     }
-   
     
     
-    
-
     enum CodingKeys: String, CodingKey {
         case businessStatus = "business_status"
         case geometry, icon
@@ -129,7 +125,7 @@ struct Viewport: Codable {
 // MARK: - OpeningHours
 struct OpeningHours: Codable {
     let openNow: Bool?
-
+    
     enum CodingKeys: String, CodingKey {
         case openNow = "open_now"
     }
@@ -140,7 +136,7 @@ struct Photo: Codable {
     let height: Int?
     let photoReference: String?
     let width: Int?
-
+    
     enum CodingKeys: String, CodingKey {
         case height
         case photoReference = "photo_reference"
@@ -151,7 +147,7 @@ struct Photo: Codable {
 // MARK: - PlusCode
 struct PlusCode: Codable {
     let compoundCode, globalCode: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case compoundCode = "compound_code"
         case globalCode = "global_code"

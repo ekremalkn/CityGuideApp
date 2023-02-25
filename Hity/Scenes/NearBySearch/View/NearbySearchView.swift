@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class NearbySearchView: UIView {
     
@@ -48,6 +49,11 @@ final class NearbySearchView: UIView {
         collection.register(NearbyPlacesCell.self, forCellWithReuseIdentifier: NearbyPlacesCell.identifier)
         return collection
     }()
+    
+    //MARK: - Dispose Bag
+    
+    let disposeBag = DisposeBag()
+
     
     //MARK: - Init Methods
     

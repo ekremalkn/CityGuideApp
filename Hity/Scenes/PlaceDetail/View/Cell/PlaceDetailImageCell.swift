@@ -7,6 +7,16 @@
 
 import UIKit
 
+
+protocol PlaceDetailCellProtocol {
+    var placeDetailCellImage: String { get }
+}
+
+protocol PlaceDetailCellRatingsProtocol {
+        var placeDetailCellRatingTotal: String { get }
+        var placeDetailCellRating: String { get }
+}
+
 final class PlaceDetailImageCell: UICollectionViewCell {
     
     //MARK: - Cell's Identifier
@@ -102,17 +112,13 @@ final class PlaceDetailImageCell: UICollectionViewCell {
         setupConstraints()
     }
     
-    func configure(_ photoData: DetailPhoto, _ placeData: DetailResults) {
-        if let photoURL = photoData.photoReference {
-            self.placeImage.downloadSetImage(type: .photoReference, url: photoURL)
-        }
-        if let userRatingTotal = placeData.userRatingsTotal {
-            self.userRatingTotalLabel.text = "\(userRatingTotal) total ratings"
-        }
-        if let rating = placeData.rating {
-            self.ratingLabel.text = "\(rating)"
-        }
-        
+    func configurePhotos(_ data: PlaceDetailCellProtocol) {
+        self.placeImage.downloadSetImage(type: .photoReference, url: data.placeDetailCellImage)
+    }
+    
+    func configureRatings(_ data: PlaceDetailCellRatingsProtocol) {
+        self.userRatingTotalLabel.text = "\(data.placeDetailCellRatingTotal) total ratings"
+        self.ratingLabel.text = data.placeDetailCellRating
     }
     
     

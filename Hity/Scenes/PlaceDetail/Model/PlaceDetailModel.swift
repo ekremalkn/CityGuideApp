@@ -5,7 +5,6 @@
 //  Created by Ekrem Alkan on 5.02.2023.
 //
 
-import Foundation
 import CoreLocation
 
 // MARK: - Place
@@ -15,8 +14,7 @@ struct Place: Codable {
 }
 
 // MARK: - Result
-struct DetailResults: Codable, FavoriteCellProtocol {
-    
+struct DetailResults: Codable, FavoriteCellProtocol, PlaceDetailViewProtocol, PlaceDetailCellRatingsProtocol, PlaceInfoViewProtocol {
     
     let businessStatus: String?
     let currentOpeningHours: DetailCurrentOpeningHours?
@@ -41,6 +39,76 @@ struct DetailResults: Codable, FavoriteCellProtocol {
     let vicinity: String?
     let website: String?
     let wheelchairAccessibleEntrance: Bool?
+    
+    //MARK: - PlaceDetailViewProtocol
+    
+    var placeDetailViewName: String {
+        if let name = name {
+            return name
+        }
+        return ""
+    }
+    
+    var placeDetailPhotos: [DetailPhoto] {
+        if let photos = photos {
+            return photos
+        }
+        return []
+    }
+    
+    
+    //MARK: - PlaceDetailCellRatingsProtocol
+    
+    var placeDetailCellRatingTotal: String {
+        if let userRatingsTotal = userRatingsTotal {
+            return "\(userRatingsTotal)"
+        }
+        return ""
+    }
+    
+    var placeDetailCellRating: String {
+        if let rating = rating {
+            return "\(rating)"
+        }
+        return ""
+    }
+    
+    //MARK: - PlaceInfoViewProtocol
+    
+    var placeInfoViewAddress: String {
+        if let formattedAddress = formattedAddress {
+            return formattedAddress
+        }
+        return "Place doesn't have address."
+    }
+    
+    var placeInfoViewOpenClosedInfo: Bool {
+        if let isOpen = currentOpeningHours?.openNow {
+            if isOpen {
+                return isOpen
+            }
+        }
+        return false
+    }
+    
+    var placeInfoViewWebsite: String {
+        if let website = website {
+            return website
+        }
+        return "Place doesn't have a website / didn't share."
+    }
+    
+    var placeInfoViewPhoneNumber: String {
+        if let phoneNumber = internationalPhoneNumber {
+            return phoneNumber
+        }
+        return "Place doesn't have a website / didn't share."
+    }
+    
+    
+    
+    
+    //MARK: - FavoriteCellProtocol
     
     var favoriteCellPlaceImage: String {
         if let photo = photos?[0].photoReference {
@@ -76,8 +144,8 @@ struct DetailResults: Codable, FavoriteCellProtocol {
         }
         return CLLocationCoordinate2D()
     }
-
-
+    
+    
     enum CodingKeys: String, CodingKey {
         case businessStatus = "business_status"
         case currentOpeningHours = "current_opening_hours"
@@ -104,7 +172,7 @@ struct DetailResults: Codable, FavoriteCellProtocol {
 struct DetailCurrentOpeningHours: Codable {
     let openNow: Bool?
     let weekdayText: [String]?
-
+    
     enum CodingKeys: String, CodingKey {
         case openNow = "open_now"
         case weekdayText = "weekday_text"
@@ -122,11 +190,20 @@ struct DetailLocation: Codable {
 }
 
 // MARK: - Photo
-struct DetailPhoto: Codable {
+struct DetailPhoto: Codable, PlaceDetailCellProtocol {
+    
+    
     let height: Int?
     let photoReference: String?
     let width: Int?
-
+    
+    var placeDetailCellImage: String {
+        if let photoReference = photoReference {
+            return photoReference
+        }
+        return ""
+    }
+    
     enum CodingKeys: String, CodingKey {
         case height
         case photoReference = "photo_reference"
@@ -137,7 +214,7 @@ struct DetailPhoto: Codable {
 // MARK: - PlusCode
 struct DetailPlusCode: Codable {
     let compoundCode, globalCode: String?
-
+    
     enum CodingKeys: String, CodingKey {
         case compoundCode = "compound_code"
         case globalCode = "global_code"
@@ -190,7 +267,7 @@ struct DetailReview: Codable, ReviewsCellProtocol {
         }
         return ""
     }
-
+    
     enum CodingKeys: String, CodingKey {
         case authorName = "author_name"
         case authorURL = "author_url"

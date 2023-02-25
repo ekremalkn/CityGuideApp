@@ -101,11 +101,8 @@ final class FavoriteCell: UICollectionViewCell {
     }()
 
     
-    
-    
-    private (set) var disposeBag = DisposeBag()
-    //observable variables
-    
+    //MARK: - Observable Variables
+
     var favButtonTap: Observable<Void> {
         return self.favButton.rx.tap.asObservable()
     }
@@ -116,8 +113,16 @@ final class FavoriteCell: UICollectionViewCell {
     
     var location = CLLocationCoordinate2D()
     
+    
+    //MARK: - Dispose Bag
+    
+    private (set) var disposeBag = DisposeBag()
+
+    //MARK: - PrepareForReuse
+
     override func prepareForReuse() {
         super.prepareForReuse()
+        // avoiding duplicate cell button tap
         disposeBag = DisposeBag()
         
     }
@@ -217,7 +222,7 @@ extension FavoriteCell {
             make.top.equalTo(safeAreaLayoutGuide).offset(10)
             make.leading.equalTo(safeAreaLayoutGuide).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
-            make.bottom.equalTo(safeAreaLayoutGuide).multipliedBy(0.66)
+            make.height.equalTo(self.snp.width)
         }
     }
     private func placeImageConstraints() {
@@ -260,7 +265,7 @@ extension FavoriteCell {
             make.top.equalTo(placeImage.snp.bottom).offset(10)
             make.leading.equalTo(placeImage)
             make.trailing.equalTo(placeImage)
-            make.height.equalTo(placeImage.snp.height).multipliedBy(0.25)
+            make.height.equalTo(placeImage.snp.height).multipliedBy(0.10)
         }
     }
     
@@ -269,7 +274,7 @@ extension FavoriteCell {
             make.centerX.equalTo(placeName.snp.centerX)
             make.leading.trailing.equalTo(placeName)
             make.top.equalTo(placeName.snp.bottom).offset(10)
-            make.height.equalTo(placeName.snp.height)
+            make.height.equalTo(placeImageBackground.snp.height).multipliedBy(0.25)
             
         }
     }

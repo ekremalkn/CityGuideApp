@@ -8,6 +8,8 @@
 import UIKit
 
 final class MainTabBarController: UITabBarController {
+    
+    //MARK: - Life Cycle Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,11 +17,12 @@ final class MainTabBarController: UITabBarController {
         configureTabBar()
     }
     
+    //MARK: - Configure TabBar
+
     private func setupTabBar() {
         let viewControllers = [containerController(), favoriteControler()]
         setViewControllers(viewControllers, animated: true)
     }
-    
     
     private func configureTabBar() {
         tabBar.addShadow()
@@ -27,13 +30,12 @@ final class MainTabBarController: UITabBarController {
         tabBar.tintColor = .blue
     }
     
+    // Container contains Profile Controller and SerchController as a child
     private func containerController() -> UIViewController {
         let containerController = ContainerController()
         containerController.tabBarItem = UITabBarItem(title: "Hity", image: UIImage(systemName: "map"), selectedImage: UIImage(systemName: "map.fill"))
         return containerController
     }
-    
-
     
     private func favoriteControler() -> UINavigationController {
         let favoriteController = FavoriteController()

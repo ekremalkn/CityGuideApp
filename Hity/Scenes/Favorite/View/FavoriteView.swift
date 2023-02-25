@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class FavoriteView: UIView {
 
@@ -16,11 +17,15 @@ final class FavoriteView: UIView {
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collection.register(FavoriteCell.self, forCellWithReuseIdentifier: FavoriteCell.identifier)
+        
         collection.backgroundColor = .white
         return collection
     }()
 
+    //MARK: - Dispose Bag
     
+    let disposeBag = DisposeBag()
+
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -62,8 +67,8 @@ extension FavoriteView {
     private func favoriteCollectionViewConstraints() {
         favoriteCollectionView.snp.makeConstraints { make in
             make.top.bottom.equalTo(safeAreaLayoutGuide)
-            make.leading.equalTo(safeAreaLayoutGuide).offset(10)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
+            make.leading.equalTo(safeAreaLayoutGuide)
+            make.trailing.equalTo(safeAreaLayoutGuide)
         }
     }
 

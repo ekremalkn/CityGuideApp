@@ -7,6 +7,13 @@
 
 import UIKit
 
+protocol PlaceInfoViewProtocol {
+    var placeInfoViewAddress: String { get }
+    var placeInfoViewOpenClosedInfo: Bool { get }
+    var placeInfoViewWebsite: String { get }
+    var placeInfoViewPhoneNumber: String { get }
+}
+
 final class PlaceInfoView: UIView {
 
     //MARK: - Creating UI Elements
@@ -78,36 +85,16 @@ final class PlaceInfoView: UIView {
         setupConstraints()
     }
     
-    func configure(_ data: DetailResults) {
-        if let address = data.formattedAddress {
-            self.address.setTitle(address, for: .normal)
-        }
-        
-        if let openingHours = data.currentOpeningHours?.openNow {
-            if openingHours {
-                self.openingHours.setTitleColor(.green, for: .normal)
-                self.openingHours.setTitle("Open", for: .normal)
-            } else {
-                self.openingHours.setTitleColor(.red, for: .normal)
-                self.openingHours.setTitle("Closed", for: .normal)
-            }
+    func configure(_ data: PlaceInfoViewProtocol) {
+        self.address.setTitle(data.placeInfoViewAddress, for: .normal)
+        self.website.setTitle(data.placeInfoViewWebsite, for: .normal)
+        self.phoneNumber.setTitle(data.placeInfoViewPhoneNumber, for: .normal)
+        if data.placeInfoViewOpenClosedInfo {
+            self.openingHours.setTitleColor(.green, for: .normal)
+            self.openingHours.setTitle("Open", for: .normal)
         } else {
-            self.openingHours.setTitleColor(.systemGray4, for: .normal)
-            self.openingHours.setTitle("Place doesn't have open / closed info.", for: .normal)
-        }
-        
-        if let website = data.website {
-            self.website.setTitle(website, for: .normal)
-        } else {
-            self.website.setTitleColor(.systemGray4, for: .normal)
-            self.website.setTitle("Place doesn't have a website / didn't share.", for: .normal)
-        }
-        
-        if let phoneNumber = data.internationalPhoneNumber {
-            self.phoneNumber.setTitle(phoneNumber, for: .normal)
-        } else {
-            self.phoneNumber.setTitleColor(.systemGray4, for: .normal)
-            self.phoneNumber.setTitle("Place doesn't have a phone number / didn't share.", for: .normal)
+            self.openingHours.setTitleColor(.red, for: .normal)
+            self.openingHours.setTitle("Closed", for: .normal)
         }
     }
 

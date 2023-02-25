@@ -20,10 +20,6 @@ protocol NearbyPlacesCellProtocol {
     var placeOpenClosedInfo: Bool { get }
 }
 
-protocol NearbyPlacesCellInterface: AnyObject {
-    func didTapDetailsButton(_ view: NearbyPlacesCell, _ placeUID: String)
-    func didTapLocationButton(_ view: NearbyPlacesCell, _ coordinates: CLLocationCoordinate2D, _ placeName: String, _ placeImage: String)
-}
 
 final class NearbyPlacesCell: UICollectionViewCell {
     
@@ -33,8 +29,6 @@ final class NearbyPlacesCell: UICollectionViewCell {
     static let identifier = "NearbyPlacesCell"
     
     //MARK: - Creating UI Elements
-    
-    
     
     private let placeImageBackground: UIView = {
         let view = UIView()
@@ -125,7 +119,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
         return stackView
     }()
     
-    private let showLocationButton: CircleButton = {
+    private let locationButton: CircleButton = {
         let button = CircleButton(type: .custom)
         button.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
         button.tintColor = .darkGray
@@ -135,7 +129,7 @@ final class NearbyPlacesCell: UICollectionViewCell {
         return button
     }()
     
-    let showDetailsButton: CircleButton = {
+    let infoButton: CircleButton = {
         let button = CircleButton(type: .custom)
         button.setImage(UIImage(systemName: "info"), for: .normal)
         button.tintColor = .blue
@@ -174,30 +168,38 @@ final class NearbyPlacesCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .systemGray
         label.numberOfLines = 0
-//        label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textAlignment = .center
         return label
     }()
     
-    //MARK: - Properties
-    weak var interace: NearbyPlacesCellInterface?
+    //MARK: - Constants
     private let nearBySearchViewModel = NearbySearchViewModel()
-    let disposeBag = DisposeBag()
+    private (set) var disposeBag = DisposeBag()
     
-     // observable variables
+    //MARK: - Observable Variables
     
-    var favButtonTap: Observable<Void> {
+    var didTapInfoButton: Observable<Void> {
+        return self.infoButton.rx.tap.asObservable()
+    }
+    
+    var didTapLocationButton: Observable<Void> {
+        return self.locationButton.rx.tap.asObservable()
+    }
+    var didTapFavButton: Observable<Void> {
         return self.favButton.rx.tap.asObservable()
     }
-   
     
     //MARK: - Variables
     
-    var placeUID: String?
-    var locations: CLLocationCoordinate2D?
-    var address: String?
-    var placeImageURL: String!
+    // for custom annotation view
+    var placeInfos: [String: Any]?
+    
+    // avoiding duplicate tap when tap cell buttons
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
     
     //MARK: - Init methods
     
@@ -210,7 +212,6 @@ final class NearbyPlacesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-
     //MARK: - Configure Cell
     
     private func configureCell() {
@@ -218,9 +219,34 @@ final class NearbyPlacesCell: UICollectionViewCell {
         layer.cornerRadius = 25
         addSubview()
         setupConstraints()
-        addTarget()
         toggleFavButton()
     }
+    
+    func configure(_ data: NearbyPlacesCellProtocol, _ mainLocation: CLLocation? = nil) {
+        self.placeImage.downloadSetImage(type: .photoReference, url: data.placeImage)
+        self.placeName.text = data.placeName
+        self.ratingLabel.text = data.placeRating
+        self.distanceLabel.text = "\(self.calculateDistance(mainLocation, data.placeLocation))m"
+        self.placeOpenClosedInfo = self.openClosedCheck(data.placeOpenClosedInfo, placeOpenClosedInfo)
+        self.userRatingTotalLabel.text = "\(data.placeRatingTotal) total ratings"
+        self.placeInfos = [
+            "name": data.placeName,
+            "uid": data.placeUID,
+            "coordinates": data.placeLocation,
+            "address": data.placeAddress,
+            "imageURL": data.placeImage
+        ]
+    }
+    
+    //MARK: - Toogle fav button
+    
+    func toggleFavButton() {
+        let image = UIImage(systemName: "heart")
+        let imageFilled = UIImage(systemName: "heart.fill")
+        favButton.setImage(image, for: .normal)
+        favButton.setImage(imageFilled, for: .selected)
+    }
+    
     
     //MARK: - Calculate distance between Main Location and NearPlace Location
     
@@ -251,52 +277,6 @@ final class NearbyPlacesCell: UICollectionViewCell {
     }
     
     
-    
-    func configure(_ data: NearbyPlacesCellProtocol, _ mainLocation: CLLocation? = nil) {
-        self.placeUID = data.placeUID
-        self.locations = data.placeLocation
-        self.placeImageURL = data.placeImage
-        self.placeImage.downloadSetImage(type: .photoReference, url: data.placeImage)
-        self.placeName.text = data.placeName
-        self.ratingLabel.text = data.placeRating
-        self.distanceLabel.text = "\(self.calculateDistance(mainLocation, data.placeLocation))m"
-        self.placeOpenClosedInfo = self.openClosedCheck(data.placeOpenClosedInfo, placeOpenClosedInfo)
-        self.userRatingTotalLabel.text = "\(data.placeRatingTotal) total ratings"
-    }
-    
-    //MARK: - Toogle fav button
-
-    func toggleFavButton() {
-        let image = UIImage(systemName: "heart")
-        let imageFilled = UIImage(systemName: "heart.fill")
-        favButton.setImage(image, for: .normal)
-        favButton.setImage(imageFilled, for: .selected)
-    }
-    
-    //MARK: - AddAction to Button
-    
-    private func addTarget() {
-        showDetailsButton.addTarget(self, action: #selector(tapDetailsButton), for: .touchUpInside)
-        showLocationButton.addTarget(self, action: #selector(tapLocationButton), for: .touchUpInside)
-    }
-    
-    @objc private func tapDetailsButton(_ button: UIButton) {
-        if let placeUID = placeUID {
-            self.interace?.didTapDetailsButton(self, placeUID)
-        }
-    }
-    
-    @objc private func tapLocationButton(_ button: UIButton) {
-        if let locations = locations {
-            if let placeName = placeName.text {
-                self.interace?.didTapLocationButton(self, locations, placeName, placeImageURL)
-            } else {
-                self.interace?.didTapLocationButton(self, locations, "", placeImageURL)
-            }
-        }
-    }
-    
-    
 }
 
 //MARK: - UI Elements Addsubview / Constraints
@@ -319,7 +299,7 @@ extension NearbyPlacesCell {
         buttonsToStackView()
         addSubview(userRatingTotalStackView)
         userRatingTotalElementsToStackView()
-
+        
     }
     
     private func placeImageToBackgroundView() {
@@ -346,8 +326,8 @@ extension NearbyPlacesCell {
     }
     
     private func buttonsToStackView() {
-        buttonStackView.addArrangedSubview(showDetailsButton)
-        buttonStackView.addArrangedSubview(showLocationButton)
+        buttonStackView.addArrangedSubview(infoButton)
+        buttonStackView.addArrangedSubview(locationButton)
         buttonStackView.addArrangedSubview(favButton)
     }
     
@@ -376,7 +356,7 @@ extension NearbyPlacesCell {
             make.top.equalTo(safeAreaLayoutGuide).offset(10)
             make.leading.equalTo(safeAreaLayoutGuide).offset(10)
             make.trailing.equalTo(safeAreaLayoutGuide).offset(-10)
-            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.5)
+            make.height.equalTo(placeImageBackground.snp.width)
         }
     }
     
@@ -404,7 +384,7 @@ extension NearbyPlacesCell {
             make.top.equalTo(placeImageBackground.snp.bottom).offset(10)
             make.leading.equalTo(placeImageBackground.snp.leading)
             make.trailing.equalTo(placeImageBackground.snp.trailing)
-//            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.15)
+            //            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.15)
         }
     }
     
@@ -438,10 +418,10 @@ extension NearbyPlacesCell {
         userRatingTotalStackView.snp.makeConstraints { make in
             make.leading.equalTo(buttonStackView.snp.leading)
             make.bottom.equalTo(self.snp.bottom).offset(-10)
-            make.height.equalTo(safeAreaLayoutGuide).multipliedBy(0.04666667)
+            make.top.equalTo(buttonStackView.snp.bottom).offset(10)
         }
     }
- 
+    
     
     
 }

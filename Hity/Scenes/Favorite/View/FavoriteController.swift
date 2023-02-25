@@ -11,15 +11,16 @@ import MapKit
 
 final class FavoriteController: UIViewController {
     
-    
-    //MARK: - Properties
+    //MARK: - Constants
     
     private let favoriteView = FavoriteView()
     private let favoriteViewModel = FavoriteViewModel()
     
+    //MARK: - Dispose Bag
+    
     private let disposeBag = DisposeBag()
     
-    //MARK: - Lifecycle Methods
+    //MARK: - Life Cycle Methods
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -36,13 +37,9 @@ final class FavoriteController: UIViewController {
     private func configureViewController() {
         view = favoriteView
         customizeNavBar()
-        setupDelegates()
         createFavoriteCollectionViewCalllbacks()
     }
     
-    private func setupDelegates() {
-        favoriteView.favoriteCollectionView.delegate = self
-    }
     
     private func customizeNavBar() {
         title = "Favorite Places"
@@ -56,11 +53,9 @@ final class FavoriteController: UIViewController {
     
     private func createFavoriteCollectionViewCalllbacks() {
         
-//        bind favorite places to collectionView
- 
-
+        // bind favorite places to collectionView
+        
         favoriteViewModel.behaviorFavoriteList.bind(to: favoriteView.favoriteCollectionView.rx.items(cellIdentifier: FavoriteCell.identifier, cellType: FavoriteCell.self)) { row, favoritePlaces, cell in
-            print("1 kere eklendi")
             cell.configure(favoritePlaces)
             cell.favButton.isSelected = true
             cell.favButtonTap.subscribe(onNext: {
@@ -69,14 +64,11 @@ final class FavoriteController: UIViewController {
                     self.favoriteViewModel.removeProduct(index: indexPath.row)
                     self.favoriteView.favoriteCollectionView.deleteItems(at: [indexPath])
                     self.favoriteViewModel.updateFirestoreFavoriteList(placeUID, false)
-                    print("ekrem")
-
                     cell.favButton.isSelected.toggle()
                 }
             }).disposed(by: cell.disposeBag)
-
+            
             cell.locationButtonTap.subscribe(onNext: {
-                print("alkan")
                 let lat = cell.location.latitude
                 let lng = cell.location.longitude
                 let mkMapItem = MKMapItem()
@@ -85,30 +77,36 @@ final class FavoriteController: UIViewController {
                 } else {
                     mkMapItem.openMapForPlace(lat, lng, "unkown")
                 }
-
+                
             }).disposed(by: cell.disposeBag)
-
+            
         }.disposed(by: disposeBag)
-
-
+        
+        
         // fetch nearPlaces
         
         favoriteViewModel.isListUpdated.subscribe(onNext: { [weak self] _ in
             self?.favoriteViewModel.fetchFavoriteList()
         }).disposed(by: disposeBag)
-
         
+        // handle didselect
         favoriteView.favoriteCollectionView.rx.modelSelected(DetailResults.self).bind(onNext: { [weak self] placeDetails in
             let controller = PlaceDetailController(place: placeDetails)
             self?.navigationController?.pushViewController(controller, animated: true)
             
         }).disposed(by: disposeBag)
         
+        // set delegate for celle size
+        favoriteView.favoriteCollectionView.rx.setDelegate(self).disposed(by: favoriteView.disposeBag)
+        
+        
     }
     
     
     
 }
+
+//MARK: - UICollectionViewDelegateFlowLayout
 
 extension FavoriteController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

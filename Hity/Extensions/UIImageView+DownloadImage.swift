@@ -13,8 +13,8 @@ extension UIImageView {
         case onlyURL
     }
     func downloadSetImage(type: DownloadImageType, url: String, completion: (() -> Void)? = nil) {
-        
         switch type {
+            
         case .photoReference:
             guard let url = URL(string: "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=\(url)&key=\(ApiKey.API_KEY.rawValue)") else { return }
             self.setImage(url: url)
@@ -24,7 +24,6 @@ extension UIImageView {
         }
         
         completion?()
-        
         
     }
     

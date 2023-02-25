@@ -33,18 +33,17 @@ final class ContainerController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addChildViewControllers()
-        tapGestureCallback()
-        createSearchControllerLeftButtonCallback()
+        createCallbacks()
     }
     
     //MARK: - AddChild ViewControllers
     
     private func addChildViewControllers() {
-        // add profile vc
+        
+        // Add profile vc
         addChild(profileController)
         view.addSubview(profileController.view)
         profileController.didMove(toParent: self)
-        
         
         // add search vc
         let navigationController = UINavigationController(rootViewController: searchController)
@@ -55,9 +54,18 @@ final class ContainerController: UIViewController {
         
     }
     
+    //MARK: - Create Callbacks
+
+    private func createCallbacks() {
+        tapGestureCallback()
+        createSearchControllerLeftButtonCallback()
+    }
+    
+    //MARK: - Tap Gesture Callback
+
     private func tapGestureCallback() {
         tapGesture.rx.event.bind { recognizer in
-            self.closeMenu()
+            self.hideMenu()
         }.disposed(by: disposeBag)
     }
     
@@ -69,16 +77,17 @@ final class ContainerController: UIViewController {
             switch self.menuPosition {
             case .opened:
                 self.searchController.view.removeGestureRecognizer(tapGesture)
-                self.closeMenu()
+                self.hideMenu()
             case .closed:
                 self.searchController.view.addGestureRecognizer(tapGesture)
                 self.showMenu()
                 
             }
-        }).disposed(by: disposeBag)
+        }).disposed(by: searchController.disposeBag)
     }
     
-    
+    //MARK: - Menu Toggle
+
     private func showMenu() {
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
             self.navigationVController?.view.frame.origin.x = self.searchController.view.frame.size.width - (self.searchController.view.frame.size.width * 0.22)    } completion: { [weak self] isOpened in
@@ -88,7 +97,7 @@ final class ContainerController: UIViewController {
             }
     }
     
-    private func closeMenu() {
+    private func hideMenu() {
         self.searchController.userDataViewModel.fetchProfilePhoto()
         UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
             self.navigationVController?.view.frame.origin.x = 0

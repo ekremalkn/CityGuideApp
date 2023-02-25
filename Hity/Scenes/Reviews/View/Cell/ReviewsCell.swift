@@ -83,10 +83,11 @@ final class ReviewsCell: UITableViewCell {
         return label
     }()
     
-    private let authorTextLabel: UILabel = {
+    let authorTextLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
-        label.numberOfLines = 0
+        label.numberOfLines = 7
+        label.lineBreakMode = .byTruncatingTail
         label.textAlignment = .left
         label.textColor = .black
         return label

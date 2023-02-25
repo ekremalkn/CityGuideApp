@@ -26,20 +26,20 @@ final class SearchView: UIView {
         return button
     }()
     
-    let locationButton: UIButton = {
+    let navBarLocationButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
-        button.setTitle("", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Tap your Location", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
         return button
     }()
     
     var rightImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.fill")
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         imageView.tintColor = .black
-        imageView.layer.cornerRadius = imageView.frame.size.height / 2
+        imageView.layer.cornerRadius = imageView.frame.height / 2
         imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleToFill
         return imageView
     }()
  
@@ -47,7 +47,7 @@ final class SearchView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
- 
+        
     }
 
     
