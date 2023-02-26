@@ -92,11 +92,11 @@ final class ChangeEmailPopUpController: UIViewController {
                 }
             }
             
-        }).disposed(by: disposeBag)
+        }).disposed(by: changeEmailPopUpView.disposeBag)
         
         changeEmailPopUpView.logOutButton.rx.tap.subscribe(onNext: { [weak self] in
             self?.changeEmailPopUpViewModel.signOut()
-        }).disposed(by: disposeBag)
+        }).disposed(by: changeEmailPopUpView.disposeBag)
     }
     
     //MARK: - ViewModel callbacks

@@ -158,38 +158,11 @@ final class SignInView: UIView {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         return button
     }()
-    
-//    let googleSignInBtn: UIButton = {
-//        let button = UIButton()
-//        button.backgroundColor = .white
-//        button.setImage(UIImage(named: "google1x"), for: .normal)
-//        button.setTitle("Continue with Google", for: .normal)
-//        button.setTitleColor(.darkGray, for: .normal)
-//        button.imageView?.contentMode = .scaleAspectFit
-//        button.contentHorizontalAlignment = .center
-//        button.addShadow()
-//        //        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
-//        return button
-//    }()
-    
+
     let googleSignInBtn = ProviderSignInButton(UIImage(named: "google1x")!, "Continue with Google", .white, .black)
-     
-//    let facebookSignInBtn: UIButton = {
-//        let button = UIButton()
-////        button.backgroundColor = UIColor().hexStringToUIColor(hex: "2874F2")
-//        button.backgroundColor = .white
-//        button.setImage(UIImage(named: "facebook1x"), for: .normal)
-//        button.setTitle("Continue with Facebook", for: .normal)
-//        button.setTitleColor(UIColor().hexStringToUIColor(hex: "2874F2"), for: .normal)
-//        button.imageView?.contentMode = .scaleAspectFit
-//        button.contentHorizontalAlignment = .center
-//        button.addShadow()
-//        return button
-//    }()
     
     let facebookSignInBtn = ProviderSignInButton(UIImage(named: "facebook1x")!, "Continue with Facebook", UIColor().hexStringToUIColor(hex: "3B5997"), .white)
     
-//    let appleSignInButton = ASAuthorizationAppleIDButton(type: .continue, style: .black)
     let appleSignInButton = ProviderSignInButton(UIImage(named: "apple1x")!, "Continue with Apple", .black, .white)
     
     //MARK: - Properties

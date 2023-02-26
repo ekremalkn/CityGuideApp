@@ -14,6 +14,14 @@ import CoreLocation
 
 final class SearchController: UIViewController {
     
+    
+    //MARK: - Annotation Type
+    
+    enum AnnotationType {
+        case userAnnotation
+        case placeAnnotation
+    }
+    
     //MARK: - Constants
     
     let searchView = SearchView()
@@ -30,6 +38,7 @@ final class SearchController: UIViewController {
     
     // PlaceImage For CustomAnnotationView
     var placeImage: String?
+    var profileImageURL: String?
     
     //MARK: - UISearchController
     
@@ -111,6 +120,7 @@ final class SearchController: UIViewController {
         
         // Fetching User Data
         userDataViewModel.isDownloadingURLSuccess.subscribe(onNext: { [weak self] profileImageURL in
+            self?.profileImageURL = profileImageURL
             self?.searchView.rightImageView.downloadSetImage(type: .onlyURL, url: profileImageURL)
             
         }).disposed(by: disposeBag)
@@ -125,10 +135,10 @@ final class SearchController: UIViewController {
         
         // Search Location Tap Callback
         searchResultController.didTapSearchLocation.subscribe { [weak self] coordinates in
-            print("arama yapılacak konuma tıklandı ve kordinat yakalandı")
+            self?.placeImage = nil
             self?.closeKeyboard()
-            self?.removeAnnotations()
-            self?.addAnnotations(coordinates, "Bu konumun etrafında arama yapıyorsun", "")
+            self?.removeAnnotations(isNearbyPlace: false)
+            self?.addAnnotations(coordinates, annotationType: .userAnnotation)
             self?.createFloatingPanel(coordinates)
         }.disposed(by: searchResultController.disposeBag)
         
@@ -170,17 +180,19 @@ extension SearchController {
         let lng = coordinates.longitude
         
         let nearbySearchController = NearbySearchController(lat: lat, lng: lng)
+        panel.set(contentViewController: nearbySearchController)
+        panel.addPanel(toParent: self)
+        
+        
         nearbySearchController.didTapNearbyCellLocationButton.subscribe(onNext: { [weak self] placeInfos in
             //annotation management and floating panel move
             self?.closeKeyboard()
             self?.removeAnnotations(isNearbyPlace: true)
-            self?.addAnnotations(placeInfos["coordinates"] as! CLLocationCoordinate2D, placeInfos["name"] as? String, placeInfos["address"] as? String , placeInfos["imageURL"] as? String)
+            self?.addAnnotations(placeInfos["coordinates"] as! CLLocationCoordinate2D, annotationType: .placeAnnotation, placeInfos["name"] as? String, placeInfos["address"] as? String , placeInfos["imageURL"] as? String)
             self?.panel.move(to: .tip, animated: true)
         }).disposed(by: nearbySearchController.disposeBag)
         
-        panel.set(contentViewController: nearbySearchController)
         
-        panel.addPanel(toParent: self)
     }
 }
 
@@ -219,7 +231,7 @@ extension SearchController: CLLocationManagerDelegate {
                 }
             }
             removeAnnotations()
-            addAnnotations(coordinates, "The location you choose.")
+            addAnnotations(coordinates, annotationType: .userAnnotation)
             createFloatingPanel(coordinates)
         }
         locationManager.stopUpdatingLocation()
@@ -252,25 +264,38 @@ extension SearchController {
             if isNearbyPlace {
                 annotations.removeFirst()
                 searchView.mapView.removeAnnotations(annotations)
+            } else {
+                searchView.mapView.removeAnnotations(annotations)
             }
         }
-        searchView.mapView.removeAnnotations(annotations)
+        
     }
     
-    // Add annotation when tap Search Location
-    func addAnnotations(_ coordinates: CLLocationCoordinate2D, _ title: String? = nil, _ subTitle: String? = nil, _ placeImage: String? = nil) {
-        self.placeImage = placeImage
+    // Add annotation when tap Location
+    func addAnnotations(_ coordinates: CLLocationCoordinate2D, annotationType: AnnotationType, _ title: String? = nil, _ subTitle: String? = nil, _ placeImage: String? = nil, _ profileImageURL: String? = nil) {
         
         let pin = MKPointAnnotation()
         pin.coordinate = coordinates
         
-        if let title = title {
-            pin.title = title
+        switch annotationType {
+            
+        case .userAnnotation:
+            if let profileImageURL = self.profileImageURL {
+                self.profileImageURL = profileImageURL
+                pin.title = "You are here"
+            }
+        case .placeAnnotation:
+            if let placeImage = placeImage {
+                self.placeImage = placeImage
+                if let title = title {
+                    pin.title = title
+                }
+                if let subTitle = subTitle {
+                    pin.subtitle = subTitle
+                }
+            }
         }
         
-        if let subTitle = subTitle {
-            pin.subtitle = subTitle
-        }
         searchView.mapView.addAnnotation(pin)
         
         setRegion(coordinates)
@@ -306,8 +331,12 @@ extension SearchController: MKMapViewDelegate {
         
         if let placeImage = self.placeImage {
             customAnnotationView?.imageView.downloadSetImage(type: .photoReference, url: placeImage)
-        } else {
-            customAnnotationView?.image = UIImage(named: "appleLogo")
+            self.placeImage = nil
+        }
+        
+        if let profileImageURL = profileImageURL {
+            customAnnotationView?.imageView.downloadSetImage(type: .onlyURL, url: profileImageURL)
+            self.profileImageURL = nil
         }
         
         return customAnnotationView

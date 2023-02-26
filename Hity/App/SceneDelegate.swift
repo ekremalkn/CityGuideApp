@@ -25,8 +25,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Check if user already sign in
         if currentUser != nil {
           // User is signed in.
-            let tabBar = MainTabBarController()
-            window.rootViewController = tabBar
+            if currentUser?.isEmailVerified == true {
+                // User email is verified
+                let tabBar = MainTabBarController()
+                window.rootViewController = tabBar
+            } else {
+                // User email is not verified
+                let signInControler = SignInController()
+                let navigationController = UINavigationController(rootViewController: signInControler)
+                window.rootViewController = navigationController
+            }
+            
         } else {
           // No user is signed in.
             let signInControler = SignInController()

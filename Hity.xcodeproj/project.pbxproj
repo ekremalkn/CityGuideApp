@@ -87,6 +87,8 @@
 		F0D3430629A165F400266DA2 /* UIViewController+PopUpPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D3430529A165F400266DA2 /* UIViewController+PopUpPickerView.swift */; };
 		F0D5634B29923D9B00303553 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634A29923D9B00303553 /* MainTabBarController.swift */; };
 		F0D5634F29923F5400303553 /* FavoriteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D5634E29923F5400303553 /* FavoriteController.swift */; };
+		F0D7513929ABBD78003BA323 /* ReviewsSortPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D7513829ABBD78003BA323 /* ReviewsSortPopUpController.swift */; };
+		F0D7513B29ABBD9A003BA323 /* ReviewsSortPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D7513A29ABBD9A003BA323 /* ReviewsSortPopUpView.swift */; };
 		F0E6AE4A29A607A60092538A /* SignInPopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE4929A607A60092538A /* SignInPopUpController.swift */; };
 		F0E6AE4C29A608390092538A /* SignInPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE4B29A608390092538A /* SignInPopUpView.swift */; };
 		F0E6AE5029A618E00092538A /* SignInPopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E6AE4F29A618E00092538A /* SignInPopUpViewModel.swift */; };
@@ -107,12 +109,24 @@
 		F0FEA02229967B4F00EE7D45 /* Sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FEA02129967B4F00EE7D45 /* Sha256.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F0D7514D29ABF066003BA323 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		784BF3C55039876571558652 /* libPods-Hity.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hity.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		961A847DF6CDB85E3223EDFC /* Pods-Hity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.debug.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.debug.xcconfig"; sourceTree = "<group>"; };
 		BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.release.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.release.xcconfig"; sourceTree = "<group>"; };
 		F0022CED29AA8FC80012D73F /* ProviderSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderSignInButton.swift; sourceTree = "<group>"; };
-		F01AA3192996930B0097173D /* Hity.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hity.entitlements; sourceTree = "<group>"; };
 		F0380983299AA86C0080AB1C /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		F0448D9029A24E1500CED699 /* ProfileViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewButton.swift; sourceTree = "<group>"; };
 		F0448D9E29A35BCB00CED699 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
@@ -190,6 +204,9 @@
 		F0D3430529A165F400266DA2 /* UIViewController+PopUpPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PopUpPickerView.swift"; sourceTree = "<group>"; };
 		F0D5634A29923D9B00303553 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		F0D5634E29923F5400303553 /* FavoriteController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteController.swift; sourceTree = "<group>"; };
+		F0D7513829ABBD78003BA323 /* ReviewsSortPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsSortPopUpController.swift; sourceTree = "<group>"; };
+		F0D7513A29ABBD9A003BA323 /* ReviewsSortPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsSortPopUpView.swift; sourceTree = "<group>"; };
+		F0D7514129ABF066003BA323 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 		F0E6AE4929A607A60092538A /* SignInPopUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPopUpController.swift; sourceTree = "<group>"; };
 		F0E6AE4B29A608390092538A /* SignInPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPopUpView.swift; sourceTree = "<group>"; };
 		F0E6AE4F29A618E00092538A /* SignInPopUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPopUpViewModel.swift; sourceTree = "<group>"; };
@@ -238,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				784BF3C55039876571558652 /* libPods-Hity.a */,
+				F0D7514129ABF066003BA323 /* AuthenticationServices.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -245,8 +263,8 @@
 		F0448D9C29A35BA100CED699 /* ResetPasswordPopUp */ = {
 			isa = PBXGroup;
 			children = (
-				F0448DA229A364A600CED699 /* ViewModel */,
 				F0448D9D29A35BAF00CED699 /* View */,
+				F0448DA229A364A600CED699 /* ViewModel */,
 			);
 			path = ResetPasswordPopUp;
 			sourceTree = "<group>";
@@ -254,8 +272,8 @@
 		F0448D9D29A35BAF00CED699 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F0448D9E29A35BCB00CED699 /* ResetPasswordView.swift */,
 				F0448DA029A3619300CED699 /* ResetPasswordController.swift */,
+				F0448D9E29A35BCB00CED699 /* ResetPasswordView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -314,8 +332,8 @@
 		F053F389298910B3001D9CD6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F053F38A298910C3001D9CD6 /* OnboardingView.swift */,
 				F053F38C298916A7001D9CD6 /* OnboardingController.swift */,
+				F053F38A298910C3001D9CD6 /* OnboardingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -349,8 +367,8 @@
 		F055FCAF298D5FD800A928CB /* NearBySearch */ = {
 			isa = PBXGroup;
 			children = (
-				F055FCB0298D5FEB00A928CB /* View */,
 				F0B6F02F299D084B00F9B0A9 /* Model */,
+				F055FCB0298D5FEB00A928CB /* View */,
 				F055FCB5298D6C3600A928CB /* ViewModel */,
 			);
 			path = NearBySearch;
@@ -395,7 +413,6 @@
 		F061A5A32986EA7500EAD006 /* Hity */ = {
 			isa = PBXGroup;
 			children = (
-				F01AA3192996930B0097173D /* Hity.entitlements */,
 				F061A5B82986EAEE00EAD006 /* App */,
 				F0FEA01D29967AF300EE7D45 /* Helper */,
 				F0B6F034299D230F00F9B0A9 /* Components */,
@@ -456,8 +473,8 @@
 			isa = PBXGroup;
 			children = (
 				F0B6F030299D085E00F9B0A9 /* Model */,
-				F061A5D02986FD1600EAD006 /* ViewModel */,
 				F061A5BD2986EBA900EAD006 /* View */,
+				F061A5D02986FD1600EAD006 /* ViewModel */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -474,8 +491,8 @@
 		F061A5C22986EF2D00EAD006 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				F061A5C02986EC4300EAD006 /* SearchView.swift */,
 				F061A5BE2986EBD700EAD006 /* SearchController.swift */,
+				F061A5C02986EC4300EAD006 /* SearchView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -542,8 +559,8 @@
 		F07E5DB929A8817F00FB04BB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F07E5DBA29A881A100FB04BB /* DistancePopUpView.swift */,
 				F07E5DBC29A8820600FB04BB /* DistancePopUpController.swift */,
+				F07E5DBA29A881A100FB04BB /* DistancePopUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -559,9 +576,9 @@
 		F0AE3634298F75CB0054D14E /* PlaceDetail */ = {
 			isa = PBXGroup;
 			children = (
-				F0B0A005299EC161000B4552 /* ViewModel */,
-				F0AE3635298F75D80054D14E /* View */,
 				F0B6F031299D086D00F9B0A9 /* Model */,
+				F0AE3635298F75D80054D14E /* View */,
+				F0B0A005299EC161000B4552 /* ViewModel */,
 			);
 			path = PlaceDetail;
 			sourceTree = "<group>";
@@ -590,8 +607,8 @@
 		F0B09FF3299E8581000B4552 /* Reviews */ = {
 			isa = PBXGroup;
 			children = (
-				F0B09FFD299E95D5000B4552 /* ViewModel */,
 				F0B09FF4299E858B000B4552 /* View */,
+				F0B09FFD299E95D5000B4552 /* ViewModel */,
 			);
 			path = Reviews;
 			sourceTree = "<group>";
@@ -600,8 +617,8 @@
 			isa = PBXGroup;
 			children = (
 				F0B09FF5299E858F000B4552 /* Cell */,
-				F0B09FF6299E859E000B4552 /* ReviewsView.swift */,
 				F0B09FF9299E85AF000B4552 /* ReviewsController.swift */,
+				F0B09FF6299E859E000B4552 /* ReviewsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -670,8 +687,7 @@
 				F0C12F0729A20F2D0083B0EA /* AnnotationView */,
 				F0B6F035299D231900F9B0A9 /* Buttons */,
 			);
-			name = Components;
-			path = ../Components;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		F0B6F035299D231900F9B0A9 /* Buttons */ = {
@@ -712,8 +728,8 @@
 			isa = PBXGroup;
 			children = (
 				F0C4FB1129978CAD00823275 /* Model */,
-				F0C4FB1D2998215400823275 /* ViewModel */,
 				F0C4FB1529980A2100823275 /* View */,
+				F0C4FB1D2998215400823275 /* ViewModel */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -738,8 +754,8 @@
 		F0CD654D29A7325E00D4D45A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				F0CD654E29A7325E00D4D45A /* ViewModel */,
 				F0CD655029A7325E00D4D45A /* View */,
+				F0CD654E29A7325E00D4D45A /* ViewModel */,
 			);
 			name = Profile;
 			path = HomeContanier/Profile;
@@ -756,8 +772,8 @@
 		F0CD655029A7325E00D4D45A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F0CD655129A7325E00D4D45A /* ProfileView.swift */,
 				F0CD655229A7325E00D4D45A /* ProfileController.swift */,
+				F0CD655129A7325E00D4D45A /* ProfileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -765,8 +781,8 @@
 		F0CD655629A7338C00D4D45A /* LogOutPopUp */ = {
 			isa = PBXGroup;
 			children = (
-				F0E6AE6B29A6ACD60092538A /* ViewModel */,
 				F0E6AE6629A6A0370092538A /* View */,
+				F0E6AE6B29A6ACD60092538A /* ViewModel */,
 			);
 			path = LogOutPopUp;
 			sourceTree = "<group>";
@@ -774,8 +790,8 @@
 		F0CD655729A7428500D4D45A /* ChangeUsernamePopUp */ = {
 			isa = PBXGroup;
 			children = (
-				F0CD655D29A75EF400D4D45A /* ViewModel */,
 				F0CD655829A7428D00D4D45A /* View */,
+				F0CD655D29A75EF400D4D45A /* ViewModel */,
 			);
 			path = ChangeUsernamePopUp;
 			sourceTree = "<group>";
@@ -783,8 +799,8 @@
 		F0CD655829A7428D00D4D45A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F0CD655929A742A700D4D45A /* ChangeUsernamePopUpView.swift */,
 				F0CD655B29A749FE00D4D45A /* ChangeUsernamePopUpController.swift */,
+				F0CD655929A742A700D4D45A /* ChangeUsernamePopUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -800,8 +816,8 @@
 		F0CD656029A7787900D4D45A /* ChangeEmailPopUp */ = {
 			isa = PBXGroup;
 			children = (
-				F0CD656629A7858700D4D45A /* ViewModel */,
 				F0CD656129A778C200D4D45A /* View */,
+				F0CD656629A7858700D4D45A /* ViewModel */,
 			);
 			path = ChangeEmailPopUp;
 			sourceTree = "<group>";
@@ -826,8 +842,8 @@
 		F0CD656929A7A15900D4D45A /* DeleteAccountPopUp */ = {
 			isa = PBXGroup;
 			children = (
-				F0CD656F29A7AB2900D4D45A /* ViewModel */,
 				F0CD656A29A7A17200D4D45A /* View */,
+				F0CD656F29A7AB2900D4D45A /* ViewModel */,
 			);
 			path = DeleteAccountPopUp;
 			sourceTree = "<group>";
@@ -835,8 +851,8 @@
 		F0CD656A29A7A17200D4D45A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F0CD656B29A7A18600D4D45A /* DeleteAccountPopUpView.swift */,
 				F0CD656D29A7A8DE00D4D45A /* DeleteAccountPopUpController.swift */,
+				F0CD656B29A7A18600D4D45A /* DeleteAccountPopUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -868,8 +884,8 @@
 		F0D5634C29923F3800303553 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
-				F0EA1F7E299F8C17005409A6 /* ViewModel */,
 				F0D5634D29923F4000303553 /* View */,
+				F0EA1F7E299F8C17005409A6 /* ViewModel */,
 			);
 			path = Favorite;
 			sourceTree = "<group>";
@@ -884,12 +900,30 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		F0D7513429ABBD29003BA323 /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				F0D7513529ABBD46003BA323 /* View */,
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
+		F0D7513529ABBD46003BA323 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F0D7513829ABBD78003BA323 /* ReviewsSortPopUpController.swift */,
+				F0D7513A29ABBD9A003BA323 /* ReviewsSortPopUpView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		F0E6AE4429A607500092538A /* CustomPopUpViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				F0E6AE5229A636F90092538A /* Auth */,
 				F0E6AE6429A6A0070092538A /* Profile */,
 				F048D1F529A7D151002BB468 /* NearbySearch */,
+				F0D7513429ABBD29003BA323 /* Reviews */,
 			);
 			path = CustomPopUpViewControllers;
 			sourceTree = "<group>";
@@ -897,8 +931,8 @@
 		F0E6AE4529A6075A0092538A /* SignInPopUp */ = {
 			isa = PBXGroup;
 			children = (
-				F0E6AE4E29A618CD0092538A /* ViewModel */,
 				F0E6AE4D29A618C20092538A /* View */,
+				F0E6AE4E29A618CD0092538A /* ViewModel */,
 			);
 			path = SignInPopUp;
 			sourceTree = "<group>";
@@ -923,8 +957,8 @@
 		F0E6AE5129A636E60092538A /* SignUpPopUp */ = {
 			isa = PBXGroup;
 			children = (
-				F0E6AE5929A645AB0092538A /* ViewModel */,
 				F0E6AE5329A6371B0092538A /* View */,
+				F0E6AE5929A645AB0092538A /* ViewModel */,
 			);
 			path = SignUpPopUp;
 			sourceTree = "<group>";
@@ -1020,8 +1054,8 @@
 		F0FEA00C29963E8200EE7D45 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				F0FEA0122996413100EE7D45 /* ViewModel */,
 				F0FEA0112996412700EE7D45 /* View */,
+				F0FEA0122996413100EE7D45 /* ViewModel */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -1073,6 +1107,7 @@
 				F061A59F2986EA7500EAD006 /* Resources */,
 				45B8552CEE87D2C9720DBAE6 /* [CP] Copy Pods Resources */,
 				117D05ED8FF09616FF6DA2EE /* [CP] Embed Pods Frameworks */,
+				F0D7514D29ABF066003BA323 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -1264,6 +1299,7 @@
 				F055FCAE298D53A500A928CB /* NearPlacesModel.swift in Sources */,
 				F0CD655529A7325E00D4D45A /* ProfileController.swift in Sources */,
 				F0E6AE6829A6A04A0092538A /* LogOutPopUpController.swift in Sources */,
+				F0D7513929ABBD78003BA323 /* ReviewsSortPopUpController.swift in Sources */,
 				F0448DA129A3619300CED699 /* ResetPasswordController.swift in Sources */,
 				F0C4FB1F2998216700823275 /* SignUpViewModel.swift in Sources */,
 				F0448D9129A24E1500CED699 /* ProfileViewButton.swift in Sources */,
@@ -1287,6 +1323,7 @@
 				F0CD656E29A7A8DE00D4D45A /* DeleteAccountPopUpController.swift in Sources */,
 				F0CD655C29A749FE00D4D45A /* ChangeUsernamePopUpController.swift in Sources */,
 				F061A5A72986EA7500EAD006 /* SceneDelegate.swift in Sources */,
+				F0D7513B29ABBD9A003BA323 /* ReviewsSortPopUpView.swift in Sources */,
 				F061A5C62986EF6700EAD006 /* SearchResultController.swift in Sources */,
 				F055FCB7298D6C4300A928CB /* NearbySearchViewModel.swift in Sources */,
 				F08CB52529A4B9F800B87E09 /* NearbySearchTextField.swift in Sources */,
@@ -1428,6 +1465,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 961A847DF6CDB85E3223EDFC /* Pods-Hity.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Hity/Hity.entitlements;
@@ -1460,6 +1498,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Hity/Hity.entitlements;

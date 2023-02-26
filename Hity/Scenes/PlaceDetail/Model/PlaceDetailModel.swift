@@ -223,7 +223,7 @@ struct DetailPlusCode: Codable {
 
 // MARK: - Review
 struct DetailReview: Codable, ReviewsCellProtocol {
-    
+
     let authorName: String?
     let authorURL: String?
     let language, originalLanguage: String?
@@ -233,35 +233,44 @@ struct DetailReview: Codable, ReviewsCellProtocol {
     let time: Int?
     let translated: Bool?
     
-    var image: String {
+    var reviewAuthorImage: String {
         if let profilePhotoURL = profilePhotoURL {
             return profilePhotoURL
         }
         return ""
     }
     
-    var author: String {
+    var reviewAuthorName: String {
         if let authorName = authorName {
             return authorName
         }
         return ""
     }
     
-    var authorRating: String {
+    var reviewAuthorRating: String {
         if let rating = rating {
             return "\(rating)"
         }
         return ""
     }
     
-    var relativeTime: String {
+    var reviewRelativeTime: String {
         if let relativeTimeDescription = relativeTimeDescription {
             return relativeTimeDescription
         }
         return ""
     }
     
-    var authorText: String {
+    var reviewTime: Int {
+        if let time = time {
+            return time
+        }
+        return Int()
+    }
+    
+    
+    
+    var reviewAuthorText: String {
         if let text = text {
             return text
         }

@@ -1,15 +1,15 @@
 //
-//  DistancePopUpView.swift
+//  ReviewsSortPopUpView.swift
 //  Hity
 //
-//  Created by Ekrem Alkan on 24.02.2023.
+//  Created by Ekrem Alkan on 26.02.2023.
 //
 
 import UIKit
 import RxSwift
 
-final class DistancePopUpView: UIView {
-    
+final class ReviewsSortPopUpView: UIView {
+
     //MARK: - Creating UI Elements
     
     let emptyView: UIView = {
@@ -36,42 +36,23 @@ final class DistancePopUpView: UIView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Set distance:"
+        label.text = "Sorted by:"
         label.textAlignment = .left
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = .black
         return label
     }()
     
-    let distanceSlider: UISlider = {
-        let slider = UISlider()
-        slider.maximumValue = 1
-        slider.maximumValue = 20
-        slider.value = 10
-        return slider
-    }()
-    
-    let distanceLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .systemGray
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textAlignment = .center
-        return label
-    }()
-    
-    
-    let setButton: CircleButton = {
-        let button = CircleButton(type: .system)
-        button.backgroundColor = .blue
-        button.setTitle("Set Distance", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        return button
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(SortPopUpCell.self, forCellReuseIdentifier: SortPopUpCell.identifier)
+        return tableView
     }()
     
     //MARK: - Dispose Bag
     
     let disposeBag = DisposeBag()
-    
+
     //MARK: - Layout Subviews
     
     override func layoutSubviews() {
@@ -79,7 +60,7 @@ final class DistancePopUpView: UIView {
         topGrabber.layer.cornerRadius = topGrabber.frame.height / 2
         topGrabber.layer.masksToBounds = true
     }
-    
+
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -91,21 +72,20 @@ final class DistancePopUpView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - ConfigureView
+    //MARK: - Configure View
     
     private func configureView() {
-        backgroundColor = .clear
         addSubview()
         setupConstraints()
     }
-    
-    
-}
 
+    
+
+}
 
 //MARK: - UI Elements AddSubview / Constraints
 
-extension DistancePopUpView {
+extension ReviewsSortPopUpView {
     
     //MARK: - AddSubview
     
@@ -118,11 +98,8 @@ extension DistancePopUpView {
     private func elementsToContentView() {
         contentView.addSubview(topGrabber)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(distanceSlider)
-        contentView.addSubview(distanceLabel)
-        contentView.addSubview(setButton)
+        contentView.addSubview(tableView)
     }
-    
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
@@ -130,15 +107,13 @@ extension DistancePopUpView {
         contentViewConstraints()
         topGrabberConstraints()
         titleLabelConstraints()
-        distanceSliderConstraints()
-        setButtonConstraints()
-        distanceLabelConstraints()
+        tableViewConstraints()
     }
     
     private func emptyViewConstraints() {
         emptyView.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(self)
-            make.height.equalTo(self.snp.height).multipliedBy(0.7)
+            make.height.equalTo(self.snp.height).multipliedBy(0.70)
         }
     }
     
@@ -167,37 +142,14 @@ extension DistancePopUpView {
         }
     }
     
-    
-    private func distanceSliderConstraints() {
-        distanceSlider.snp.makeConstraints { make in
+    private func tableViewConstraints() {
+        tableView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
-            make.height.equalTo(contentView.snp.height).multipliedBy(0.3)
-            make.width.equalTo(contentView.snp.width).multipliedBy(0.75)
-            make.centerX.equalTo(contentView.snp.centerX)
+            make.bottom.equalTo(contentView.snp.bottom)
+            make.leading.trailing.equalTo(titleLabel)
         }
     }
-    
-    
-    private func setButtonConstraints() {
-        setButton.snp.makeConstraints { make in
-            make.bottom.equalTo(contentView.snp.bottom).offset(-30)
-            make.height.equalTo(contentView.snp.height).multipliedBy(0.2)
-            make.width.equalTo(contentView.snp.width).multipliedBy(0.4)
-            make.centerX.equalTo(contentView.snp.centerX)
-        }
-    }
-    
-    private func distanceLabelConstraints() {
-        distanceLabel.snp.makeConstraints { make in
-            make.top.equalTo(distanceSlider.snp.bottom)
-            make.bottom.equalTo(setButton.snp.top)
-            make.leading.trailing.equalTo(distanceSlider)
-        }
-    }
-    
-    
-    
-    
-    
 }
+
+
 

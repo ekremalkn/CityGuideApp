@@ -8,19 +8,29 @@
 import UIKit
 
 protocol ReviewsCellProtocol {
-    var image: String { get }
-    var author: String { get }
-    var authorRating: String { get }
-    var relativeTime: String { get }
-    var authorText: String { get }
+    var reviewAuthorImage: String { get }
+    var reviewAuthorName: String { get }
+    var reviewAuthorRating: String { get }
+    var reviewRelativeTime: String { get }
+    var reviewAuthorText: String { get }
+    var reviewTime: Int { get }
 }
 final class ReviewsCell: UITableViewCell {
-
+    
     //MARK: - Cell's Identifier
     
     static let identifier = "ReviewsCell"
-
+    
     //MARK: - Creating UI Elements
+    
+    
+    let expandableView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.clipsToBounds = true
+        return view
+    }()
+    
     
     private let authorImageView: UIImageView = {
         let imageView = UIImageView()
@@ -74,27 +84,18 @@ final class ReviewsCell: UITableViewCell {
         return label
     }()
     
-    private let readMore: UILabel = {
-        let label = UILabel()
-        label.text = "Read more..."
-        label.textColor = .blue
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.backgroundColor = .clear
-        return label
-    }()
-    
     let authorTextLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 15)
-        label.numberOfLines = 7
-        label.lineBreakMode = .byTruncatingTail
-        label.textAlignment = .left
+        label.numberOfLines = 0
         label.textColor = .black
+        label.sizeToFit()
         return label
     }()
     
+    
     //MARK: - Init Methods
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureCell()
@@ -111,14 +112,23 @@ final class ReviewsCell: UITableViewCell {
         setupConstraints()
     }
     
-    func configure(_ data: DetailReview) {
-        authorImageView.downloadSetImage(type: .onlyURL, url: data.image)
-        authorName.text = data.author
-        ratingLabel.text = data.authorRating
-        relativeTimeDescription.text = data.relativeTime
-        authorTextLabel.text = data.authorText
+    func configure(_ data: ReviewsCellProtocol) {
+        authorImageView.downloadSetImage(type: .onlyURL, url: data.reviewAuthorImage)
+        authorName.text = data.reviewAuthorName
+        ratingLabel.text = data.reviewAuthorRating
+        relativeTimeDescription.text = data.reviewRelativeTime
+        authorTextLabel.text = data.reviewAuthorText
     }
-
+    
+    //MARK: - Expandable View Animate
+    
+    func expandableViewAnimate() {
+        UIView.animate(withDuration: 0.5, delay: 0.3, usingSpringWithDamping: 0.8, initialSpringVelocity: 1, options: .curveEaseIn) {
+            self.contentView.layoutIfNeeded()
+        }
+    }
+    
+    
     
 }
 
@@ -129,13 +139,17 @@ extension ReviewsCell {
     //MARK: - AddSubview
     
     private func addSubview() {
-        addSubview(authorImageView)
-        addSubview(authorName)
-        addSubview(ratingTimeStackView)
+        cellElementsToExpandableView()
+        contentView.addSubview(expandableView)
+    }
+    
+    private func cellElementsToExpandableView() {
+        expandableView.addSubview(authorImageView)
+        expandableView.addSubview(authorName)
+        expandableView.addSubview(ratingTimeStackView)
         ratingRelativeTimeToStackView()
         ratingElementsToStackView()
-        addSubview(readMore)
-        addSubview(authorTextLabel)
+        expandableView.addSubview(authorTextLabel)
     }
     
     private func ratingRelativeTimeToStackView() {
@@ -148,6 +162,8 @@ extension ReviewsCell {
         ratingStackView.addArrangedSubview(ratingLabel)
     }
     
+    
+    
     //MARK: - Setup Constraints
     
     private func setupConstraints() {
@@ -155,14 +171,14 @@ extension ReviewsCell {
         authorNameConstraints()
         ratingTimeStackViewConstraints()
         ratingImageConstraints()
-        readMoreLabelConstraints()
         authorTextLabelConstraints()
+        expandableViewConstraints()
     }
-
+    
     private func authorImageViewConstraints() {
         authorImageView.snp.makeConstraints { make in
-            make.top.leading.equalTo(safeAreaLayoutGuide).offset(15)
-            make.height.width.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.2)
+            make.top.leading.equalTo(expandableView).offset(15)
+            make.height.width.equalTo(expandableView.snp.height).multipliedBy(0.2)
         }
     }
     
@@ -187,20 +203,25 @@ extension ReviewsCell {
         }
     }
     
-    private func readMoreLabelConstraints() {
-        readMore.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide).offset(15)
-            make.trailing.equalTo(safeAreaLayoutGuide).offset(-15)
-        }
-    }
-    
     private func authorTextLabelConstraints() {
         authorTextLabel.snp.makeConstraints { make in
             make.top.equalTo(ratingStackView.snp.bottom).offset(7)
             make.leading.equalTo(authorImageView.snp.leading)
-            make.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).offset(-15)
-            make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom)
+            make.trailing.equalTo(expandableView.snp.trailing).offset(-15)
+            make.bottom.equalTo(expandableView.snp.bottom)
         }
     }
+    
+    private func expandableViewConstraints() {
+        expandableView.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top).offset(4)
+            make.leading.equalTo(contentView.snp.leading)
+            make.trailing.equalTo(contentView.snp.trailing)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
+        }
+    }
+    
+    
+    
 }
 

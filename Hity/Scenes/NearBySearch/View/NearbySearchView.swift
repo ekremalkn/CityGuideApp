@@ -30,12 +30,7 @@ final class NearbySearchView: UIView {
         let pickerView = UIPickerView()
         return pickerView
     }()
-    
-    let sortPickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        return pickerView
-    }()
-    
+ 
     let textField = NearbySearchTextField()
     
     let collectionView: UICollectionView = {

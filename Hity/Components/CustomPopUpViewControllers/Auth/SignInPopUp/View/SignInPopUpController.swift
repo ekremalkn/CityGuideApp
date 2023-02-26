@@ -92,8 +92,14 @@ final class SignInPopUpController: UIViewController {
                 self?.signInPopUpView.subTitleLabel.textColor = .red
                 self?.signInPopUpView.subTitleLabel.text = "Invalid email"
                 self?.signInPopUpView.sendButton.setTitle("Cancel", for: .normal)
-                
             }
+            self?.signInPopUpView.imageView.image = UIImage(named: "error")
+            self?.signInPopUpView.titleLabel.text = "Error"
+            self?.signInPopUpView.titleLabel.textColor = .red
+            self?.signInPopUpView.subTitleLabel.text = errorMsg
+            self?.signInPopUpView.sendButton.setTitle("Cancel", for: .normal)
+                
+            
         }.disposed(by: disposeBag)
     }
     

@@ -22,9 +22,9 @@ final class SignUpPopUpView: UIView {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "checkmark")
+        imageView.image = UIImage(named: "success")
         imageView.tintColor = .green
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -41,7 +41,7 @@ final class SignUpPopUpView: UIView {
     let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = ""
+        label.text = "We’ve sent a link to your email address. In order to activate your account, you need to click on the link"
         label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -49,7 +49,7 @@ final class SignUpPopUpView: UIView {
     }()
     
     let okButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.backgroundColor = .blue
         button.setTitle("OK", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -133,7 +133,7 @@ extension SignUpPopUpView {
     private func titleLabelConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom)
-            make.height.equalTo(contentView.snp.height).multipliedBy(0.2)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
             make.width.equalTo(contentView.snp.width).offset(20)
             make.centerX.equalTo(imageView.snp.centerX)
         }
@@ -142,7 +142,7 @@ extension SignUpPopUpView {
     private func subTitleLabelConstraints() {
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
-            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.20)
             make.leading.equalTo(contentView.snp.leading).offset(10)
             make.trailing.equalTo(contentView.snp.trailing).offset(-10)
             make.centerX.equalTo(titleLabel.snp.centerX)

@@ -27,7 +27,7 @@ final class SearchView: UIView {
     }()
     
     let navBarLocationButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "mappin.and.ellipse"), for: .normal)
         button.setTitle("Tap your Location", for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)

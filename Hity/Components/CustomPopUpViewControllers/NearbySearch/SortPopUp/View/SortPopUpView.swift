@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class SortPopUpView: UIView {
     
@@ -29,7 +30,7 @@ final class SortPopUpView: UIView {
     
     let topGrabber: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .systemGray3
         return view
     }()
     
@@ -48,7 +49,18 @@ final class SortPopUpView: UIView {
         return tableView
     }()
     
+    //MARK: - Layout Subviews
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        topGrabber.layer.cornerRadius = topGrabber.frame.height / 2
+        topGrabber.layer.masksToBounds = true
+    }
+    
+    //MARK: - Dispose Bag
+    
+    let disposeBag = DisposeBag()
+
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -116,8 +128,8 @@ extension SortPopUpView {
     private func topGrabberConstraints() {
         topGrabber.snp.makeConstraints { make in
             make.height.equalTo(5)
-            make.top.equalTo(contentView.snp.top).offset(3)
-            make.width.equalTo(contentView.snp.width).multipliedBy(0.15)
+            make.top.equalTo(contentView.snp.top).offset(7)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.10)
             make.centerX.equalTo(contentView.snp.centerX)
         }
     }

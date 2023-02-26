@@ -99,8 +99,11 @@ final class ResetPasswordView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        topGrabber.layer.cornerRadius = topGrabber.frame.height / 2
+        topGrabber.layer.masksToBounds = true
+        
         seperatorView.layer.cornerRadius = seperatorView.frame.height / 2
-        seperatorView.layer.masksToBounds = true
+        seperatorView.layer.masksToBounds = true        
     }
     
     //MARK: - Init Methods
@@ -184,8 +187,8 @@ extension ResetPasswordView {
     private func topGrabberConstraints() {
         topGrabber.snp.makeConstraints { make in
             make.height.equalTo(5)
-            make.top.equalTo(contentView.snp.top).offset(3)
-            make.width.equalTo(contentView.snp.width).multipliedBy(0.15)
+            make.top.equalTo(contentView.snp.top).offset(7)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.10)
             make.centerX.equalTo(contentView.snp.centerX)
         }
     }
@@ -234,16 +237,16 @@ extension ResetPasswordView {
     private func submitButtonConstraints() {
         submitButton.snp.makeConstraints { make in
             make.top.equalTo(submitCallbackLabel.snp.bottom).offset(20)
-            make.leading.equalTo(emailTextField.snp.leading)
-            make.height.equalTo(emailTextField.snp.height).multipliedBy(0.75)
-            make.width.equalTo(emailTextField.snp.height).multipliedBy(2)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
+            make.width.equalTo(submitButton.snp.height).multipliedBy(3)
         }
     }
     
     private func activityIndicatorConstraints() {
         activityIndicator.snp.makeConstraints { make in
-            make.centerY.equalTo(submitButton.snp.centerY)
-            make.centerX.equalTo(contentView.snp.centerX)
+            make.centerY.equalTo(emailTextField.snp.centerY)
+            make.centerX.equalTo(emailTextField.snp.centerX)
             make.height.width.equalTo(submitButton.snp.height)
         }
     }

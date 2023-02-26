@@ -23,11 +23,7 @@ enum SortTypesSubTitle: String, CaseIterable {
 }
 
 final class SortPopUpController: UIViewController {
-    
-    deinit {
-        print("SortPopUp deinit oldu le")
-    }
-    
+  
     //MARK: - Constants
     
     private let sortPopUpView = SortPopUpView()
@@ -112,19 +108,19 @@ final class SortPopUpController: UIViewController {
         sortPopUpView.tableView.rx.modelSelected(SortTypesTitle.self).bind { [weak self] sortTypeTitle in
             self?.tableViewCellSelected.onNext(sortTypeTitle)
             self?.hidePopUpView()
-        }.disposed(by: disposeBag)
+        }.disposed(by: sortPopUpView.disposeBag)
         
         sortPopUpView.tableView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
             guard let cell = self?.sortPopUpView.tableView.cellForRow(at: indexPath) as? SortPopUpCell else { return }
             cell.toggleImageView(true)
-        }).disposed(by: disposeBag)
+        }).disposed(by: sortPopUpView.disposeBag)
         
         // handle deselect
         
         sortPopUpView.tableView.rx.itemDeselected.subscribe(onNext: { [weak self] indexPath in
             guard let cell = self?.sortPopUpView.tableView.cellForRow(at: indexPath) as? SortPopUpCell else { return }
             cell.toggleImageView(false)
-        }).disposed(by: disposeBag)
+        }).disposed(by: sortPopUpView.disposeBag)
         
         
     }
@@ -139,8 +135,8 @@ extension SortPopUpController {
     private func appearanceWhenViewDidLoad() {
         self.view.backgroundColor = .clear
         //        self.sortPopUpView.backgroundColor = .black.withAlphaComponent(0.6)
-        self.sortPopUpView.alpha = 0
-        self.sortPopUpView.contentView.alpha = 0
+        sortPopUpView.alpha = 0
+        sortPopUpView.contentView.alpha = 0
     }
     
     func presentPopUpController(_ sender: UIViewController) {

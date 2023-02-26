@@ -10,15 +10,27 @@ import RxSwift
 
 final class ReviewsController: UIViewController {
 
+    //MARK: - PopUp View Controllers
     
-    //MARK: - Properties
-    
+    let reviewsSortPopUpController = ReviewsSortPopUpController()
+
+    //MARK: - Constants
+
     private let reviewsView = ReviewsView()
     private let reviewsViewModel = ReviewsViewModel()
+    
+    //MARK: - DisposeBag
+
     private let disposeBag = DisposeBag()
     
-    var placeUID: String
+    // sort variables
+    var sortType: ReviewsSortTypesTitle?
+    
+    //MARK: - Variables
 
+    var placeUID: String
+    var selectedIndex: IndexPath = IndexPath(row: 0, section: 0)
+    
     //MARK: - Init Methods
     
     init(placeUID: String) {
@@ -42,14 +54,45 @@ final class ReviewsController: UIViewController {
     private func configureViewController() {
         view = reviewsView
         customizeNavBar()
-        createTableViewCallbacks()
+        createCallbacks()
     }
     
     private func customizeNavBar() {
         title = "Reviews"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: reviewsView.sortButton)
     }
     
+    //MARK: - Create Callbacks
+    
+    private func createCallbacks() {
+        createTableViewCallbacks()
+        createReviewsButtonCallbacks()
+    }
+
+    
+    //MARK: - Reviews View Button Callbacks
+    
+    private func createReviewsButtonCallbacks() {
+        
+        // Sort Button
+        reviewsView.sortButton.rx.tap.bind { [unowned self] in
+            reviewsSortPopUpController.presentPopUpController(self)
+        }.disposed(by: reviewsView.disposeBag)
+        
+        //TableView Cell Selected
+        reviewsSortPopUpController.tableViewCellSelected.subscribe { [weak self]  sortTypeTitle in
+            switch sortTypeTitle {
+                
+            case .next(let sortType):
+                self?.sortType = sortType
+                self?.reviewsViewModel.fetchPlaceReviews(self?.placeUID ?? "", sortType: sortType)
+            default:
+                break
+            }
+        }.disposed(by: reviewsSortPopUpController.disposeBag)
+    }
+
     //MARK: - TableView Callbacks
     
     private func createTableViewCallbacks() {
@@ -57,27 +100,36 @@ final class ReviewsController: UIViewController {
         //bind placereviews to tableview
         reviewsViewModel.placeReviews.bind(to: reviewsView.reviewsTableView.rx.items(cellIdentifier: ReviewsCell.identifier, cellType: ReviewsCell.self)) { row, placeReviews, cell in
             cell.configure(placeReviews)
-            
+            cell.expandableViewAnimate()
         }.disposed(by: disposeBag)
         
         
         //fetch placereviews
         
-        self.reviewsViewModel.fetchPlaceReviews(placeUID)
+        self.reviewsViewModel.fetchPlaceReviews(placeUID, sortType: .logic)
         
         //handle did select
-                
-        reviewsView.reviewsTableView.rx.modelSelected(DetailReview.self).bind(onNext: { placeReviews in
-            if let authorProfileURL = placeReviews.authorURL {
-                guard let URL = URL(string: authorProfileURL) else { return }
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(URL, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(URL)
-                }
-            }
-            
-        }).disposed(by: reviewsView.disposeBag)
+        
+//        reviewsView.reviewsTableView.rx.modelSelected(DetailReview.self).bind(onNext: { placeReviews in
+//            if let authorProfileURL = placeReviews.authorURL {
+//                guard let URL = URL(string: authorProfileURL) else { return }
+//                if #available(iOS 10.0, *) {
+//                    UIApplication.shared.open(URL, options: [:], completionHandler: nil)
+//                } else {
+//                    UIApplication.shared.openURL(URL)
+//                }
+//            }
+//
+//        }).disposed(by: reviewsView.disposeBag)
+        
+        
+        reviewsView.reviewsTableView.rx.itemSelected.subscribe { [unowned self] indexPath in
+            // expand cell according to indexPath
+            self.selectedIndex = indexPath
+            self.reviewsView.reviewsTableView.beginUpdates()
+            self.reviewsView.reviewsTableView.reloadRows(at: [self.selectedIndex], with: .none)
+            self.reviewsView.reviewsTableView.endUpdates()
+        }.disposed(by: reviewsView.disposeBag)
         
         // set tableview delegate for row height
         
@@ -93,7 +145,8 @@ final class ReviewsController: UIViewController {
 
 extension ReviewsController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.size.height * 0.33
+        if selectedIndex == indexPath { return tableView.frame.size.height * 0.5}
+        return tableView.frame.size.height * 0.20
     }
     
     

@@ -80,6 +80,10 @@ final class ProfileController: UIViewController {
         profileView.changeUserNameButton.rx.tap.subscribe(onNext: { [unowned self] in
             let controller = ChangeUsernamePopUpController()
             controller.presentPopUpController(self)
+            controller.changeUsernamePopUpViewModel.isChangingUsernameSuccess.subscribe(onNext: { [weak self] _ in
+                // if username change success
+                self?.profileViewModel.fetchUserDisplayName()
+            }).disposed(by: controller.disposeBag)
         }).disposed(by: profileView.disposeBag)
         
         // Change Email Button

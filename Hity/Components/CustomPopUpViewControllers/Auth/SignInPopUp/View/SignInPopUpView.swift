@@ -28,9 +28,9 @@ final class SignInPopUpView: UIView {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "envelope")
+        imageView.image = UIImage(named: "emailVerify")
         imageView.tintColor = .blue
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -47,7 +47,7 @@ final class SignInPopUpView: UIView {
     let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
-        label.text = ""
+        label.text = "Tap to send link to your email. In order to activate your account, you need to click on the link"
         label.textColor = .black
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -91,19 +91,19 @@ final class SignInPopUpView: UIView {
     
     func accordingToEmailVerification(_ value: Bool) {
         if value {
-            imageView.image = UIImage(systemName: "checkmark")
+            imageView.image = UIImage(named: "success")
             imageView.tintColor = .green
             titleLabel.text = "Success!"
             subTitleLabel.text = "A verification link has been sent to your email account"
             sendButton.setTitle("Cancel", for: .normal)
         }
-        else {
-            imageView.image = UIImage(systemName: "multiply")
-            imageView.tintColor = .red
-            titleLabel.text = "Unsuccessful"
-            subTitleLabel.text = "Problem in sending verification email"
-            sendButton.setTitle("Cancel", for: .normal)
-        }
+//        else {
+//            imageView.image = UIImage(named: "error")
+//            imageView.tintColor = .red
+//            titleLabel.text = "Unsuccessful"
+//            subTitleLabel.text = "Problem in sending verification email"
+//            sendButton.setTitle("Cancel", for: .normal)
+//        }
     }
     
     
@@ -166,8 +166,9 @@ extension SignInPopUpView {
     private func titleLabelConstraints() {
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom)
-            make.height.equalTo(contentView.snp.height).multipliedBy(0.2)
-            make.width.equalTo(contentView.snp.width).offset(20)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
+            make.leading.equalTo(contentView.snp.leading).offset(10)
+            make.trailing.equalTo(contentView.snp.trailing).offset(-10)
             make.centerX.equalTo(imageView.snp.centerX)
         }
     }
@@ -175,7 +176,7 @@ extension SignInPopUpView {
     private func subTitleLabelConstraints() {
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
-            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.20)
             make.width.equalTo(titleLabel.snp.width)
             make.centerX.equalTo(titleLabel.snp.centerX)
         }

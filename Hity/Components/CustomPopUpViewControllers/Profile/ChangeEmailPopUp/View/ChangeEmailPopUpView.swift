@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 final class ChangeEmailPopUpView: UIView {
     
@@ -46,7 +47,7 @@ final class ChangeEmailPopUpView: UIView {
     
     let seperatorView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = .systemGray3
         view.frame.size.height = 1.5
         return view
     }()
@@ -130,6 +131,18 @@ final class ChangeEmailPopUpView: UIView {
         return button
     }()
     
+    //MARK: - Dispose Bag
+    
+    let disposeBag = DisposeBag()
+
+    //MARK: - Layout Subviews
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        topGrabber.layer.cornerRadius = topGrabber.frame.height / 2
+        topGrabber.layer.masksToBounds = true
+    }
+
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -213,8 +226,8 @@ extension ChangeEmailPopUpView {
     private func topGrabberConstraints() {
         topGrabber.snp.makeConstraints { make in
             make.height.equalTo(5)
-            make.top.equalTo(contentView.snp.top).offset(3)
-            make.width.equalTo(contentView.snp.width).multipliedBy(0.15)
+            make.top.equalTo(contentView.snp.top).offset(7)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.10)
             make.centerX.equalTo(contentView.snp.centerX)
         }
     }
@@ -247,16 +260,16 @@ extension ChangeEmailPopUpView {
     private func submitButtonConstraints() {
         submitButton.snp.makeConstraints { make in
             make.top.equalTo(viewModelCallbackLabel.snp.bottom)
-            make.width.equalTo(currentEmailTextField.snp.height).multipliedBy(2)
-            make.height.equalTo(currentEmailTextField.snp.height)
-            make.leading.equalTo(textFieldStackView.snp.leading)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
+            make.width.equalTo(submitButton.snp.height).multipliedBy(3)
         }
     }
     
     private func activityIndicatorConstraints() {
         activityIndicator.snp.makeConstraints { make in
-            make.centerY.equalTo(submitButton.snp.centerY)
-            make.centerX.equalTo(textFieldStackView.snp.centerX)
+            make.centerY.equalTo(currentEmailTextField.snp.centerY)
+            make.centerX.equalTo(currentEmailTextField.snp.centerX)
             make.height.width.equalTo(submitButton.snp.height)
         }
     }
@@ -264,9 +277,9 @@ extension ChangeEmailPopUpView {
     private func logOutButtonConstraints() {
         logOutButton.snp.makeConstraints { make in
             make.top.equalTo(viewModelCallbackLabel.snp.bottom)
-            make.width.equalTo(currentEmailTextField.snp.height).multipliedBy(2)
-            make.height.equalTo(currentEmailTextField.snp.height)
-            make.trailing.equalTo(textFieldStackView.snp.trailing)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
+            make.width.equalTo(submitButton.snp.height).multipliedBy(3)
         }
     }
     

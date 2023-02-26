@@ -9,8 +9,9 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
     
+    
     //MARK: - Life Cycle Methods
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
@@ -18,7 +19,7 @@ final class MainTabBarController: UITabBarController {
     }
     
     //MARK: - Configure TabBar
-
+    
     private func setupTabBar() {
         let viewControllers = [containerController(), favoriteControler()]
         setViewControllers(viewControllers, animated: true)

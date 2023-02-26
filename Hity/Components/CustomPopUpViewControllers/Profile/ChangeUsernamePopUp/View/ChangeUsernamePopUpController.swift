@@ -12,12 +12,12 @@ final class ChangeUsernamePopUpController: UIViewController {
     
     //MARK: - Constants
     
-    private let changeUsernamePopUpView = ChangeUsernamePopUpView()
-    private let changeUsernamePopUpViewModel = ChangeUsernamePopUpViewModel()
+    let changeUsernamePopUpView = ChangeUsernamePopUpView()
+    let changeUsernamePopUpViewModel = ChangeUsernamePopUpViewModel()
     
     //MARK: - Dispose Bag
     
-    private let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     
     //MARK: - Tap Gesture
     
@@ -69,13 +69,14 @@ final class ChangeUsernamePopUpController: UIViewController {
     private func tapGestureCallback() {
         tapGesture.rx.event.bind { [weak self] recognizer in
             self?.hidePopUpView()
-            print("dokundun")
         }.disposed(by: disposeBag)
     }
     
     //MARK: - PopUpView Button callbacks
     
     private func createPopUPViewButtonCallbacks() {
+        
+        // Submit Button
         changeUsernamePopUpView.submitButton.rx.tap.subscribe(onNext: { [weak self] in
             if let username = self?.changeUsernamePopUpView.userNameTextField.text {
                 if username.count > 0 {
@@ -87,6 +88,8 @@ final class ChangeUsernamePopUpController: UIViewController {
                 }
             }
         }).disposed(by: changeUsernamePopUpView.disposeBag)
+        
+                
     }
     
     

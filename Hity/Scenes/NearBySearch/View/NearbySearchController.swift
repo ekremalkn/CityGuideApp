@@ -89,7 +89,7 @@ final class NearbySearchController: UIViewController {
             
         }).disposed(by: disposeBag)
         
-        // Set Distance Button
+        // Set Distance Button Tapped
         distancePopUpController.whenTapSetButtonDistance.subscribe { [weak self] distance in
             self?.searchDistance = distance
             self?.nearBySearchView.searchDistanceButton.setTitle("about in: \(distance)m", for: .normal)
@@ -107,7 +107,7 @@ final class NearbySearchController: UIViewController {
         }).disposed(by: disposeBag)
         
         // TableView Cell selected
-        self.sortPopUpController.tableViewCellSelected.subscribe { [weak self] sortTypeTitle in
+        sortPopUpController.tableViewCellSelected.subscribe { [weak self] sortTypeTitle in
             switch sortTypeTitle {
                 
             case .next(let sortType):
@@ -146,13 +146,11 @@ final class NearbySearchController: UIViewController {
             
             // Cell Info Button
             cell.didTapInfoButton.subscribe(onNext: {
-                print("ifno")
                 self?.nearBySearchViewModel.fetchPlaceDetails(cell.placeInfos?["uid"] as! String)
             }).disposed(by: cell.disposeBag)
             
             // Cell Location Button
             cell.didTapLocationButton.subscribe(onNext: {
-                print("dokunuldu")
                 self?.didTapNearbyCellLocationButton.onNext(cell.placeInfos ?? [:])
             }).disposed(by: cell.disposeBag)
             

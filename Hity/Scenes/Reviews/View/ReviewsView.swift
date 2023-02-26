@@ -11,7 +11,14 @@ import RxSwift
 final class ReviewsView: UIView {
 
     //MARK: - Creating UI Elements
-
+    
+    let sortButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .black
+        button.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
+        return button
+    }()
+    
     let reviewsTableView: UITableView = {
         let tableview = UITableView()
         tableview.register(ReviewsCell.self, forCellReuseIdentifier: ReviewsCell.identifier)

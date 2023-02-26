@@ -10,7 +10,6 @@ import GoogleSignIn
 import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
-import AuthenticationServices
 import FBSDKLoginKit
 import RxSwift
 import RxCocoa
@@ -22,8 +21,7 @@ final class SignInViewModel {
     private let googleSignInManager = GIDSignIn.sharedInstance
     
     let credential = PublishSubject<AuthCredential>()
-    let request = PublishSubject<ASAuthorizationAppleIDRequest>()
-    fileprivate var currentNonce: String?
+//    let request = PublishSubject<ASAuthorizationAppleIDRequest>()
     
     // Fields that bind to our view's
     
@@ -206,35 +204,6 @@ extension SignInViewModel {
     }
 }
 
-
-//MARK: - SignInWithApple Methods
-
-extension SignInViewModel {
-    
-    func handleSignInWithAppleRequest() {
-        let nonce = RandomNonceString.shared.randomNonceString()
-        currentNonce = nonce
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = Sha256.shared.sha256(nonce)
-        self.request.onNext(request)
-    }
-    
-    func didCompleteWithAuthorization(_ authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            guard let nonce = currentNonce else { fatalError("Invalid state: A login callback was received, but no login request was sent.") }
-            guard let appleIDToken = appleIDCredential.identityToken else { print("Unable to fetch identity token"); return}
-            
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {  print("Unable to serialize token string from data: \(appleIDToken.debugDescription)"); return}
-            
-            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
-            self.signInWithProvider(credential)
-        }
-        
-    }
-    
-}
 
 
 

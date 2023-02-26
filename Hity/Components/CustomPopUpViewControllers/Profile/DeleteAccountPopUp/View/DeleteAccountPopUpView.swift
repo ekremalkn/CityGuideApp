@@ -98,6 +98,14 @@ final class DeleteAccountPopUpView: UIView {
     
     let disposeBag = DisposeBag()
     
+    //MARK: - Layout Subviews
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        topGrabber.layer.cornerRadius = topGrabber.frame.height / 2
+        topGrabber.layer.masksToBounds = true
+    }
+
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -155,7 +163,7 @@ extension DeleteAccountPopUpView {
         seperatorViewConstraints()
         emailTextFieldConstraints()
         viewModelCallbackLabelConstraints()
-        submitButtonConstraints()
+        deleteButtonConstraints()
         activityIndicatorConstraints()
     }
     
@@ -176,8 +184,8 @@ extension DeleteAccountPopUpView {
     private func topGrabberConstraints() {
         topGrabber.snp.makeConstraints { make in
             make.height.equalTo(5)
-            make.top.equalTo(contentView.snp.top).offset(3)
-            make.width.equalTo(contentView.snp.width).multipliedBy(0.15)
+            make.top.equalTo(contentView.snp.top).offset(7)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.10)
             make.centerX.equalTo(contentView.snp.centerX)
         }
     }
@@ -223,19 +231,19 @@ extension DeleteAccountPopUpView {
         }
     }
     
-    private func submitButtonConstraints() {
+    private func deleteButtonConstraints() {
         deleteButton.snp.makeConstraints { make in
             make.top.equalTo(viewModelCallbackLabel.snp.bottom).offset(25)
-            make.leading.equalTo(emailTextField.snp.leading)
-            make.height.equalTo(emailTextField.snp.height).multipliedBy(0.75)
-            make.width.equalTo(emailTextField.snp.height).multipliedBy(2)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
+            make.width.equalTo(deleteButton.snp.height).multipliedBy(3)
         }
     }
     
     private func activityIndicatorConstraints() {
         activityIndicator.snp.makeConstraints { make in
-            make.centerY.equalTo(deleteButton.snp.centerY)
-            make.centerX.equalTo(contentView.snp.centerX)
+            make.centerY.equalTo(emailTextField.snp.centerY)
+            make.centerX.equalTo(emailTextField.snp.centerX)
             make.height.width.equalTo(deleteButton.snp.height)
         }
     }

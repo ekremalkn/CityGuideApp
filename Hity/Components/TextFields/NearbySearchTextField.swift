@@ -13,11 +13,11 @@ final class NearbySearchTextField: UITextField {
 
     let sortButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
+        button.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
         button.tintColor = .systemGray
         return button
     }()
-    
+  
     //MARK: - Init Methods
     
     override init(frame: CGRect) {
@@ -40,9 +40,9 @@ final class NearbySearchTextField: UITextField {
         leftView?.tintColor = .systemGray
         leftViewMode = .always
         rightView = sortButton
-        rightView?.contentMode = .scaleAspectFit
         rightViewMode = .always
-        rightView?.frame.origin.x = -15
     }
 
+    
+    
 }

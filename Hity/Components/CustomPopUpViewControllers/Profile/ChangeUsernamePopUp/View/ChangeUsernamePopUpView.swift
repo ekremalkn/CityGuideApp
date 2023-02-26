@@ -29,7 +29,7 @@ final class ChangeUsernamePopUpView: UIView {
     
     let topGrabber: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .systemGray3
         return view
     }()
     
@@ -93,16 +93,20 @@ final class ChangeUsernamePopUpView: UIView {
         return activityIndicator
     }()
     
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        seperatorView.layer.masksToBounds = true
-        seperatorView.layer.cornerRadius = seperatorView.frame.height / 2
-    }
-    
     //MARK: - Dispose Bag
     
     let disposeBag = DisposeBag()
+    
+    //MARK: - Layout Subviews
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        topGrabber.layer.cornerRadius = topGrabber.frame.height / 2
+        topGrabber.layer.masksToBounds = true
+        
+        seperatorView.layer.masksToBounds = true
+        seperatorView.layer.cornerRadius = seperatorView.frame.height / 2
+    }
     
     //MARK: - Init Methods
     
@@ -181,8 +185,8 @@ extension ChangeUsernamePopUpView {
     private func topGrabberConstraints() {
         topGrabber.snp.makeConstraints { make in
             make.height.equalTo(5)
-            make.top.equalTo(contentView.snp.top).offset(3)
-            make.width.equalTo(contentView.snp.width).multipliedBy(0.15)
+            make.top.equalTo(contentView.snp.top).offset(7)
+            make.width.equalTo(contentView.snp.width).multipliedBy(0.10)
             make.centerX.equalTo(contentView.snp.centerX)
         }
     }
@@ -231,16 +235,16 @@ extension ChangeUsernamePopUpView {
     private func submitButtonConstraints() {
         submitButton.snp.makeConstraints { make in
             make.top.equalTo(viewModelCallbackLabel.snp.bottom).offset(25)
-            make.leading.equalTo(userNameTextField.snp.leading)
-            make.height.equalTo(userNameTextField.snp.height).multipliedBy(0.75)
-            make.width.equalTo(userNameTextField.snp.height).multipliedBy(2)
+            make.centerX.equalTo(contentView.snp.centerX)
+            make.height.equalTo(contentView.snp.height).multipliedBy(0.15)
+            make.width.equalTo(submitButton.snp.height).multipliedBy(3)
         }
     }
     
     private func activityIndicatorConstraints() {
         activityIndicator.snp.makeConstraints { make in
-            make.centerY.equalTo(submitButton.snp.centerY)
-            make.centerX.equalTo(contentView.snp.centerX)
+            make.centerY.equalTo(userNameTextField.snp.centerY)
+            make.centerX.equalTo(userNameTextField.snp.centerX)
             make.height.width.equalTo(submitButton.snp.height)
         }
     }

@@ -79,6 +79,7 @@ extension SignUpController {
         
         // Sign Up Success
         signUpViewModel.isAccCreatingSuccess.subscribe(onNext: { [unowned self] _ in
+            self.signUpViewModel.signOut()
             let controller = SignUpPopUpController()
             controller.presentPopUpController(self)
         }).disposed(by: disposeBag)

@@ -85,5 +85,17 @@ final class SignUpViewModel {
         })
     }
     
+    //MARK: - Sign Out
+    
+    func signOut() {
+        do {
+            try firebaseAuth.signOut()
+        } catch {
+            self.errorMsg.onNext(error.localizedDescription)
+            print(error.localizedDescription)
+        }
+    }
+
+    
     
 }

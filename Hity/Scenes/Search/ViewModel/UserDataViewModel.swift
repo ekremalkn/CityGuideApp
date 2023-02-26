@@ -49,10 +49,10 @@ final class UserDataViewModel {
                 switch userInfo.providerID {
                 case FacebookAuthProviderID:
                     self.fetchProviderProfilePhoto()
-                    print("facebook ile girildi")
+                    //signed in with faceboook
                 case GoogleAuthProviderID:
-                    print("google ile girildi")
                     self.fetchProviderProfilePhoto()
+                    //signed in with google
                 default:
                     break
                 }

@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import AuthenticationServices
+import FirebaseAuth
 import FBSDKLoginKit
 
 
@@ -21,6 +22,11 @@ final class SignInController: UIViewController {
     
     private let disposeBag = DisposeBag()
     
+    //MARK: - Apple Sign In currentNonce
+    
+    fileprivate var currentNonce: String?
+
+
     //MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -46,7 +52,6 @@ final class SignInController: UIViewController {
     private func createCallbacks() {
         signInViewButtonCallbacks()
         signInViewModelCallbacks()
-        didGetRequest()
     }
     
 }
@@ -88,11 +93,11 @@ extension SignInController {
         }).disposed(by: signInView.disposeBag)
         
         // Apple Sign In Button
-        /// appleIDProviderRequest()
-        ////bakılcak
+        signInView.appleSignInButton.rx.tap.subscribe(onNext: { [weak self] in
+            self?.startSignInWithAppleFlow()
+        }).disposed(by: signInView.disposeBag)
         
         // Sign Up Button
-        
         signInView.signUpButton.rx.tap.subscribe(onNext: { [weak self] in
             let controller = SignUpController()
             self?.navigationController?.pushViewController(controller, animated: true)
@@ -147,34 +152,45 @@ extension SignInController {
     }
 }
 
-//MARK: - SignInWithApple Methods
+
+//MARK: - Apple Sign In  Flow(work only apple developer account because have to enable SignInWithApple )
 
 extension SignInController {
-    private func  appleIDProviderRequest() {
-        signInViewModel.handleSignInWithAppleRequest()
-    }
     
-    private func didGetRequest() {
-        signInViewModel.request.subscribe { [weak self] request in
-            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-            authorizationController.delegate = self
-            authorizationController.presentationContextProvider = self
-            authorizationController.performRequests()
-        }.disposed(by: disposeBag)
+    private func startSignInWithAppleFlow() {
+        let nonce = RandomNonceString.shared.randomNonceString()
+        currentNonce = nonce
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        request.nonce = Sha256.shared.sha256(nonce)
+        
+        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        authorizationController.delegate = self
+        authorizationController.presentationContextProvider = self
+        authorizationController.performRequests()
     }
-    
 }
 
 //MARK: - ASAuthorizationControllerDelegate
 
 extension SignInController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        signInViewModel.didCompleteWithAuthorization(authorization)
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let nonce = currentNonce else { fatalError("Invalid state: A login callback was received, but no login request was sent.") }
+            guard let appleIDToken = appleIDCredential.identityToken else { print("Unable to fetch identity token"); return}
+            
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {  print("Unable to serialize token string from data: \(appleIDToken.debugDescription)"); return}
+            
+            let credential = OAuthProvider.credential(withProviderID: "apple.com", idToken: idTokenString, rawNonce: nonce)
+            signInViewModel.signInWithProvider(credential)
+        }
         
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print(error.localizedDescription)
+        print("have to apple developer membership for apple sign in work ")
     }
     
     

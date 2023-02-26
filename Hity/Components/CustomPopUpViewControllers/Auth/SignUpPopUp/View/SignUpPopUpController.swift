@@ -59,7 +59,7 @@ final class SignUpPopUpController: UIViewController {
         signUpPopUpView.okButton.rx.tap.bind { [weak self] in
             self?.hidePopUpView({
                 let controller = SignInController()
-                self?.show(controller, sender: nil)
+                self?.navigationController?.pushViewController(controller, animated: true)
             })
         }.disposed(by: signUpPopUpView.disposeBag)
     }
@@ -92,14 +92,16 @@ extension SignUpPopUpController {
         }
     }
     
-    private func hidePopUpView(_ completion: () -> Void) {
+    private func hidePopUpView(_ completion: @escaping () -> Void) {
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) { [weak self] in
             self?.signUpPopUpView.alpha = 0
             self?.signUpPopUpView.contentView.alpha = 0
         } completion: { [weak self] _ in
             self?.dismiss(animated: false)
             self?.removeFromParent()
+            completion()
         }
+        
         
     }
 }
