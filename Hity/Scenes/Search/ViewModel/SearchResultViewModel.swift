@@ -21,6 +21,7 @@ final class SearchResultViewModel {
     let coordinates = PublishSubject<CLLocationCoordinate2D>()
     
     
+    
     //MARK: - Fetch Places with GMSAutoCompleteFilter
 
     func fetchPlaces(_ query: String) {

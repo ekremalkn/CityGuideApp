@@ -75,13 +75,13 @@ final class NearbySearchController: UIViewController {
     
     private func createCallbacks() {
         createNearbySearchViewModelCallbacks()
-        createSearchDistanceButtonCallbacks()
-        createSortButtonCallbacks()
+        createNearbySearchViewButtonCallbacks()
+        createNearbySearchTextFieldCallbacks()
     }
     
     //MARK: - Search Distance / Sort button callbacks
     
-    private func createSearchDistanceButtonCallbacks() {
+    private func createNearbySearchViewButtonCallbacks() {
         
         // Search Distance Button
         nearBySearchView.searchDistanceButton.rx.tap.bind(onNext: { [unowned self] in
@@ -96,9 +96,6 @@ final class NearbySearchController: UIViewController {
             self?.nearBySearchViewModel.fetchNearPlaces(self?.nearBySearchView.textField.text ?? "", self!.lat, self!.lng, searchDistance: distance, sortType: self?.sortType ?? .logic)
         }.disposed(by: distancePopUpController.disposeBag)
         
-    }
-    
-    private func createSortButtonCallbacks() {
         
         // Sort Button
         nearBySearchView.textField.sortButton.rx.tap.bind(onNext: { [unowned self] in
@@ -117,6 +114,24 @@ final class NearbySearchController: UIViewController {
                 break
             }
         }.disposed(by: sortPopUpController.disposeBag)
+        
+    }
+    
+    //MARK: - NearbySearchTextfield Callbacks
+    
+    private func createNearbySearchTextFieldCallbacks() {
+        
+        // Fetch Near Places when change text in textfield
+        ////Throttle ile birlikte kullanıcı arama yaparken textfield'in texi her değiştiğinde bu fonksiyon çalışacağı için google places'a birçok istek atmayı önlüyorum.
+        nearBySearchView.textField.rx.text.throttle(.seconds(2), scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] text in
+            if let text = text, !text.isEmpty  {
+                if let lat = self?.lat, let lng = self?.lng {
+                    self?.nearBySearchViewModel.fetchNearPlaces(text, lat, lng, searchDistance: self?.searchDistance ?? "", sortType: .logic)
+                }
+            } else {
+                self?.nearBySearchViewModel.fetchNearPlaces("", self!.lat, self!.lng, searchDistance: self?.searchDistance ?? "1000", sortType: .logic)
+            }
+        }).disposed(by: nearBySearchView.disposeBag)
     }
     
     //MARK: - Create NearbySearchViewModel Callbacks
@@ -169,17 +184,13 @@ final class NearbySearchController: UIViewController {
         }.disposed(by: disposeBag)
         
         
-        // Fetch Near Places when change text in textfield
-        ////Throttle ile birlikte kullanıcı arama yaparken textfield'in texi her değiştiğinde bu fonksiyon çalışacağı için google places'a birçok istek atmayı önlüyorum.
-        nearBySearchView.textField.rx.text.throttle(.seconds(2), scheduler: MainScheduler.instance).subscribe(onNext: { [weak self] text in
-            if let text = text, !text.isEmpty  {
-                if let lat = self?.lat, let lng = self?.lng {
-                    self?.nearBySearchViewModel.fetchNearPlaces(text, lat, lng, searchDistance: self?.searchDistance ?? "", sortType: .logic)
-                }
-            } else {
-                self?.nearBySearchViewModel.fetchNearPlaces("", self!.lat, self!.lng, searchDistance: self?.searchDistance ?? "1000", sortType: .logic)
-            }
-        }).disposed(by: nearBySearchView.disposeBag)
+        // Handle did selecet
+        
+        nearBySearchView.collectionView.rx.modelSelected(Result.self).bind { [weak self] selectedNearPlace in
+            let placeUID = selectedNearPlace.placeUID
+            self?.nearBySearchViewModel.fetchPlaceDetails(placeUID)
+        }.disposed(by: nearBySearchView.disposeBag)
+        
         
         // Set delegeate for collectionview size
         nearBySearchView.collectionView.rx.setDelegate(self).disposed(by: nearBySearchView.disposeBag)

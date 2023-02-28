@@ -33,7 +33,7 @@ final class NearbySearchTextField: UITextField {
     //MARK: - Configure TextField
 
     private func configureTextField() {
-        placeholder = "Search"
+        placeholder = "What are you looking for nearby?"
         layer.cornerRadius = 10
         backgroundColor = UIColor.systemGray6
         leftView = UIImageView(image: UIImage(systemName: "magnifyingglass"))

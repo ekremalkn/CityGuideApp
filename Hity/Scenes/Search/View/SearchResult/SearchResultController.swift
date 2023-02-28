@@ -17,14 +17,14 @@ final class SearchResultController: UIViewController {
     //MARK: - Constants
     
     private let searchResultView = SearchResultView()
-    private let searchResultViewModel = SearchResultViewModel()
+    let searchResultViewModel = SearchResultViewModel()
     
     //MARK: - Observable Variables
 
-    let searchText = PublishSubject<String>()
     let placeName = PublishSubject<String>()
     let didTapSearchLocation = PublishSubject<CLLocationCoordinate2D>()
 
+    let searchPlacesListed = PublishSubject<Bool>()
     //MARK: - Dispose Bag
 
     private (set) var disposeBag = DisposeBag()
@@ -61,6 +61,7 @@ final class SearchResultController: UIViewController {
         }).disposed(by: self.disposeBag)
         
         
+        
     }
     
     //MARK: - Configure TableView
@@ -72,13 +73,11 @@ final class SearchResultController: UIViewController {
         searchResultViewModel.places.bind(to: searchResultView.tableView.rx.items(cellIdentifier: "cell", cellType: UITableViewCell.self)) { [weak self] row, place, cell in
             self?.searchResultView.configureCellProperties(cell)
             cell.textLabel?.text = place.placeName
+            self?.searchPlacesListed.onNext(true)
         }.disposed(by: disposeBag)
         
         // fetch places
-        searchText.subscribe(onNext: { [weak self] text in
-            self?.searchResultViewModel.fetchPlaces(text)
-            
-        }).disposed(by: disposeBag)
+        //request sent from search controller when search bar text change
         
         // handle didselect
         searchResultView.tableView.rx.modelSelected(PlacesModel.self).bind(onNext: { [weak self] place in

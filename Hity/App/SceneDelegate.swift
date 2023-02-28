@@ -38,9 +38,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
         } else {
           // No user is signed in.
-            let signInControler = SignInController()
-            let navigationController = UINavigationController(rootViewController: signInControler)
+            let onboardingController = OnboardingController()
+            let navigationController = UINavigationController(rootViewController: onboardingController)
             window.rootViewController = navigationController
+//            let signInControler = SignInController()
+//            let navigationController = UINavigationController(rootViewController: signInControler)
+//            window.rootViewController = navigationController
         }
 
         window.makeKeyAndVisible()

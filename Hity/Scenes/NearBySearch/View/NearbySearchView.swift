@@ -20,7 +20,7 @@ final class NearbySearchView: UIView {
     }()
     
     let searchDistanceButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("about in: 1000m", for: .normal)
         button.setTitleColor(.blue, for: .normal)
         return button

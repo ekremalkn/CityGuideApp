@@ -26,7 +26,7 @@ final class SignInController: UIViewController {
     
     fileprivate var currentNonce: String?
 
-
+    
     //MARK: - Lifecycle Methods
     
     override func viewDidLoad() {
@@ -43,6 +43,7 @@ final class SignInController: UIViewController {
     }
     
     private func configureNavBar() {
+        navigationController?.isNavigationBarHidden = false
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back to Sign In", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = .black
     }

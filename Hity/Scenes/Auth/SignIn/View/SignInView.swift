@@ -100,7 +100,7 @@ final class SignInView: UIView {
     }()
     
     let forgotPasswordButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("Forgot password?", for: .normal)
         button.setTitleColor(.blue, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -152,7 +152,7 @@ final class SignInView: UIView {
     }()
     
     let signUpButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.blue, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13)

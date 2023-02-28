@@ -70,7 +70,7 @@ final class SearchController: UIViewController {
     }
     
     private func configureNavBar() {
-        title = "Hity"
+        title = "Say Hi to City"
         navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: searchView.leftButton)
         self.navigationItem.titleView = searchView.navBarLocationButton
@@ -80,7 +80,7 @@ final class SearchController: UIViewController {
     }
     
     private func configureUISearchController() {
-        uiSearchController.searchBar.placeholder = "What do you want to search around?"
+        uiSearchController.searchBar.placeholder = "Where are you / where will you be?"
         navigationItem.searchController = uiSearchController
         
     }
@@ -142,6 +142,13 @@ final class SearchController: UIViewController {
             self?.createFloatingPanel(coordinates)
         }.disposed(by: searchResultController.disposeBag)
         
+        // Fetch Places Success
+        
+        searchResultController.searchPlacesListed.subscribe { [weak self] value in
+            if value {
+                self?.uiSearchController.searchBar.searchTextField.backgroundColor = nil
+            }
+        }.disposed(by: searchResultController.disposeBag)
         
         // Get Search Place Name and Set Location Button Title
         searchResultController.placeName.subscribe(onNext: { [weak self] placeName in
@@ -150,16 +157,13 @@ final class SearchController: UIViewController {
         
         
         //MARK: - UISearchController SearchBar Callback
-        
+        // Used throttle to avoid send multiple request
         uiSearchController.searchBar.rx.text.throttle(.seconds(2), scheduler: MainScheduler.instance).bind(onNext: { text in
             if let text = text {
-                searchResultController.searchText.onNext(text)
+                searchResultController.searchResultViewModel.fetchPlaces(text)
             }
         }).disposed(by: disposeBag)
         
-        uiSearchController.searchBar.rx.textDidBeginEditing.subscribe(onNext: { [weak self] in
-            self?.uiSearchController.searchBar.searchTextField.backgroundColor = nil
-        }).disposed(by: disposeBag)
         
         uiSearchController.searchBar.rx.textDidEndEditing.subscribe(onNext: { [weak self] in
             self?.uiSearchController.searchBar.searchTextField.backgroundColor = .black.withAlphaComponent(0.2)
@@ -359,6 +363,7 @@ extension SearchController {
         searchView.snp.makeConstraints { make in
             make.top.leading.bottom.trailing.equalTo(view)
         }
+        
     }
 }
 

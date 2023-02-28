@@ -42,6 +42,13 @@ final class SearchView: UIView {
         imageView.contentMode = .scaleToFill
         return imageView
     }()
+    
+    let label: UILabel = {
+        let label = UILabel()
+        label.text = "123123123"
+        label.textColor = .black
+        return label
+    }()
  
     //MARK: - Layout Subview
     
@@ -79,6 +86,7 @@ extension SearchView {
     
     private func addSubview() {
         addSubview(mapView)
+        addSubview(label)
     }
   
     

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1350F679322A5873075E17B8 /* libPods-Hity.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 784BF3C55039876571558652 /* libPods-Hity.a */; };
 		F0022CEE29AA8FC80012D73F /* ProviderSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0022CED29AA8FC80012D73F /* ProviderSignInButton.swift */; };
+		F02855ED29AC9B0400166369 /* UIImage+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02855EC29AC9B0400166369 /* UIImage+CornerRadius.swift */; };
+		F02855F129ACA57200166369 /* OnboardingSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02855F029ACA57200166369 /* OnboardingSlide.swift */; };
+		F02855F429ACA80000166369 /* OnboardingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02855F329ACA80000166369 /* OnboardingCell.swift */; };
 		F0380984299AA86C0080AB1C /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0380983299AA86C0080AB1C /* UIView+Shadow.swift */; };
 		F0448D9129A24E1500CED699 /* ProfileViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0448D9029A24E1500CED699 /* ProfileViewButton.swift */; };
 		F0448D9729A335B900CED699 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0448D9629A335B900CED699 /* FirebaseAuth */; };
@@ -127,6 +130,9 @@
 		961A847DF6CDB85E3223EDFC /* Pods-Hity.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.debug.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.debug.xcconfig"; sourceTree = "<group>"; };
 		BF159BFA2A864B1EA37AA646 /* Pods-Hity.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hity.release.xcconfig"; path = "Target Support Files/Pods-Hity/Pods-Hity.release.xcconfig"; sourceTree = "<group>"; };
 		F0022CED29AA8FC80012D73F /* ProviderSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProviderSignInButton.swift; sourceTree = "<group>"; };
+		F02855EC29AC9B0400166369 /* UIImage+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CornerRadius.swift"; sourceTree = "<group>"; };
+		F02855F029ACA57200166369 /* OnboardingSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingSlide.swift; sourceTree = "<group>"; };
+		F02855F329ACA80000166369 /* OnboardingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCell.swift; sourceTree = "<group>"; };
 		F0380983299AA86C0080AB1C /* UIView+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		F0448D9029A24E1500CED699 /* ProfileViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewButton.swift; sourceTree = "<group>"; };
 		F0448D9E29A35BCB00CED699 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
@@ -260,6 +266,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F02855EE29ACA54500166369 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F02855F029ACA57200166369 /* OnboardingSlide.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F02855F229ACA7EA00166369 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F02855F329ACA80000166369 /* OnboardingCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F0448D9C29A35BA100CED699 /* ResetPasswordPopUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,6 +346,7 @@
 		F053F388298910AB001D9CD6 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				F02855EE29ACA54500166369 /* Model */,
 				F053F389298910B3001D9CD6 /* View */,
 			);
 			path = Onboarding;
@@ -332,6 +355,7 @@
 		F053F389298910B3001D9CD6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F02855F229ACA7EA00166369 /* Cell */,
 				F053F38C298916A7001D9CD6 /* OnboardingController.swift */,
 				F053F38A298910C3001D9CD6 /* OnboardingView.swift */,
 			);
@@ -544,6 +568,7 @@
 				F0C3303D299E234700F02DBF /* MKMapKit+OpenMapWithCoordinates.swift */,
 				F0C3303F299E2E2B00F02DBF /* UIApplication+OpenURL.swift */,
 				F0D3430529A165F400266DA2 /* UIViewController+PopUpPickerView.swift */,
+				F02855EC29AC9B0400166369 /* UIImage+CornerRadius.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1268,6 +1293,7 @@
 				F0448DA429A364B700CED699 /* ResetPasswordViewModel.swift in Sources */,
 				F0B09FF1299E58F5000B4552 /* PlaceWeekdaysView.swift in Sources */,
 				F0C4FB2129983EC200823275 /* UITextField+RightViewButton.swift in Sources */,
+				F02855ED29AC9B0400166369 /* UIImage+CornerRadius.swift in Sources */,
 				F07E5DB829A877D400FB04BB /* SortPopUpCell.swift in Sources */,
 				F0448DA629A36AC700CED699 /* UserDataViewModel.swift in Sources */,
 				F0E6AE6A29A6A05E0092538A /* LogOutPopUpView.swift in Sources */,
@@ -1303,6 +1329,7 @@
 				F0448DA129A3619300CED699 /* ResetPasswordController.swift in Sources */,
 				F0C4FB1F2998216700823275 /* SignUpViewModel.swift in Sources */,
 				F0448D9129A24E1500CED699 /* ProfileViewButton.swift in Sources */,
+				F02855F429ACA80000166369 /* OnboardingCell.swift in Sources */,
 				F061A5CF2986F57700EAD006 /* PlacesModel.swift in Sources */,
 				F0D3430629A165F400266DA2 /* UIViewController+PopUpPickerView.swift in Sources */,
 				F0C33038299E04F200F02DBF /* PlaceInfoView.swift in Sources */,
@@ -1311,6 +1338,7 @@
 				F0C4FB1329978CB700823275 /* User.swift in Sources */,
 				F0E6AE4C29A608390092538A /* SignInPopUpView.swift in Sources */,
 				F0B9886B298FC6350005F09F /* PlaceDetailModel.swift in Sources */,
+				F02855F129ACA57200166369 /* OnboardingSlide.swift in Sources */,
 				F07E5DBD29A8820600FB04BB /* DistancePopUpController.swift in Sources */,
 				F0E6AE5029A618E00092538A /* SignInPopUpViewModel.swift in Sources */,
 				F0AE3637298F75F80054D14E /* PlaceDetailController.swift in Sources */,
@@ -1469,6 +1497,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Hity/Hity.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78Y3UD747G;
@@ -1488,6 +1517,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ekremalkan.Hity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1502,6 +1532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Hity/Hity.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 78Y3UD747G;
@@ -1521,6 +1552,7 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ekremalkan.Hity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
