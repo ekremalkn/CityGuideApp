@@ -2,7 +2,7 @@
 I developed this application fully programmatically using GooglePlaces API, paying attention to Retain Cycles in the Memory Management section. I also got into reactive programming with RxSwift and combined it with the MVVM architecture. While designing the user interface, adding constraints, and applying AutoLayout, I used the SnapKit framework. I designed over 20 ViewControllers and supported them with custom pop-up views for interactive use. I provided users with various login options from different providers to make them feel comfortable during the login process. I used Firebase's technical documentation to implement these login options.
 
 ## Key Features
---**Support:** iOS 13+
+-**Support:** iOS 13+
 
 -**Architecture:** MVVM
 
